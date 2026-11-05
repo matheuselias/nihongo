@@ -1,0 +1,6 @@
+{
+  "id": "greetings",
+  "title": "Cumprimentos",
+  "description": "Bom dia, boa tarde, boa noite e como perguntar se está tudo bem, no tom certo para cada situação.",
+  "lessons": ["greetings-good-morning", "greetings-afternoon-and-evening", "greetings-good-night", "greetings-how-are-you"]
+}

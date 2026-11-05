@@ -1,0 +1,57 @@
+{
+  "id": "greetings-good-morning",
+  "title": "Bom dia",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "ohayou-gozaimasu" },
+    { "id": "s02", "type": "present", "word": "ohayou" },
+    { "id": "s03", "type": "present", "word": "ohayo" },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Formal ou casual?",
+      "body": "O nível de formalidade em japonês muda conforme a situação, a idade e o status das pessoas. おはようございます é a forma completa e polida, usada com desconhecidos, em situações formais e com quem é mais velho ou está acima de você. おはよう é a forma curta, usada entre colegas de classe e por quem é mais velho com quem é mais novo. Se duas pessoas de empresas diferentes se encontram pela primeira vez, as duas usam a forma completa, não importa a idade.",
+      "words": ["ohayou-gozaimasu", "ohayou"]
+    },
+    {
+      "id": "s05",
+      "type": "examples",
+      "title": "Quem diz o quê",
+      "items": [
+        { "jp": "おはよう！", "romaji": "Ohayou!", "pt": "Bom dia! (colega de 45 anos para o de 20)" },
+        { "jp": "おはようございます！", "romaji": "Ohayou gozaimasu!", "pt": "Bom dia! (colega de 20 anos para o de 45)" },
+        { "jp": "おはよ！", "romaji": "Ohayo!", "pt": "Bom dia! (pai e filho, em casa)" }
+      ]
+    },
+    { "id": "s06", "type": "multiple_choice", "word": "ohayou-gozaimasu", "direction": "jp_to_pt", "distractors": ["konnichiwa", "konbanwa", "oyasumi-nasai"] },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Você encontra o seu professor na entrada da escola, de manhã. Como cumprimentá-lo?",
+      "options": [
+        { "jp": "おはよう", "romaji": "Ohayou", "pt": "Bom dia (casual)" },
+        { "jp": "おはようございます", "romaji": "Ohayou gozaimasu", "pt": "Bom dia (formal)" }
+      ],
+      "answer": 1,
+      "explanation": "Com o professor, quem é mais novo usa a forma completa: おはようございます."
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Você chega na sala e vê um colega da sua turma. Como cumprimentá-lo?",
+      "options": [
+        { "jp": "おはよう", "romaji": "Ohayou", "pt": "Bom dia (casual)" },
+        { "jp": "おはようございます", "romaji": "Ohayou gozaimasu", "pt": "Bom dia (formal)" }
+      ],
+      "answer": 0,
+      "explanation": "Entre colegas de classe a forma curta おはよう é a natural."
+    },
+    {
+      "id": "s09",
+      "type": "true_false",
+      "statement": "Entre amigos e em família, é comum dizer só おはよ, sem o う final.",
+      "answer": true,
+      "explanation": "Na fala do dia a dia o う final some, e o bom dia fica simpático e bem informal."
+    },
+    { "id": "s10", "type": "type_answer", "word": "ohayou-gozaimasu", "direction": "pt_to_jp" }
+  ]
+}

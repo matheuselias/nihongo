@@ -1,0 +1,49 @@
+{
+  "id": "greetings-good-night",
+  "title": "Bom descanso",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "yasumi" },
+    { "id": "s02", "type": "present", "word": "oyasumi-nasai" },
+    { "id": "s03", "type": "present", "word": "oyasumi" },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Dois tipos de \"boa noite\"",
+      "body": "Em japonês há dois \"boa noite\". こんばんは saúda quem você encontra à noite. おやすみなさい é dito a quem vai descansar, e pode ser traduzido como \"bom descanso\". Ele não vale só para quem vai para a cama: também se diz ao sair tarde do trabalho ou ao se despedir de amigos de madrugada, quando todos sabem que você vai direto para casa. Dentro dele está 休み (descanso). おやすみ é a forma curta e coloquial.",
+      "words": ["konbanwa", "oyasumi-nasai", "oyasumi", "yasumi"]
+    },
+    {
+      "id": "s05",
+      "type": "dialogue",
+      "title": "Hora de ir embora",
+      "lines": [
+        { "speaker": "A", "jp": "今日はつかれたね！", "romaji": "Kyou wa tsukareta ne!", "pt": "Cansou hoje, né?" },
+        { "speaker": "B", "jp": "そうだね！じゃ、帰ります。", "romaji": "Sou da ne! Ja, kaerimasu.", "pt": "É mesmo! Bom, vou embora." },
+        { "speaker": "A", "jp": "おやすみなさい！", "romaji": "Oyasumi nasai!", "pt": "Bom descanso!" },
+        { "speaker": "B", "jp": "おやすみ！", "romaji": "Oyasumi!", "pt": "Bom descanso!" }
+      ]
+    },
+    { "id": "s06", "type": "multiple_choice", "word": "oyasumi-nasai", "direction": "jp_to_pt", "distractors": ["konbanwa", "ohayou-gozaimasu", "konnichiwa"] },
+    {
+      "id": "s07",
+      "type": "true_false",
+      "statement": "おやすみなさい só é dito para quem literalmente vai se deitar.",
+      "answer": false,
+      "explanation": "Também se diz ao sair tarde do trabalho ou ao deixar um restaurante de madrugada, quando todos sabem que a pessoa vai para casa descansar."
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Você e uns amigos saem de um restaurante de madrugada. Cada um vai direto para casa. Como você se despede?",
+      "options": [
+        { "jp": "こんばんは", "romaji": "Konbanwa", "pt": "Boa noite (ao encontrar)" },
+        { "jp": "おやすみ", "romaji": "Oyasumi", "pt": "Bom descanso (casual)" },
+        { "jp": "おはよう", "romaji": "Ohayou", "pt": "Bom dia (casual)" }
+      ],
+      "answer": 1,
+      "explanation": "Na despedida de quem vai descansar se diz おやすみ, e entre amigos a forma curta é a natural."
+    },
+    { "id": "s09", "type": "type_answer", "word": "oyasumi", "direction": "jp_to_pt" },
+    { "id": "s10", "type": "type_answer", "word": "oyasumi-nasai", "direction": "pt_to_jp" }
+  ]
+}

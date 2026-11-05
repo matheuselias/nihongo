@@ -1,0 +1,16 @@
+[
+  { "id": "ohayou-gozaimasu", "kana": "おはようございます", "romaji": "ohayou gozaimasu", "translations": ["bom dia"], "hint": "formal", "note": "Forma completa e polida. Use com desconhecidos, em situações formais e com quem é mais velho ou tem posição acima da sua.", "generates_card": true },
+  { "id": "ohayou", "kana": "おはよう", "romaji": "ohayou", "translations": ["bom dia"], "hint": "casual", "note": "Forma curta. Use com colegas de classe, amigos e com quem é mais novo que você.", "generates_card": true },
+  { "id": "ohayo", "kana": "おはよ", "romaji": "ohayo", "translations": ["bom dia"], "hint": "muito casual", "note": "Na fala do dia a dia o う final some e o som longo desaparece. Soa simpático e bem informal: entre amigos, em família, de adultos para crianças.", "generates_card": true },
+  { "id": "konnichiwa", "kana": "こんにちは", "romaji": "konnichiwa", "translations": ["boa tarde"], "note": "Não muda com o nível de formalidade: serve para qualquer situação.", "generates_card": true },
+  { "id": "konbanwa", "kana": "こんばんは", "romaji": "konbanwa", "translations": ["boa noite"], "hint": "ao encontrar alguém", "note": "Saudação para quem você encontra à noite. Não muda com o nível de formalidade.", "generates_card": true },
+  { "id": "minasan", "kana": "みなさん", "romaji": "minasan", "translations": ["pessoal", "todos"], "generates_card": true },
+  { "id": "yasumi", "kana": "やすみ", "kanji": "休み", "romaji": "yasumi", "translations": ["descanso"], "note": "Aparece dentro de おやすみ.", "generates_card": true },
+  { "id": "oyasumi-nasai", "kana": "おやすみなさい", "romaji": "oyasumi nasai", "translations": ["bom descanso"], "hint": "formal", "note": "A \"boa noite\" de despedida, dita a quem vai descansar ou encerrar o dia.", "generates_card": true },
+  { "id": "oyasumi", "kana": "おやすみ", "romaji": "oyasumi", "translations": ["bom descanso"], "hint": "casual", "note": "Forma curta e coloquial de おやすみなさい.", "generates_card": true },
+  { "id": "ogenki-desu-ka", "kana": "おげんきですか", "kanji": "お元気ですか", "romaji": "ogenki desu ka", "translations": ["tudo bem?", "como você está?"], "note": "Usada com quem você não vê todo dia. Com quem convive diariamente soa estranho.", "generates_card": true },
+  { "id": "genki-desu", "kana": "げんきです", "kanji": "元気です", "romaji": "genki desu", "translations": ["estou bem"], "note": "Na resposta o お do começo cai.", "generates_card": true },
+  { "id": "okagesama-de", "kana": "おかげさまで", "romaji": "okagesama de", "translations": ["felizmente", "graças a você"], "generates_card": true },
+  { "id": "mo", "kana": "も", "romaji": "mo", "translations": ["também"], "note": "Partícula que significa \"também\".", "generates_card": false },
+  { "id": "o-honorific", "kana": "お", "romaji": "o", "translations": ["o お honorífico"], "note": "Prefixo que indica polidez, como em お元気. Muitas palavras o usam.", "generates_card": false }
+]

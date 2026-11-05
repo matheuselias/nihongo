@@ -1,0 +1,39 @@
+{
+  "id": "greetings-afternoon-and-evening",
+  "title": "Boa tarde e boa noite",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "konnichiwa" },
+    { "id": "s02", "type": "present", "word": "konbanwa" },
+    { "id": "s03", "type": "present", "word": "minasan" },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Sem forma curta",
+      "body": "Entre os três cumprimentos básicos do dia, só おはようございます tem duas formas. こんにちは e こんばんは são ditos sempre do mesmo jeito, qualquer que seja o nível de formalidade.",
+      "words": ["konnichiwa", "konbanwa"]
+    },
+    {
+      "id": "s05",
+      "type": "dialogue",
+      "title": "Saudações do dia",
+      "lines": [
+        { "speaker": "A", "jp": "ヒカルドさん、こんにちは！", "romaji": "Hikarudo-san, konnichiwa!", "pt": "Hikarudo, boa tarde!" },
+        { "speaker": "B", "jp": "こんにちは、リーネちゃん！", "romaji": "Konnichiwa, Riine-chan!", "pt": "Boa tarde, Riine!" },
+        { "speaker": "A", "jp": "みなさん、こんばんは！", "romaji": "Minasan, konbanwa!", "pt": "Pessoal, boa noite!" },
+        { "speaker": "B", "jp": "こんばんは！", "romaji": "Konbanwa!", "pt": "Boa noite!" }
+      ]
+    },
+    { "id": "s06", "type": "multiple_choice", "word": "konnichiwa", "direction": "jp_to_pt" },
+    { "id": "s07", "type": "multiple_choice", "word": "konbanwa", "direction": "pt_to_jp" },
+    {
+      "id": "s08",
+      "type": "true_false",
+      "statement": "Numa reunião formal, o certo é usar uma versão mais longa de こんにちは.",
+      "answer": false,
+      "explanation": "こんにちは não varia: é dito da mesma forma em qualquer situação, formal ou não."
+    },
+    { "id": "s09", "type": "multiple_choice", "word": "minasan", "direction": "jp_to_pt" },
+    { "id": "s10", "type": "type_answer", "word": "konnichiwa", "direction": "pt_to_jp" },
+    { "id": "s11", "type": "build_sentence", "pt": "Pessoal, boa noite!", "blocks": ["みなさん", "こんばんは"], "romaji": "Minasan, konbanwa" }
+  ]
+}
