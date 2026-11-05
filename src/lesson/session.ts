@@ -1,6 +1,6 @@
 import type { Content } from '@/content/load';
 import { GRADED_TYPES, type Step, type Word } from '@/content/schema';
-import type { ProgressRepository } from '@/db/progress-repository';
+import type { MistakeKey, ProgressRepository } from '@/db/progress-repository';
 import { matchAnswer } from '@/lesson/match-answer';
 
 export type Rng = () => number;
@@ -61,18 +61,32 @@ export class LessonSession {
   private typed = new Map<string, Extract<Step, { type: 'type_answer' }>>();
   private answers = new Map<string, boolean>();
   private shuffled = new Map<string, string[]>();
+  private lessonOf = new Map<string, string>();
 
+  /** With `picks`, replays those graded steps (Reforço); their ids become `lessonId/stepId` to stay unique. */
   constructor(
     private content: Content,
     readonly lessonId: string,
     private rng: Rng = Math.random,
+    readonly picks?: MistakeKey[],
   ) {
     const lesson = content.lessons[lessonId];
-    this.steps = lesson.steps;
     this.passScore = lesson.pass_score;
-    for (const s of lesson.steps) if (s.type === 'multiple_choice') this.questions.set(s.id, buildChoice(s, content, lessonId, rng));
-    for (const s of lesson.steps) if (s.type === 'type_answer') this.typed.set(s.id, s);
-    for (const s of lesson.steps) if (s.type === 'build_sentence') this.shuffled.set(s.id, shuffle(s.blocks, rng));
+    this.steps = picks
+      ? picks.map((p) => ({ ...content.lessons[p.lessonId].steps.find((s) => s.id === p.stepId)!, id: `${p.lessonId}/${p.stepId}` }))
+      : lesson.steps;
+    picks?.forEach((p) => this.lessonOf.set(`${p.lessonId}/${p.stepId}`, p.lessonId));
+    for (const s of this.steps) {
+      const lid = this.lessonOf.get(s.id) ?? lessonId;
+      if (s.type === 'multiple_choice') this.questions.set(s.id, buildChoice(s, content, lid, rng));
+      if (s.type === 'type_answer') this.typed.set(s.id, s);
+      if (s.type === 'build_sentence') this.shuffled.set(s.id, shuffle(s.blocks, rng));
+    }
+  }
+
+  /** Lesson the current step came from. */
+  get currentLessonId() {
+    return this.lessonOf.get(this.current.id) ?? this.lessonId;
   }
 
   get current(): Step {
@@ -164,9 +178,21 @@ export class LessonSession {
     return { score, passed: score >= this.passScore, wrongStepIds };
   }
 
-  /** Saves only a pass; leaving or failing writes nothing. */
+  /** Records the wrong steps always, and the score only on a pass; leaving early never gets here. */
   async finish(repo: ProgressRepository): Promise<LessonResult> {
     const r = this.result();
+    if (this.picks) {
+      // Reforço: right clears the mistake, wrong keeps it.
+      for (const p of this.picks) {
+        if (!r.wrongStepIds.includes(`${p.lessonId}/${p.stepId}`)) await repo.clearMistake(p.lessonId, p.stepId);
+      }
+      return r;
+    }
+    const wordOf = (id: string) => {
+      const s = this.steps.find((x) => x.id === id);
+      return s && 'word' in s ? s.word : undefined;
+    };
+    await repo.recordMistakes(this.lessonId, r.wrongStepIds.map((stepId) => ({ stepId, wordId: wordOf(stepId) })));
     if (r.passed) await repo.recordResult(this.lessonId, r.score, true);
     return r;
   }

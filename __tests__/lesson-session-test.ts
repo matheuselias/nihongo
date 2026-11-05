@@ -110,3 +110,45 @@ test('situation, true_false and build_sentence: wrong answers count and are answ
   expect(s.answerBlocks(st.blocks)).toBe(false);
   expect(() => s.next()).not.toThrow();
 });
+
+describe('mistakes queue', () => {
+  const ids = (id: string) => graded(id).map((g) => g.id);
+
+  test('failed lesson records wrong steps once, even when replayed', async () => {
+    const repo = new InMemoryProgressRepository();
+    for (let i = 0; i < 2; i++) {
+      const s = new LessonSession(content, first, rng);
+      play(s, ids(first));
+      await s.finish(repo);
+    }
+    expect((await repo.listMistakes()).map((m) => m.stepId)).toEqual(ids(first));
+  });
+
+  test('leaving early records nothing', async () => {
+    const repo = new InMemoryProgressRepository();
+    play(new LessonSession(content, first, rng), ids(first), undefined);
+    expect(await repo.listMistakes()).toEqual([]);
+  });
+
+  test('review: right clears, wrong keeps, redoing the lesson does not clear', async () => {
+    const repo = new InMemoryProgressRepository();
+    const [a, b] = ids(first);
+    await repo.recordMistakes(first, [{ stepId: a }, { stepId: b }]);
+    const redo = new LessonSession(content, first, rng);
+    play(redo);
+    await redo.finish(repo);
+    expect(await repo.listMistakes()).toHaveLength(2);
+
+    const picks = (await repo.listMistakes()).map((m) => ({ lessonId: m.lessonId, stepId: m.stepId }));
+    const s = new LessonSession(content, first, rng, picks);
+    play(s, [`${first}/${b}`]);
+    await s.finish(repo);
+    expect((await repo.listMistakes()).map((m) => m.stepId)).toEqual([b]);
+  });
+
+  test('batch is limited', async () => {
+    const repo = new InMemoryProgressRepository();
+    await repo.recordMistakes(first, Array.from({ length: 12 }, (_, i) => ({ stepId: `x${i}` })));
+    expect(await repo.listMistakes(10)).toHaveLength(10);
+  });
+});
