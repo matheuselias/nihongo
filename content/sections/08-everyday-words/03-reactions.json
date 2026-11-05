@@ -1,0 +1,38 @@
+{
+  "id": "everyday-words-reactions",
+  "title": "Reações do dia a dia",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "shouganai" },
+    { "id": "s02", "type": "present", "word": "kashikomarimashita" },
+    { "id": "s03", "type": "present", "word": "abunakatta" },
+    { "id": "s04", "type": "present", "word": "dare" },
+    { "id": "s05", "type": "present", "word": "jouzu" },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "しょうがない", "romaji": "Shouganai", "pt": "Não tem outro jeito" },
+        { "jp": "かしこまりました", "romaji": "Kashikomarimashita", "pt": "Entendi (bastante polido)" },
+        { "jp": "危なかった…", "romaji": "Abunakatta...", "pt": "Foi perigoso / Foi por pouco" },
+        { "jp": "誰？", "romaji": "Dare?", "pt": "Quem é?" }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "shouganai", "direction": "jp_to_pt", "distractors": ["kashikomarimashita", "abunakatta", "dare"] },
+    { "id": "s08", "type": "multiple_choice", "word": "abunakatta", "direction": "pt_to_jp", "distractors": ["shouganai", "dare", "jouzu"] },
+    { "id": "s09", "type": "multiple_choice", "word": "dare", "direction": "pt_to_jp", "distractors": ["jouzu", "shouganai", "abunakatta"] },
+    { "id": "s10", "type": "multiple_choice", "word": "jouzu", "direction": "jp_to_pt", "distractors": ["dare", "shouganai", "kashikomarimashita"] },
+    {
+      "id": "s11",
+      "type": "situation",
+      "context": "Alguém acima de você pede um favor e você quer responder \"entendi\" de maneira bastante polida. O que dizer?",
+      "options": [
+        { "jp": "かしこまりました", "romaji": "Kashikomarimashita", "pt": "Entendi (bastante polido)" },
+        { "jp": "しょうがない", "romaji": "Shouganai", "pt": "Não tem outro jeito" },
+        { "jp": "危なかった…", "romaji": "Abunakatta...", "pt": "Foi por pouco" }
+      ],
+      "answer": 0,
+      "explanation": "かしこまりました é a forma bastante polida de dizer \"entendi\"."
+    },
+    { "id": "s12", "type": "type_answer", "word": "kashikomarimashita", "direction": "jp_to_pt" }
+  ]
+}

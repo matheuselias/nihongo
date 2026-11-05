@@ -1,0 +1,39 @@
+{
+  "id": "everyday-words-konbini",
+  "title": "Na loja de conveniência",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "konbini" },
+    { "id": "s02", "type": "present", "word": "denki" },
+    { "id": "s03", "type": "present", "word": "denchi" },
+    { "id": "s04", "type": "present", "word": "takai" },
+    { "id": "s05", "type": "present", "word": "hikui" },
+    {
+      "id": "s06",
+      "type": "examples",
+      "title": "No konbini",
+      "items": [
+        { "jp": "買いに行こう", "romaji": "Kai ni ikou", "pt": "Vamos comprar! (coloquial)", "literal": "Vamos [com a finalidade de] comprar" },
+        { "jp": "買いに行きましょう", "romaji": "Kai ni ikimashou", "pt": "Vamos comprar! (polido)", "literal": "Vamos [com a finalidade de] comprar" },
+        { "jp": "なんでもある", "romaji": "Nandemo aru", "pt": "Tem de tudo (coloquial)" },
+        { "jp": "なんでもあります", "romaji": "Nandemo arimasu", "pt": "Tem de tudo (polido)" },
+        { "jp": "すみません、これはいくらですか？", "romaji": "Sumimasen, kore wa ikura desu ka?", "pt": "Com licença, quanto custa isso?" }
+      ]
+    },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Você chama um amigo próximo para ir comprar alguma coisa. Como falar?",
+      "options": [
+        { "jp": "買いに行こう", "romaji": "Kai ni ikou", "pt": "Vamos comprar! (coloquial)" },
+        { "jp": "買いに行きましょう", "romaji": "Kai ni ikimashou", "pt": "Vamos comprar! (polido)" }
+      ],
+      "answer": 0,
+      "explanation": "Entre amigos, a forma coloquial 買いに行こう é a natural."
+    },
+    { "id": "s08", "type": "multiple_choice", "word": "takai", "direction": "jp_to_pt", "distractors": ["konbini", "denki", "denchi"] },
+    { "id": "s09", "type": "multiple_choice", "word": "denki", "direction": "pt_to_jp", "distractors": ["denchi", "konbini", "takai"] },
+    { "id": "s10", "type": "type_answer", "word": "hikui", "direction": "jp_to_pt" },
+    { "id": "s11", "type": "type_answer", "word": "denchi", "direction": "jp_to_pt" },
+    { "id": "s12", "type": "type_answer", "word": "konbini", "direction": "pt_to_jp" }
+  ]
+}

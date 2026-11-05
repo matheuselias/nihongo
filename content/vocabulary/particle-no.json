@@ -1,6 +1,6 @@
 [
   {"id": "no", "kana": "の", "romaji": "no", "translations": ["de (liga dois substantivos)"], "note": "Na maior parte das vezes indica posse: o substantivo antes dela é o \"dono\" do que vem depois. Tem outras funções, que vêm mais adiante.", "generates_card": false},
-  {"id": "tomodachi", "kana": "ともだち", "romaji": "tomodachi", "translations": ["amigo", "amiga"], "generates_card": true},
+  {"id": "tomodachi", "kana": "ともだち", "kanji": "友達", "romaji": "tomodachi", "translations": ["amigo", "amiga"], "generates_card": true},
   {"id": "kuruma", "kana": "くるま", "kanji": "車", "romaji": "kuruma", "translations": ["carro"], "generates_card": true},
   {"id": "eiga", "kana": "えいが", "romaji": "eiga", "translations": ["filme"], "generates_card": true},
   {"id": "gaido", "kana": "ガイド", "romaji": "gaido", "translations": ["guia"], "generates_card": true},

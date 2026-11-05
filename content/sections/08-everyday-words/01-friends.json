@@ -1,0 +1,25 @@
+{
+  "id": "everyday-words-friends",
+  "title": "Amigos e aventura",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "tomodachi" },
+    { "id": "s02", "type": "present", "word": "atarashii" },
+    { "id": "s03", "type": "present", "word": "futari" },
+    { "id": "s04", "type": "present", "word": "boukken" },
+    { "id": "s05", "type": "present", "word": "dou-sureba-ii" },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "新しい友達", "romaji": "Atarashii tomodachi", "pt": "Novo amigo" },
+        { "jp": "どうすればいい？", "romaji": "Dou sureba ii?", "pt": "O que devo fazer?" }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "tomodachi", "direction": "jp_to_pt", "distractors": ["boukken", "futari", "atarashii"] },
+    { "id": "s08", "type": "multiple_choice", "word": "boukken", "direction": "pt_to_jp", "distractors": ["tomodachi", "futari", "dou-sureba-ii"] },
+    { "id": "s09", "type": "multiple_choice", "word": "futari", "direction": "jp_to_pt", "distractors": ["tomodachi", "atarashii", "boukken"] },
+    { "id": "s10", "type": "multiple_choice", "word": "dou-sureba-ii", "direction": "jp_to_pt", "distractors": ["boukken", "futari", "tomodachi"] },
+    { "id": "s11", "type": "type_answer", "word": "atarashii", "direction": "pt_to_jp" },
+    { "id": "s12", "type": "build_sentence", "pt": "Novo amigo", "blocks": ["新しい", "友達"], "romaji": "Atarashii tomodachi" }
+  ]
+}

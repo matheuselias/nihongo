@@ -1,0 +1,18 @@
+{
+  "id": "everyday-words-family",
+  "title": "Família",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "chichi" },
+    { "id": "s02", "type": "present", "word": "haha" },
+    { "id": "s03", "type": "present", "word": "imouto" },
+    { "id": "s04", "type": "present", "word": "oniichan" },
+    { "id": "s05", "type": "present", "word": "obaachan" },
+    { "id": "s06", "type": "present", "word": "kazoku" },
+    { "id": "s07", "type": "multiple_choice", "word": "chichi", "direction": "jp_to_pt", "distractors": ["haha", "imouto", "kazoku"] },
+    { "id": "s08", "type": "multiple_choice", "word": "haha", "direction": "pt_to_jp", "distractors": ["chichi", "imouto", "obaachan"] },
+    { "id": "s09", "type": "multiple_choice", "word": "imouto", "direction": "jp_to_pt", "distractors": ["haha", "oniichan", "obaachan"] },
+    { "id": "s10", "type": "multiple_choice", "word": "obaachan", "direction": "pt_to_jp", "distractors": ["oniichan", "haha", "kazoku"] },
+    { "id": "s11", "type": "type_answer", "word": "oniichan", "direction": "pt_to_jp" },
+    { "id": "s12", "type": "type_answer", "word": "kazoku", "direction": "jp_to_pt" }
+  ]
+}

@@ -5,6 +5,7 @@ export const rawContent: RawContent = {
   vocabulary: [require('./vocabulary/greetings.json'), require('./vocabulary/affirming-and-denying.json'),
     require('./vocabulary/self-introduction.json'), require('./vocabulary/particle-no.json'), require('./vocabulary/demonstratives.json'),
     require('./vocabulary/selves-yes-no-fillers.json'), require('./vocabulary/first-kanji.json'),
+    require('./vocabulary/everyday-words.json'),
   ],
   sections: [
     {
@@ -70,6 +71,16 @@ export const rawContent: RawContent = {
         require('./sections/07-first-kanji/01-places-things.json'),
         require('./sections/07-first-kanji/02-people.json'),
         require('./sections/07-first-kanji/03-name-and-questions.json'),
+      ],
+    },
+    {
+      section: require('./sections/08-everyday-words/section.json'),
+      lessons: [
+        require('./sections/08-everyday-words/01-friends.json'),
+        require('./sections/08-everyday-words/02-konbini.json'),
+        require('./sections/08-everyday-words/03-reactions.json'),
+        require('./sections/08-everyday-words/04-family.json'),
+        require('./sections/08-everyday-words/05-home.json'),
       ],
     },
   ],

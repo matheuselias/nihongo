@@ -1,0 +1,50 @@
+{
+  "id": "everyday-words-home",
+  "title": "Em casa e no exterior",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "kaigai" },
+    { "id": "s02", "type": "present", "word": "shikashi" },
+    { "id": "s03", "type": "present", "word": "ittai" },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Coloquial ou polido?",
+      "body": "部屋で寝てる é a forma coloquial de dizer \"está dormindo no quarto\". 部屋で寝ています é a forma polida, com o mesmo sentido."
+    },
+    {
+      "id": "s05",
+      "type": "examples",
+      "items": [
+        { "jp": "部屋で寝てる", "romaji": "Heya de neteru", "pt": "Está dormindo no quarto (coloquial)" },
+        { "jp": "部屋で寝ています", "romaji": "Heya de nete imasu", "pt": "Está dormindo no quarto (polido)" }
+      ]
+    },
+    { "id": "s06", "type": "multiple_choice", "word": "kaigai", "direction": "jp_to_pt", "distractors": ["shikashi", "ittai", "kazoku"] },
+    { "id": "s07", "type": "multiple_choice", "word": "shikashi", "direction": "pt_to_jp", "distractors": ["kaigai", "ittai", "kazoku"] },
+    { "id": "s08", "type": "multiple_choice", "word": "ittai", "direction": "jp_to_pt", "distractors": ["kaigai", "shikashi", "tomodachi"] },
+    {
+      "id": "s09",
+      "type": "situation",
+      "context": "Você conta, de forma polida, que alguém está dormindo no quarto. O que dizer?",
+      "options": [
+        { "jp": "部屋で寝てる", "romaji": "Heya de neteru", "pt": "Está dormindo no quarto (coloquial)" },
+        { "jp": "部屋で寝ています", "romaji": "Heya de nete imasu", "pt": "Está dormindo no quarto (polido)" }
+      ],
+      "answer": 1,
+      "explanation": "A forma polida é 寝ています."
+    },
+    {
+      "id": "s10",
+      "type": "situation",
+      "context": "Você conta a um amigo, de forma coloquial, que alguém está dormindo no quarto. O que dizer?",
+      "options": [
+        { "jp": "部屋で寝てる", "romaji": "Heya de neteru", "pt": "Está dormindo no quarto (coloquial)" },
+        { "jp": "部屋で寝ています", "romaji": "Heya de nete imasu", "pt": "Está dormindo no quarto (polido)" }
+      ],
+      "answer": 0,
+      "explanation": "A forma coloquial é 寝てる."
+    },
+    { "id": "s11", "type": "type_answer", "word": "kaigai", "direction": "pt_to_jp" },
+    { "id": "s12", "type": "build_sentence", "pt": "Está dormindo no quarto", "blocks": ["部屋", "で", "寝ています"], "romaji": "Heya de nete imasu" }
+  ]
+}

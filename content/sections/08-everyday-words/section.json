@@ -1,0 +1,12 @@
+{
+  "id": "everyday-words",
+  "title": "Palavras do dia a dia",
+  "description": "Amigos, compras na loja de conveniência, reações comuns, a família e conectivos para usar no dia a dia.",
+  "lessons": [
+    "everyday-words-friends",
+    "everyday-words-konbini",
+    "everyday-words-reactions",
+    "everyday-words-family",
+    "everyday-words-home"
+  ]
+}
