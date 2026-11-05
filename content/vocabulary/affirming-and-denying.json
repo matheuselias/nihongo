@@ -1,8 +1,8 @@
 [
   { "id": "desu", "kana": "です", "romaji": "desu", "translations": ["ser/estar (polido)"], "note": "Afirma coisas de maneira polida. Aproxima-se do nosso \"ser/estar\".", "generates_card": false },
   { "id": "wa", "kana": "は", "romaji": "wa", "translations": ["partícula do assunto"], "note": "Escrita は, mas lida WA. Tudo que vem antes dela é o assunto da frase.", "generates_card": false },
-  { "id": "watashi", "kana": "わたし", "romaji": "watashi", "translations": ["eu"], "generates_card": true },
-  { "id": "gakusei", "kana": "がくせい", "romaji": "gakusei", "translations": ["estudante"], "generates_card": true },
+  { "id": "watashi", "kana": "わたし", "kanji": "私", "romaji": "watashi", "translations": ["eu"], "generates_card": true },
+  { "id": "gakusei", "kana": "がくせい", "kanji": "学生", "romaji": "gakusei", "translations": ["estudante"], "generates_card": true },
   { "id": "saikou", "kana": "さいこう", "romaji": "saikou", "translations": ["o máximo"], "generates_card": true },
   { "id": "kawaii", "kana": "かわいい", "romaji": "kawaii", "translations": ["fofinho", "fofinha"], "generates_card": true },
   { "id": "da", "kana": "だ", "romaji": "da", "translations": ["ser/estar (não polido)"], "note": "Versão não polida de です. Dá ênfase ou surpresa ao que é dito.", "generates_card": false },
@@ -13,5 +13,5 @@
   { "id": "ja-nai", "kana": "じゃない", "romaji": "ja nai", "translations": ["não ser/estar (não polido)"], "note": "Forma negativa não polida: o だ vira じゃない.", "generates_card": false },
   { "id": "otona", "kana": "おとな", "romaji": "otona", "translations": ["adulto", "adulta"], "generates_card": true },
   { "id": "ningen", "kana": "にんげん", "romaji": "ningen", "translations": ["ser humano"], "generates_card": true },
-  { "id": "kyou", "kana": "きょう", "romaji": "kyou", "translations": ["hoje"], "generates_card": true }
+  { "id": "kyou", "kana": "きょう", "kanji": "今日", "romaji": "kyou", "translations": ["hoje"], "generates_card": true }
 ]

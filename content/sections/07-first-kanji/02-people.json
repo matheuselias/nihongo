@@ -1,0 +1,36 @@
+{
+  "id": "first-kanji-people",
+  "title": "Pessoas",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "watashi" },
+    { "id": "s02", "type": "present", "word": "hito" },
+    { "id": "s03", "type": "present", "word": "gakusei" },
+    { "id": "s04", "type": "present", "word": "sensei" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Kanjis de pessoas",
+      "body": "Veja como se escrevem eu, pessoa, estudante e professor. O kanji 人 lê-se ひと sozinho, mas depois do nome de um país vira じん, como em 日本人.",
+      "words": ["watashi", "hito", "gakusei", "sensei"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "私は学生です。", "romaji": "Watashi wa gakusei desu.", "pt": "Eu sou estudante." },
+        { "jp": "日本人", "romaji": "Nihonjin", "pt": "Japonês." }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "watashi", "direction": "jp_to_pt", "distractors": ["hito", "gakusei", "sensei"] },
+    { "id": "s08", "type": "multiple_choice", "word": "gakusei", "direction": "pt_to_jp", "distractors": ["sensei", "hito", "watashi"] },
+    { "id": "s09", "type": "type_answer", "word": "hito", "direction": "pt_to_jp" },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "先生 é a profissão que você diz ao se apresentar como professor.",
+      "answer": false,
+      "explanation": "先生 é um título de respeito que os outros dão a você. Para dizer sua profissão, use きょうし."
+    },
+    { "id": "s11", "type": "build_sentence", "pt": "Eu sou estudante.", "blocks": ["私", "は", "学生", "です"], "romaji": "Watashi wa gakusei desu" }
+  ]
+}

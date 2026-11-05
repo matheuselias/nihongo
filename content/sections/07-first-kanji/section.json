@@ -1,0 +1,10 @@
+{
+  "id": "first-kanji",
+  "title": "Primeiros kanjis",
+  "description": "Os primeiros kanjis: 私, 日本, 本, 名前, 何, 今日, 元気, 車, 駅, 円, 才, 人, 学生 e 先生.",
+  "lessons": [
+    "first-kanji-places-things",
+    "first-kanji-people",
+    "first-kanji-name-and-questions"
+  ]
+}

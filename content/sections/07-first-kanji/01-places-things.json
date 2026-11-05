@@ -1,0 +1,29 @@
+{
+  "id": "first-kanji-places-things",
+  "title": "Lugares e coisas",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "nihon" },
+    { "id": "s02", "type": "present", "word": "hon" },
+    { "id": "s03", "type": "present", "word": "kuruma" },
+    { "id": "s04", "type": "present", "word": "eki" },
+    { "id": "s05", "type": "present", "word": "en" },
+    {
+      "id": "s06",
+      "type": "rule",
+      "title": "Kanji no lugar do kana",
+      "body": "Cada kanji carrega um significado. Palavras que você já conhece em kana também podem ser escritas com kanji, como くるま (車). Aqui estão os kanjis de Japão, livro, carro, estação e iene.",
+      "words": ["nihon", "hon", "kuruma", "eki", "en"]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "nihon", "direction": "jp_to_pt", "distractors": ["hon", "eki", "en"] },
+    { "id": "s08", "type": "multiple_choice", "word": "eki", "direction": "pt_to_jp", "distractors": ["kuruma", "hon", "en"] },
+    { "id": "s09", "type": "type_answer", "word": "hon", "direction": "pt_to_jp" },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "円 é o kanji de iene, a moeda japonesa.",
+      "answer": true,
+      "explanation": "円 (えん) é a moeda do Japão."
+    },
+    { "id": "s11", "type": "build_sentence", "pt": "Carro do Japão.", "blocks": ["日本", "の", "車"], "romaji": "Nihon no kuruma" }
+  ]
+}

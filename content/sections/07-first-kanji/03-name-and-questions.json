@@ -1,0 +1,31 @@
+{
+  "id": "first-kanji-name-and-questions",
+  "title": "Nome, idade e como você está",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "namae" },
+    { "id": "s02", "type": "present", "word": "nani" },
+    { "id": "s03", "type": "present", "word": "sai" },
+    { "id": "s04", "type": "present", "word": "kyou" },
+    { "id": "s05", "type": "present", "word": "genki" },
+    {
+      "id": "s06",
+      "type": "rule",
+      "title": "Mais kanjis do dia a dia",
+      "body": "名前 é nome, 何 é \"o que\", 才 é a escrita em kanji de さい (anos de idade), 今日 é hoje e 元気 é estar bem, o mesmo kanji de お元気ですか.",
+      "words": ["namae", "nani", "sai", "kyou", "genki"]
+    },
+    {
+      "id": "s07",
+      "type": "examples",
+      "items": [
+        { "jp": "名前は何ですか？", "romaji": "Namae wa nan desu ka?", "pt": "Qual é o seu nome?", "literal": "Nome, o que é?" },
+        { "jp": "何才ですか？", "romaji": "Nansai desu ka?", "pt": "Quantos anos você tem?" }
+      ]
+    },
+    { "id": "s08", "type": "multiple_choice", "word": "namae", "direction": "jp_to_pt", "distractors": ["nani", "kyou", "genki"] },
+    { "id": "s09", "type": "multiple_choice", "word": "kyou", "direction": "pt_to_jp", "distractors": ["namae", "nani", "genki"] },
+    { "id": "s10", "type": "type_answer", "word": "nani", "direction": "pt_to_jp" },
+    { "id": "s11", "type": "type_answer", "word": "genki", "direction": "jp_to_pt" },
+    { "id": "s12", "type": "build_sentence", "pt": "Qual é o seu nome?", "blocks": ["名前", "は", "何", "ですか"], "romaji": "Namae wa nan desu ka" }
+  ]
+}

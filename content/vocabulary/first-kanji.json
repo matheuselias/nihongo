@@ -1,0 +1,10 @@
+[
+  {"id": "nihon", "kana": "にほん", "kanji": "日本", "romaji": "nihon", "translations": ["Japão"], "generates_card": true},
+  {"id": "hon", "kana": "ほん", "kanji": "本", "romaji": "hon", "translations": ["livro"], "generates_card": true},
+  {"id": "namae", "kana": "なまえ", "kanji": "名前", "romaji": "namae", "translations": ["nome"], "generates_card": true},
+  {"id": "nani", "kana": "なに", "kanji": "何", "romaji": "nani", "translations": ["o que"], "generates_card": true},
+  {"id": "genki", "kana": "げんき", "kanji": "元気", "romaji": "genki", "translations": ["estar bem", "saudável"], "generates_card": true},
+  {"id": "eki", "kana": "えき", "kanji": "駅", "romaji": "eki", "translations": ["estação"], "generates_card": true},
+  {"id": "en", "kana": "えん", "kanji": "円", "romaji": "en", "translations": ["iene", "moeda japonesa"], "generates_card": true},
+  {"id": "hito", "kana": "ひと", "kanji": "人", "romaji": "hito", "translations": ["pessoa"], "note": "Sozinho, 人 lê-se ひと. Depois do nome de um país, vira じん: 日本人.", "generates_card": true}
+]
