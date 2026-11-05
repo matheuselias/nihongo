@@ -1,0 +1,50 @@
+{
+  "id": "particle-no-bigger-sentences",
+  "title": "Frases maiores com の",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "suugaku" },
+    { "id": "s02", "type": "present", "word": "otousan" },
+    {
+      "id": "s03",
+      "type": "rule",
+      "title": "Frases com の como blocos",
+      "body": "Você pode usar essas pequenas frases com の como blocos, como se fossem grandes substantivos, e encaixá-los na estrutura básica que já vimos: <assunto> は <alguma coisa> です. Assim saem frases maiores.",
+      "words": ["wa", "desu"]
+    },
+    {
+      "id": "s04",
+      "type": "examples",
+      "items": [
+        {
+          "jp": "【エミちゃんのおとうさん】は【すうがくのせんせい】です。",
+          "romaji": "[Emi-chan no otousan] wa [suugaku no sensei] desu.",
+          "pt": "[O pai da Emi-chan] é [professor de matemática].",
+          "literal": "エミちゃんのおとうさん: pai da Emi-chan. すうがくのせんせい: professor de matemática."
+        }
+      ]
+    },
+    { "id": "s05", "type": "multiple_choice", "word": "suugaku", "direction": "jp_to_pt", "distractors": ["eiga", "daigaku", "gaido"] },
+    { "id": "s06", "type": "type_answer", "word": "otousan", "direction": "pt_to_jp" },
+    {
+      "id": "s07",
+      "type": "true_false",
+      "statement": "Um bloco como すうがくのせんせい (professor de matemática) pode ocupar o lugar de um substantivo na frase <assunto> は <alguma coisa> です.",
+      "answer": true,
+      "explanation": "Frases com の funcionam como grandes substantivos e se encaixam na estrutura de sempre."
+    },
+    {
+      "id": "s08",
+      "type": "build_sentence",
+      "pt": "O carro do meu amigo é o máximo.",
+      "blocks": ["ともだちの", "くるま", "は", "さいこう", "です"],
+      "romaji": "Tomodachi no kuruma wa saikou desu"
+    },
+    {
+      "id": "s09",
+      "type": "build_sentence",
+      "pt": "O pai da Emi-chan é professor de matemática.",
+      "blocks": ["エミちゃんの", "おとうさん", "は", "すうがくの", "せんせい", "です"],
+      "romaji": "Emi-chan no otousan wa suugaku no sensei desu"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "particle-no-main-idea-last",
+  "title": "A ideia principal vem no final",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "gaido" },
+    { "id": "s02", "type": "present", "word": "toukyou" },
+    { "id": "s03", "type": "present", "word": "daigaku" },
+    { "id": "s04", "type": "present", "word": "porutogarugo" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "O final da frase manda",
+      "body": "Um aspecto importante do japonês, bom de entender desde cedo: a ideia principal da frase costuma vir no final. Todos os detalhes sobre essa ideia central vêm antes. Em ポルトガルごのきょうしです, ポルトガルご é uma informação mais específica sobre きょうし, que aparece no final.",
+      "words": ["porutogarugo", "kyoushi"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "とうきょうのガイド", "romaji": "Toukyou no gaido", "pt": "Guia de Tóquio." },
+        { "jp": "だいがくの先生", "romaji": "Daigaku no sensei", "pt": "Professor da faculdade." },
+        { "jp": "ポルトガルごのきょうしです。", "romaji": "Porutogarugo no kyoushi desu.", "pt": "Sou professor de língua portuguesa.", "literal": "Professor de língua portuguesa." }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "gaido", "direction": "jp_to_pt", "distractors": ["eiga", "kuruma", "tomodachi"] },
+    { "id": "s08", "type": "multiple_choice", "word": "daigaku", "direction": "pt_to_jp", "distractors": ["gakusei", "toukyou", "eiga"] },
+    { "id": "s09", "type": "type_answer", "word": "toukyou", "direction": "pt_to_jp" },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "Em japonês, a ideia principal da frase costuma vir no começo, e os detalhes depois.",
+      "answer": false,
+      "explanation": "É o contrário: a ideia principal vem no final e os detalhes vêm antes."
+    },
+    { "id": "s11", "type": "build_sentence", "pt": "Guia de Tóquio.", "blocks": ["とうきょう", "の", "ガイド"], "romaji": "Toukyou no gaido" },
+    { "id": "s12", "type": "build_sentence", "pt": "Sou professor de língua portuguesa.", "blocks": ["ポルトガルご", "の", "きょうし", "です"], "romaji": "Porutogarugo no kyoushi desu" }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "particle-no-connecting-nouns",
+  "title": "Ligando dois substantivos",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "no" },
+    { "id": "s02", "type": "present", "word": "tomodachi" },
+    { "id": "s03", "type": "present", "word": "kuruma" },
+    { "id": "s04", "type": "present", "word": "eiga" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "の indica posse",
+      "body": "の é uma das partículas essenciais do japonês e tem várias funções. Por enquanto, veja a principal: conectar dois substantivos. Na maior parte das vezes ela indica posse: o substantivo que vem antes é o \"dono\" do que vem depois.",
+      "words": ["tomodachi", "kuruma"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "ともだちの車", "romaji": "Tomodachi no kuruma", "pt": "Carro do meu amigo." },
+        { "jp": "ドラゴンボールのえいが", "romaji": "Doragon Booru no eiga", "pt": "Filme do Dragon Ball." }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "kuruma", "direction": "jp_to_pt", "distractors": ["eiga", "tomodachi", "gakusei"] },
+    { "id": "s08", "type": "multiple_choice", "word": "eiga", "direction": "pt_to_jp", "distractors": ["kuruma", "tomodachi", "gakusei"] },
+    { "id": "s09", "type": "type_answer", "word": "tomodachi", "direction": "pt_to_jp" },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "Em ともだちの車, o \"dono\" é ともだち, o substantivo que vem antes de の.",
+      "answer": true,
+      "explanation": "O substantivo antes de の é o dono do que vem depois: o carro do amigo."
+    },
+    { "id": "s11", "type": "build_sentence", "pt": "Carro do meu amigo.", "blocks": ["ともだち", "の", "くるま"], "romaji": "Tomodachi no kuruma" }
+  ]
+}

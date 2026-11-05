@@ -3,7 +3,7 @@ import type { RawContent } from '../src/content/load';
 
 export const rawContent: RawContent = {
   vocabulary: [require('./vocabulary/greetings.json'), require('./vocabulary/affirming-and-denying.json'),
-    require('./vocabulary/self-introduction.json'),
+    require('./vocabulary/self-introduction.json'), require('./vocabulary/particle-no.json'),
   ],
   sections: [
     {
@@ -35,6 +35,14 @@ export const rawContent: RawContent = {
         require('./sections/03-self-introduction/06-more-jobs.json'),
         require('./sections/03-self-introduction/07-nationalities.json'),
         require('./sections/03-self-introduction/08-where-from.json'),
+      ],
+    },
+    {
+      section: require('./sections/04-particle-no/section.json'),
+      lessons: [
+        require('./sections/04-particle-no/01-connecting-nouns.json'),
+        require('./sections/04-particle-no/02-main-idea-last.json'),
+        require('./sections/04-particle-no/03-bigger-sentences.json'),
       ],
     },
   ],
