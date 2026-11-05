@@ -1,0 +1,52 @@
+{
+  "id": "selves-yes-no-fillers-formal-selves",
+  "title": "Os muitos \"eus\": polidos",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "watashi" },
+    { "id": "s02", "type": "present", "word": "watakushi" },
+    { "id": "s03", "type": "present", "word": "boku" },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Há muitas maneiras de dizer \"eu\"",
+      "body": "É muito comum um japonês se referir a si mesmo de jeitos diferentes, dependendo da situação. Numa reunião de negócios falará de um jeito; com a família ou entre amigos, usará outra palavra. わたし é polido e comum, usado por homens e mulheres (em situações informais, tem um tom mais feminino). わたくし é a versão mais formal. ぼく é masculino e passa um tom de humildade.",
+      "words": ["watashi", "watakushi", "boku"]
+    },
+    {
+      "id": "s05",
+      "type": "examples",
+      "title": "Eu sou estudante",
+      "items": [
+        { "jp": "わたしはがくせいです。", "romaji": "Watashi wa gakusei desu.", "pt": "Eu sou estudante.", "literal": "Polido e comum." },
+        { "jp": "わたくしはがくせいです。", "romaji": "Watakushi wa gakusei desu.", "pt": "Eu sou estudante.", "literal": "Muito formal." },
+        { "jp": "ぼくはがくせいです。", "romaji": "Boku wa gakusei desu.", "pt": "Eu sou estudante.", "literal": "Masculino, tom humilde." }
+      ]
+    },
+    {
+      "id": "s06",
+      "type": "situation",
+      "context": "Você está numa reunião de negócios e precisa se apresentar com muita formalidade.",
+      "options": [
+        { "jp": "わたくしはがくせいです。", "romaji": "Watakushi wa gakusei desu.", "pt": "Eu sou estudante. (muito formal)" },
+        { "jp": "ぼくはがくせいです。", "romaji": "Boku wa gakusei desu.", "pt": "Eu sou estudante. (masculino, humilde)" },
+        { "jp": "おれはがくせいだ。", "romaji": "Ore wa gakusei da.", "pt": "Eu sou estudante. (masculino, casual)" }
+      ],
+      "answer": 0,
+      "explanation": "Situações que exigem formalidade e muita polidez pedem わたくし."
+    },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Você é um rapaz jovem e quer soar humilde ao dizer que é estudante.",
+      "options": [
+        { "jp": "わたくしはがくせいです。", "romaji": "Watakushi wa gakusei desu.", "pt": "Eu sou estudante. (muito formal)" },
+        { "jp": "ぼくはがくせいです。", "romaji": "Boku wa gakusei desu.", "pt": "Eu sou estudante. (masculino, humilde)" }
+      ],
+      "answer": 1,
+      "explanation": "ぼく é masculino e passa humildade; é comum entre homens mais jovens."
+    },
+    { "id": "s08", "type": "true_false", "statement": "わたくし é a versão mais formal de わたし.", "answer": true, "explanation": "Isso mesmo: わたくし é usado quando se exige formalidade e muita polidez." },
+    { "id": "s09", "type": "true_false", "statement": "わたし só pode ser usado por mulheres.", "answer": false, "explanation": "わたし é polido e comum, usado por homens e mulheres." },
+    { "id": "s10", "type": "build_sentence", "pt": "Eu sou estudante. (muito formal)", "blocks": ["わたくし", "は", "がくせい", "です"], "romaji": "Watakushi wa gakusei desu" }
+  ]
+}

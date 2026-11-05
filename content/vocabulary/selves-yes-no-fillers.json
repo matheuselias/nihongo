@@ -1,0 +1,12 @@
+[
+  {"id": "watakushi", "kana": "わたくし", "romaji": "watakushi", "translations": ["eu"], "hint": "muito formal", "note": "Versão mais formal de わたし, usada em situações que exigem formalidade e muita polidez.", "generates_card": true},
+  {"id": "boku", "kana": "ぼく", "romaji": "boku", "translations": ["eu"], "hint": "masculino, humilde", "note": "Palavra masculina que passa um tom de humildade. Comumente usada por homens mais jovens.", "generates_card": true},
+  {"id": "atashi", "kana": "あたし", "romaji": "atashi", "translations": ["eu"], "hint": "feminino, informal", "note": "Quase como se fosse o おれ das mulheres.", "generates_card": true},
+  {"id": "uchi", "kana": "うち", "romaji": "uchi", "translations": ["eu"], "hint": "informal, Kansai", "note": "Jeito informal mais usado por mulheres e crianças na região de Kansai.", "generates_card": true},
+  {"id": "hai", "kana": "はい", "romaji": "hai", "translations": ["sim"], "hint": "polido", "note": "Também carrega o sentido de \"entendido; ok; certo\".", "generates_card": true},
+  {"id": "iie", "kana": "いいえ", "romaji": "iie", "translations": ["não"], "hint": "polido", "note": "Usado em situações mais formais.", "generates_card": true},
+  {"id": "un", "kana": "うん", "romaji": "un", "translations": ["sim"], "hint": "casual", "note": "Bastante informal, parecido com o \"aham\" do português.", "generates_card": true},
+  {"id": "uun", "kana": "ううん", "romaji": "uun", "translations": ["não"], "hint": "casual", "note": "Bastante informal. É como o nosso \"hm hm\", quando você nega alguma coisa só balançando a cabeça.", "generates_card": true},
+  {"id": "sou-desu-ka", "kana": "そうですか", "romaji": "sou desu ka", "translations": ["é mesmo?", "verdade?", "sério?"], "note": "Muitas vezes você não está sendo literal ou super enfático a respeito da veracidade do assunto: fala simplesmente para pontuar a conversa.", "generates_card": true},
+  {"id": "ano-filler", "kana": "あの…", "romaji": "ano", "translations": ["é que...", "com licença...", "hmmm..."], "note": "Tem três usos: buscar as palavras, interromper alguém ou dizer algo com receio de ofender.", "generates_card": true}
+]

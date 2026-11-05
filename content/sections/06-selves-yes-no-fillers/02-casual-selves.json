@@ -1,0 +1,65 @@
+{
+  "id": "selves-yes-no-fillers-casual-selves",
+  "title": "Os muitos \"eus\": informais",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "ore" },
+    { "id": "s02", "type": "present", "word": "atashi" },
+    { "id": "s03", "type": "present", "word": "uchi" },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Eus informais",
+      "body": "おれ é bem masculino e coloquial, podendo passar um certo ímpeto; é muito usado em situações informais. あたし é informal e feminino, quase como o おれ das mulheres. うち é um jeito informal usado mais por mulheres e crianças na região de Kansai.",
+      "words": ["ore", "atashi", "uchi"]
+    },
+    {
+      "id": "s05",
+      "type": "examples",
+      "title": "Eu sou estudante",
+      "items": [
+        { "jp": "おれはがくせいだ。", "romaji": "Ore wa gakusei da.", "pt": "Eu sou estudante.", "literal": "Masculino, coloquial." },
+        { "jp": "あたしはがくせいよ。", "romaji": "Atashi wa gakusei yo.", "pt": "Eu sou estudante.", "literal": "Informal, feminino." },
+        { "jp": "うちはがくせいや。", "romaji": "Uchi wa gakusei ya.", "pt": "Eu sou estudante.", "literal": "Informal, região de Kansai." }
+      ]
+    },
+    {
+      "id": "s06",
+      "type": "situation",
+      "context": "Um homem conversa com amigos, de maneira bem informal e com certo ímpeto.",
+      "options": [
+        { "jp": "わたくし", "romaji": "watakushi", "pt": "eu (muito formal)" },
+        { "jp": "おれ", "romaji": "ore", "pt": "eu (masculino, casual)" },
+        { "jp": "あたし", "romaji": "atashi", "pt": "eu (feminino, informal)" }
+      ],
+      "answer": 1,
+      "explanation": "おれ é bem masculino e coloquial, muito usado em situações informais."
+    },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Uma mulher conversa informalmente com as amigas e quer um \"eu\" feminino.",
+      "options": [
+        { "jp": "あたし", "romaji": "atashi", "pt": "eu (feminino, informal)" },
+        { "jp": "ぼく", "romaji": "boku", "pt": "eu (masculino, humilde)" },
+        { "jp": "わたくし", "romaji": "watakushi", "pt": "eu (muito formal)" }
+      ],
+      "answer": 0,
+      "explanation": "あたし é informal e feminino."
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Uma menina de Kansai fala de si mesma com as colegas, de modo informal.",
+      "options": [
+        { "jp": "うち", "romaji": "uchi", "pt": "eu (informal, Kansai)" },
+        { "jp": "おれ", "romaji": "ore", "pt": "eu (masculino, casual)" },
+        { "jp": "わたくし", "romaji": "watakushi", "pt": "eu (muito formal)" }
+      ],
+      "answer": 0,
+      "explanation": "うち é um jeito informal usado mais por mulheres e crianças na região de Kansai."
+    },
+    { "id": "s09", "type": "true_false", "statement": "あたし é quase como o おれ das mulheres.", "answer": true, "explanation": "Os dois são informais; o あたし é a versão feminina." },
+    { "id": "s10", "type": "true_false", "statement": "うち é o \"eu\" informal usado em todo o Japão.", "answer": false, "explanation": "É mais usado por mulheres e crianças na região de Kansai." },
+    { "id": "s11", "type": "build_sentence", "pt": "Eu sou estudante. (masculino, coloquial)", "blocks": ["おれ", "は", "がくせい", "だ"], "romaji": "Ore wa gakusei da" }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "selves-yes-no-fillers-fillers",
+  "title": "Expressões de preenchimento",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "sou-desu-ka" },
+    { "id": "s02", "type": "present", "word": "ano-filler" },
+    {
+      "id": "s03",
+      "type": "rule",
+      "title": "Preenchendo a conversa",
+      "body": "São coisas que você pode dizer ou ouvir em conversas para preencher os espaços e dar fluência ao que está sendo dito. そうですか é como o \"Verdade?\", \"É mesmo?\" ou \"Sério?\" do português: muitas vezes você não está sendo literal, só pontuando a conversa.",
+      "words": ["sou-desu-ka"]
+    },
+    {
+      "id": "s04",
+      "type": "rule",
+      "title": "Os três usos de あの…",
+      "body": "1. Quando você busca as palavras ou tenta se lembrar de algo: como \"Ééé...\" ou \"Hmmm...\". 2. Quando precisa interromper alguém: como \"Com licença...\", \"Viu...\" ou \"Oi...\". 3. Quando tem alguma ressalva ou medo de ofender alguém: como \"É que...\" ou \"Então...\"."
+    },
+    {
+      "id": "s05",
+      "type": "dialogue",
+      "title": "Pontuando a conversa",
+      "lines": [
+        { "speaker": "A", "jp": "ブラジルからきました。", "romaji": "Burajiru kara kimashita.", "pt": "Eu vim do Brasil." },
+        { "speaker": "B", "jp": "そうですか！", "romaji": "Sou desu ka!", "pt": "É mesmo?!" }
+      ]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "title": "Interrompendo",
+      "items": [
+        { "jp": "あの、タナカさんですか？", "romaji": "Ano, Tanaka-san desu ka?", "pt": "Com licença, você é o Tanaka?" }
+      ]
+    },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Alguém conta que veio do Brasil e você quer reagir com um \"é mesmo?\" para continuar a conversa.",
+      "options": [
+        { "jp": "そうですか。", "romaji": "Sou desu ka.", "pt": "É mesmo?" },
+        { "jp": "いいえ。", "romaji": "Iie.", "pt": "Não." }
+      ],
+      "answer": 0,
+      "explanation": "そうですか pontua a conversa, como o nosso \"Sério?\"."
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Você precisa interromper duas pessoas conversando para perguntar algo.",
+      "options": [
+        { "jp": "あの…", "romaji": "Ano...", "pt": "Com licença..." },
+        { "jp": "そうですか。", "romaji": "Sou desu ka.", "pt": "É mesmo?" }
+      ],
+      "answer": 0,
+      "explanation": "No segundo uso, あの… equivale a \"Com licença...\" ou \"Oi...\"."
+    },
+    {
+      "id": "s09",
+      "type": "situation",
+      "context": "Você tenta lembrar uma palavra no meio da frase e quer preencher o silêncio.",
+      "options": [
+        { "jp": "あの…", "romaji": "Ano...", "pt": "Hmmm..." },
+        { "jp": "はい。", "romaji": "Hai.", "pt": "Sim." }
+      ],
+      "answer": 0,
+      "explanation": "No primeiro uso, あの… é como o nosso \"Ééé...\" ou \"Hmmm...\"."
+    },
+    { "id": "s10", "type": "multiple_choice", "word": "sou-desu-ka", "direction": "jp_to_pt", "distractors": ["hai", "iie", "hontou"] },
+    { "id": "s11", "type": "true_false", "statement": "Ao dizer そうですか, a pessoa sempre duvida seriamente do que ouviu.", "answer": false, "explanation": "Muitas vezes não é literal nem enfático: serve só para pontuar a conversa, como o nosso \"Sério?\"." },
+    { "id": "s12", "type": "build_sentence", "pt": "Com licença, você é o Tanaka?", "blocks": ["あの", "タナカさん", "です", "か"], "romaji": "Ano, Tanaka-san desu ka" }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "selves-yes-no-fillers-yes-and-no",
+  "title": "Sim e não",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "hai" },
+    { "id": "s02", "type": "present", "word": "iie" },
+    { "id": "s03", "type": "present", "word": "un" },
+    { "id": "s04", "type": "present", "word": "uun" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Polido e coloquial",
+      "body": "Como tudo em japonês, há duas maneiras de dizer sim e não: uma polida e outra coloquial. はい é um \"sim\" comum, que também carrega o sentido de \"entendido; ok; certo\". いいえ é um \"não\" polido, usado em situações mais formais. うん é um \"sim\" bastante informal, parecido com o \"aham\". ううん é o \"não\" informal, como o nosso \"hm hm\" balançando a cabeça.",
+      "words": ["hai", "iie", "un", "uun"]
+    },
+    {
+      "id": "s06",
+      "type": "situation",
+      "context": "Seu chefe pergunta se você entendeu a tarefa e você quer responder \"sim\".",
+      "options": [
+        { "jp": "はい。", "romaji": "Hai.", "pt": "Sim. (polido)" },
+        { "jp": "うん。", "romaji": "Un.", "pt": "Aham. (casual)" }
+      ],
+      "answer": 0,
+      "explanation": "Com o chefe, use o polido はい."
+    },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Um amigo próximo pergunta se você quer ir ao cinema e você quer negar só balançando a cabeça.",
+      "options": [
+        { "jp": "いいえ。", "romaji": "Iie.", "pt": "Não. (polido)" },
+        { "jp": "ううん。", "romaji": "Uun.", "pt": "Hm hm. (casual)" }
+      ],
+      "answer": 1,
+      "explanation": "Entre amigos, o ううん casual é natural."
+    },
+    { "id": "s08", "type": "multiple_choice", "word": "hai", "direction": "jp_to_pt", "distractors": ["iie", "desu", "hontou"] },
+    { "id": "s09", "type": "multiple_choice", "word": "uun", "direction": "jp_to_pt", "distractors": ["un", "da", "hontou"] },
+    { "id": "s10", "type": "true_false", "statement": "うん é um \"sim\" polido, ideal para falar com autoridades.", "answer": false, "explanation": "うん é bastante informal, parecido com o \"aham\" do português." },
+    { "id": "s11", "type": "type_answer", "word": "iie", "direction": "pt_to_jp" }
+  ]
+}
