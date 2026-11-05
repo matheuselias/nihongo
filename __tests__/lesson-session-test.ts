@@ -1,6 +1,7 @@
 import { content } from '@/content';
 import { GRADED_TYPES } from '@/content/schema';
 import { InMemoryProgressRepository } from '@/db/progress-repository';
+import { sectionQuestions } from '@/lesson/free-review';
 import { LessonSession } from '@/lesson/session';
 import { lessonStates } from '@/trail/rules';
 
@@ -151,4 +152,14 @@ describe('mistakes queue', () => {
     await repo.recordMistakes(first, Array.from({ length: 12 }, (_, i) => ({ stepId: `x${i}` })));
     expect(await repo.listMistakes(10)).toHaveLength(10);
   });
+});
+
+test('free review plays without saving anything', async () => {
+  const repo = new InMemoryProgressRepository();
+  const steps = sectionQuestions(content, content.sections[0].id, rng);
+  const s = new LessonSession(content, first, rng, undefined, steps);
+  play(s, [steps[0].id]);
+  expect(await s.finish(repo)).toMatchObject({ wrongStepIds: [steps[0].id] });
+  expect(await repo.getAll()).toEqual([]);
+  expect(await repo.listMistakes()).toEqual([]);
 });

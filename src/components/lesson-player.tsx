@@ -9,7 +9,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { content } from '@/content';
-import { GRADED_TYPES, type Word } from '@/content/schema';
+import { GRADED_TYPES, type Step, type Word } from '@/content/schema';
 import { useTheme } from '@/hooks/use-theme';
 import { progressRepository } from '@/db/client';
 import type { MistakeKey } from '@/db/progress-repository';
@@ -18,10 +18,10 @@ import { LessonSession, type LessonResult } from '@/lesson/session';
 const label = (w: Word, dir: 'jp_to_pt' | 'pt_to_jp') =>
   dir === 'jp_to_pt' ? w.translations[0] : `${w.kanji ?? w.kana} (${w.romaji})`;
 
-export function Player({ lessonId, picks }: { lessonId: string; picks?: MistakeKey[] }) {
+export function Player({ lessonId, picks, custom, title }: { lessonId: string; picks?: MistakeKey[]; custom?: Step[]; title?: string }) {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
-    const [session, setSession] = useState(() => new LessonSession(content, lessonId, Math.random, picks));
+    const [session, setSession] = useState(() => new LessonSession(content, lessonId, Math.random, picks, custom));
   const [, rerender] = useState(0);
   const [picked, setPicked] = useState<number>();
   const [text, setText] = useState('');
@@ -31,7 +31,7 @@ export function Player({ lessonId, picks }: { lessonId: string; picks?: MistakeK
 
   const confirmExit = () => {
     if (result) return router.back();
-    Alert.alert(picks ? 'Sair do reforço?' : 'Sair da lição?', picks ? 'Os acertos desta sessão serão perdidos.' : 'Seu progresso nesta lição será perdido.', [
+    Alert.alert(session.review ? 'Sair do reforço?' : 'Sair da lição?', session.review ? 'Os acertos desta sessão serão perdidos.' : 'Seu progresso nesta lição será perdido.', [
       { text: 'Continuar', style: 'cancel' },
       { text: 'Sair', style: 'destructive', onPress: () => router.back() },
     ]);
@@ -59,7 +59,7 @@ export function Player({ lessonId, picks }: { lessonId: string; picks?: MistakeK
   };
 
   const retry = () => {
-    setSession(new LessonSession(content, lessonId, Math.random, picks));
+    setSession(new LessonSession(content, lessonId, Math.random, picks, custom));
     setResult(undefined);
     setPlaced([]);
   };
@@ -89,17 +89,17 @@ export function Player({ lessonId, picks }: { lessonId: string; picks?: MistakeK
       {result ? (
         <ThemedView style={styles.body}>
           <EmptyState
-            title={picks ? 'Reforço concluído!' : result.passed ? 'Lição concluída!' : 'Quase lá'}
-            message={picks ? `Acertos: ${result.score}%. O que você errar fica na fila.` : `Nota: ${result.score}%${result.passed ? '' : ` (mínimo ${session.passScore}%). Tente de novo do início.`}`}
+            title={session.review ? 'Reforço concluído!' : result.passed ? 'Lição concluída!' : 'Quase lá'}
+            message={session.review ? `Acertos: ${result.score}%.${custom ? '' : ' O que você errar fica na fila.'}` : `Nota: ${result.score}%${result.passed ? '' : ` (mínimo ${session.passScore}%). Tente de novo do início.`}`}
           />
-          <Button text={picks ? 'Voltar' : result.passed ? 'Voltar à trilha' : 'Tentar de novo'} onPress={result.passed || picks ? () => router.back() : retry} />
-          {!result.passed && !picks && <Button text="Sair" onPress={() => router.back()} secondary />}
+          <Button text={session.review ? 'Voltar' : result.passed ? 'Voltar à trilha' : 'Tentar de novo'} onPress={result.passed || session.review ? () => router.back() : retry} />
+          {!result.passed && !session.review && <Button text="Sair" onPress={() => router.back()} secondary />}
         </ThemedView>
       ) : (
         <>
           <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-            <ThemedText type="smallBold" themeColor="textSecondary">{content.lessons[session.currentLessonId].title}</ThemedText>
+            <ThemedText type="smallBold" themeColor="textSecondary">{title ?? content.lessons[session.currentLessonId].title}</ThemedText>
             {q ? (
               <>
                 <ThemedText type="small" themeColor="textSecondary">

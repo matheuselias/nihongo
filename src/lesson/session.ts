@@ -20,7 +20,7 @@ export function shuffle<T>(items: readonly T[], rng: Rng): T[] {
 }
 
 /** Words the section teaches, taken from the word refs in its lessons. */
-function sectionWordIds(content: Content, lessonId: string): string[] {
+export function sectionWordIds(content: Content, lessonId: string): string[] {
   const section = content.sections.find((s) => s.lessons.some((l) => l.id === lessonId));
   const ids = new Set<string>();
   for (const lesson of section?.lessons ?? [])
@@ -69,10 +69,14 @@ export class LessonSession {
     readonly lessonId: string,
     private rng: Rng = Math.random,
     readonly picks?: MistakeKey[],
+    /** Ready-made steps (free review); nothing is saved. */
+    private custom?: Step[],
   ) {
     const lesson = content.lessons[lessonId];
     this.passScore = lesson.pass_score;
-    this.steps = picks
+    this.steps = custom
+      ? custom
+      : picks
       ? picks.map((p) => ({ ...content.lessons[p.lessonId].steps.find((s) => s.id === p.stepId)!, id: `${p.lessonId}/${p.stepId}` }))
       : lesson.steps;
     picks?.forEach((p) => this.lessonOf.set(`${p.lessonId}/${p.stepId}`, p.lessonId));
@@ -82,6 +86,11 @@ export class LessonSession {
       if (s.type === 'type_answer') this.typed.set(s.id, s);
       if (s.type === 'build_sentence') this.shuffled.set(s.id, shuffle(s.blocks, rng));
     }
+  }
+
+  /** Reforço sessions have no score and never pass or fail a lesson. */
+  get review() {
+    return !!(this.picks || this.custom);
   }
 
   /** Lesson the current step came from. */
@@ -181,6 +190,7 @@ export class LessonSession {
   /** Records the wrong steps always, and the score only on a pass; leaving early never gets here. */
   async finish(repo: ProgressRepository): Promise<LessonResult> {
     const r = this.result();
+    if (this.custom) return r;
     if (this.picks) {
       // Reforço: right clears the mistake, wrong keeps it.
       for (const p of this.picks) {
