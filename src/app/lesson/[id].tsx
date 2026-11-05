@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, BackHandler, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Alert, BackHandler, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { EmptyState } from '@/components/empty-state';
@@ -10,6 +10,7 @@ import { ThemedView } from '@/components/themed-view';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { content } from '@/content';
 import type { Word } from '@/content/schema';
+import { useTheme } from '@/hooks/use-theme';
 import { progressRepository } from '@/db/client';
 import { LessonSession, type LessonResult } from '@/lesson/session';
 
@@ -24,10 +25,12 @@ export default function LessonScreen() {
 
 function Player({ lessonId }: { lessonId: string }) {
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
   const lesson = content.lessons[lessonId];
   const [session, setSession] = useState(() => new LessonSession(content, lessonId));
   const [, rerender] = useState(0);
   const [picked, setPicked] = useState<number>();
+  const [text, setText] = useState('');
   const [result, setResult] = useState<LessonResult>();
   const saving = useRef(false);
 
@@ -48,6 +51,7 @@ function Player({ lessonId }: { lessonId: string }) {
     if (saving.current) return;
     session.next();
     setPicked(undefined);
+    setText('');
     if (session.finished) {
       saving.current = true;
       try {
@@ -65,6 +69,9 @@ function Player({ lessonId }: { lessonId: string }) {
 
   const q = result ? undefined : session.question();
   const step = session.current;
+  const ta = result || step.type !== 'type_answer' ? undefined : step;
+  const taWord = ta && content.words[ta.word];
+  const done = session.answered() !== undefined;
   const progress = (result ? session.steps.length : session.position) / session.steps.length;
 
   return (
@@ -89,7 +96,8 @@ function Player({ lessonId }: { lessonId: string }) {
         </ThemedView>
       ) : (
         <>
-          <ScrollView contentContainerStyle={styles.content}>
+          <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
             <ThemedText type="smallBold" themeColor="textSecondary">{lesson.title}</ThemedText>
             {q ? (
               <>
@@ -125,20 +133,64 @@ function Player({ lessonId }: { lessonId: string }) {
                   </ThemedText>
                 )}
               </>
+            ) : ta && taWord ? (
+              <>
+                <ThemedText type="small" themeColor="textSecondary">
+                  {ta.direction === 'jp_to_pt' ? 'O que significa?' : 'Como se diz em japonês?'}
+                </ThemedText>
+                <ThemedText type="subtitle">
+                  {ta.direction === 'jp_to_pt'
+                    ? `${taWord.kanji ?? taWord.kana} (${taWord.romaji})`
+                    : `${taWord.translations[0]}${taWord.hint ? ` (${taWord.hint})` : ''}`}
+                </ThemedText>
+                <TextInput
+                  value={text}
+                  onChangeText={setText}
+                  editable={!done}
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  autoComplete="off"
+                  returnKeyType="done"
+                  onSubmitEditing={() => text.trim() && !done && (session.answerText(text), rerender((n) => n + 1))}
+                  accessibilityLabel="Sua resposta"
+                  placeholder="Digite sua resposta"
+                  placeholderTextColor="#888"
+                  style={[styles.input, { color: theme.text }, done && (session.answered() ? styles.right : styles.wrong)]}
+                />
+                {done && (
+                  <ThemedText type="smallBold">
+                    {session.answered()
+                      ? 'Correto!'
+                      : `Resposta certa: ${ta.direction === 'jp_to_pt' ? taWord.translations.join(' / ') : `${taWord.kanji ?? taWord.kana} (${taWord.romaji})`}`}
+                  </ThemedText>
+                )}
+              </>
             ) : (
               <ExplanatoryStep step={step} />
             )}
           </ScrollView>
-          {(!q || session.answered() !== undefined) && <Button text="Continuar" onPress={advance} />}
+          {ta && !done && (
+            <Button
+              text="Conferir"
+              disabled={!text.trim()}
+              onPress={() => {
+                session.answerText(text);
+                rerender((n) => n + 1);
+              }}
+            />
+          )}
+          {(ta ? done : !q || done) && <Button text="Continuar" onPress={advance} />}
+          </KeyboardAvoidingView>
         </>
       )}
     </ThemedView>
   );
 }
 
-function Button({ text, onPress, secondary }: { text: string; onPress: () => void; secondary?: boolean }) {
+function Button({ text, onPress, secondary, disabled }: { text: string; onPress: () => void; secondary?: boolean; disabled?: boolean }) {
   return (
-    <Pressable onPress={onPress} accessibilityRole="button" style={[styles.button, secondary && styles.secondary]}>
+    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" style={[styles.button, secondary && styles.secondary, disabled && styles.disabled]}>
       <ThemedText style={secondary ? undefined : styles.buttonText}>{text}</ThemedText>
     </Pressable>
   );
@@ -146,6 +198,9 @@ function Button({ text, onPress, secondary }: { text: string; onPress: () => voi
 
 const styles = StyleSheet.create({
   screen: { flex: 1, paddingHorizontal: Spacing.three, width: '100%', maxWidth: MaxContentWidth, alignSelf: 'center' },
+  flex: { flex: 1 },
+  input: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, borderColor: '#888', fontSize: 20 },
+  disabled: { opacity: 0.4 },
   header: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   bar: { flex: 1, height: 8, borderRadius: 4, overflow: 'hidden' },
   fill: { height: '100%', backgroundColor: '#3c87f7' },

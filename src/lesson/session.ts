@@ -1,6 +1,7 @@
 import type { Content } from '@/content/load';
 import type { Step, Word } from '@/content/schema';
 import type { ProgressRepository } from '@/db/progress-repository';
+import { matchAnswer } from '@/lesson/match-answer';
 
 export type Rng = () => number;
 
@@ -57,10 +58,11 @@ export class LessonSession {
   readonly passScore: number;
   private index = 0;
   private questions = new Map<string, ChoiceQuestion>();
+  private typed = new Map<string, Extract<Step, { type: 'type_answer' }>>();
   private answers = new Map<string, boolean>();
 
   constructor(
-    content: Content,
+    private content: Content,
     readonly lessonId: string,
     private rng: Rng = Math.random,
   ) {
@@ -68,6 +70,7 @@ export class LessonSession {
     this.steps = lesson.steps;
     this.passScore = lesson.pass_score;
     for (const s of lesson.steps) if (s.type === 'multiple_choice') this.questions.set(s.id, buildChoice(s, content, lessonId, rng));
+    for (const s of lesson.steps) if (s.type === 'type_answer') this.typed.set(s.id, s);
   }
 
   get current(): Step {
@@ -101,14 +104,25 @@ export class LessonSession {
     return right;
   }
 
+  /** Grades typed text for the current type_answer step. A second answer to the same step is ignored. */
+  answerText(text: string): boolean {
+    const step = this.typed.get(this.current.id);
+    if (!step) throw new Error('current step is not a type_answer');
+    const prev = this.answers.get(step.id);
+    if (prev !== undefined) return prev;
+    const right = matchAnswer(this.content.words[step.word], step.direction, text, step.accepted);
+    this.answers.set(step.id, right);
+    return right;
+  }
+
   /** Moves on. A graded step must be answered first. */
   next() {
-    if (this.questions.has(this.current.id) && this.answered() === undefined) throw new Error('answer first');
+    if ((this.questions.has(this.current.id) || this.typed.has(this.current.id)) && this.answered() === undefined) throw new Error('answer first');
     this.index++;
   }
 
   result(): LessonResult {
-    const graded = [...this.questions.keys()];
+    const graded = this.steps.filter((s) => this.questions.has(s.id) || this.typed.has(s.id)).map((s) => s.id);
     const wrongStepIds = graded.filter((id) => !this.answers.get(id));
     const score = Math.round((100 * (graded.length - wrongStepIds.length)) / graded.length);
     return { score, passed: score >= this.passScore, wrongStepIds };

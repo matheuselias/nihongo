@@ -10,12 +10,18 @@ const rng = () => 0.3;
 function play(s: LessonSession, wrong: string[] = []) {
   while (!s.finished) {
     const q = s.question();
-    if (q) s.answer(wrong.includes(s.current.id) ? (q.answer + 1) % 4 : q.answer);
+    const bad = wrong.includes(s.current.id);
+    if (q) s.answer(bad ? (q.answer + 1) % 4 : q.answer);
+    const st = s.current;
+    if (st.type === 'type_answer') {
+      const w = content.words[st.word];
+      s.answerText(bad ? 'zzz' : st.direction === 'pt_to_jp' ? w.kana : w.translations[0]);
+    }
     s.next();
   }
 }
 
-const graded = (id: string) => content.lessons[id].steps.filter((s) => s.type === 'multiple_choice');
+const graded = (id: string) => content.lessons[id].steps.filter((s) => s.type === 'multiple_choice' || s.type === 'type_answer');
 
 test('perfect run passes, saves and unlocks the next lesson', async () => {
   const repo = new InMemoryProgressRepository();
