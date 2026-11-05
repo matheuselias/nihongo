@@ -1,4 +1,5 @@
 import { content } from '@/content';
+import { GRADED_TYPES } from '@/content/schema';
 import { InMemoryProgressRepository } from '@/db/progress-repository';
 import { LessonSession } from '@/lesson/session';
 import { lessonStates } from '@/trail/rules';
@@ -7,8 +8,8 @@ const first = content.sections[0].lessons[0].id;
 const rng = () => 0.3;
 
 /** Plays the lesson, answering graded steps right unless the step id is in `wrong`. */
-function play(s: LessonSession, wrong: string[] = []) {
-  while (!s.finished) {
+function play(s: LessonSession, wrong: string[] = [], stopAt?: string) {
+  while (!s.finished && s.current.type !== stopAt) {
     const q = s.question();
     const bad = wrong.includes(s.current.id);
     if (q) s.answer(bad ? (q.answer + 1) % 4 : q.answer);
@@ -17,11 +18,14 @@ function play(s: LessonSession, wrong: string[] = []) {
       const w = content.words[st.word];
       s.answerText(bad ? 'zzz' : st.direction === 'pt_to_jp' ? w.kana : w.translations[0]);
     }
+    if (st.type === 'situation') s.answerSituation(bad ? (st.answer + 1) % st.options.length : st.answer);
+    if (st.type === 'true_false') s.answerBool(bad ? !st.answer : st.answer);
+    if (st.type === 'build_sentence') s.answerBlocks(bad ? [...st.blocks].reverse() : st.blocks);
     s.next();
   }
 }
 
-const graded = (id: string) => content.lessons[id].steps.filter((s) => s.type === 'multiple_choice' || s.type === 'type_answer');
+const graded = (id: string) => content.lessons[id].steps.filter((s) => GRADED_TYPES.includes(s.type));
 
 test('perfect run passes, saves and unlocks the next lesson', async () => {
   const repo = new InMemoryProgressRepository();
@@ -77,4 +81,32 @@ test('manual distractors are used as given', () => {
   if (!step || step[1].type !== 'multiple_choice') return;
   const q = new LessonSession(content, step[0], rng).questionFor(step[1].id)!;
   expect(q.options.map((o) => o.id).sort()).toEqual([step[1].word, ...step[1].distractors!].sort());
+});
+
+test('every lesson can be completed with every graded step type', async () => {
+  for (const id of Object.keys(content.lessons)) {
+    const repo = new InMemoryProgressRepository();
+    const s = new LessonSession(content, id, rng);
+    play(s);
+    expect(await s.finish(repo)).toMatchObject({ score: 100, passed: true });
+  }
+});
+
+test('situation, true_false and build_sentence: wrong answers count and are answered once', () => {
+  const all = Object.values(content.lessons);
+  for (const type of ['situation', 'true_false', 'build_sentence'] as const) {
+    const lesson = all.find((l) => l.steps.some((st) => st.type === type))!;
+    const wrong = lesson.steps.filter((st) => st.type === type).map((st) => st.id);
+    const s = new LessonSession(content, lesson.id, rng);
+    play(s, wrong);
+    expect(s.result().wrongStepIds).toEqual(wrong);
+  }
+  const lesson = all.find((l) => l.steps.some((st) => st.type === 'build_sentence'))!;
+  const s = new LessonSession(content, lesson.id, rng);
+  play(s, [], 'build_sentence');
+  const st = s.current as Extract<typeof s.current, { type: 'build_sentence' }>;
+  expect([...s.blocks()].sort()).toEqual([...st.blocks].sort());
+  expect(s.answerBlocks([...st.blocks].reverse())).toBe(false);
+  expect(s.answerBlocks(st.blocks)).toBe(false);
+  expect(() => s.next()).not.toThrow();
 });

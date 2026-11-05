@@ -9,7 +9,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { content } from '@/content';
-import type { Word } from '@/content/schema';
+import { GRADED_TYPES, type Word } from '@/content/schema';
 import { useTheme } from '@/hooks/use-theme';
 import { progressRepository } from '@/db/client';
 import { LessonSession, type LessonResult } from '@/lesson/session';
@@ -31,6 +31,7 @@ function Player({ lessonId }: { lessonId: string }) {
   const [, rerender] = useState(0);
   const [picked, setPicked] = useState<number>();
   const [text, setText] = useState('');
+  const [placed, setPlaced] = useState<number[]>([]);
   const [result, setResult] = useState<LessonResult>();
   const saving = useRef(false);
 
@@ -52,6 +53,7 @@ function Player({ lessonId }: { lessonId: string }) {
     session.next();
     setPicked(undefined);
     setText('');
+    setPlaced([]);
     if (session.finished) {
       saving.current = true;
       try {
@@ -65,6 +67,7 @@ function Player({ lessonId }: { lessonId: string }) {
   const retry = () => {
     setSession(new LessonSession(content, lessonId));
     setResult(undefined);
+    setPlaced([]);
   };
 
   const q = result ? undefined : session.question();
@@ -72,6 +75,10 @@ function Player({ lessonId }: { lessonId: string }) {
   const ta = result || step.type !== 'type_answer' ? undefined : step;
   const taWord = ta && content.words[ta.word];
   const done = session.answered() !== undefined;
+  const graded = !result && GRADED_TYPES.includes(step.type);
+  const bs = result || step.type !== 'build_sentence' ? undefined : step;
+  const bank = bs ? session.blocks() : [];
+  const rerun = () => rerender((n) => n + 1);
   const progress = (result ? session.steps.length : session.position) / session.steps.length;
 
   return (
@@ -166,6 +173,76 @@ function Player({ lessonId }: { lessonId: string }) {
                   </ThemedText>
                 )}
               </>
+            ) : step.type === 'situation' ? (
+              <>
+                <ThemedText type="subtitle">{step.context}</ThemedText>
+                {step.options.map((o, i) => (
+                  <Pressable
+                    key={i}
+                    disabled={done}
+                    accessibilityRole="button"
+                    onPress={() => (session.answerSituation(i), setPicked(i))}>
+                    <ThemedView type="backgroundElement" style={[styles.option, done && (i === step.answer ? styles.right : i === picked ? styles.wrong : undefined)]}>
+                      <ThemedText type="subtitle">{o.jp}</ThemedText>
+                      <ThemedText themeColor="textSecondary">{o.romaji}</ThemedText>
+                      {done && <ThemedText>{o.pt}</ThemedText>}
+                    </ThemedView>
+                  </Pressable>
+                ))}
+                {done && (
+                  <ThemedText type="smallBold">
+                    {session.answered() ? 'Correto!' : `Resposta certa: ${step.options[step.answer].jp}`} {step.explanation}
+                  </ThemedText>
+                )}
+              </>
+            ) : step.type === 'true_false' ? (
+              <>
+                <ThemedText type="subtitle">{step.statement}</ThemedText>
+                {[true, false].map((v) => (
+                  <Pressable
+                    key={String(v)}
+                    disabled={done}
+                    accessibilityRole="button"
+                    onPress={() => (session.answerBool(v), setPicked(v ? 1 : 0))}>
+                    <ThemedView type="backgroundElement" style={[styles.option, done && (v === step.answer ? styles.right : picked === (v ? 1 : 0) ? styles.wrong : undefined)]}>
+                      <ThemedText>{v ? 'Verdadeiro' : 'Falso'}</ThemedText>
+                    </ThemedView>
+                  </Pressable>
+                ))}
+                {done && (
+                  <ThemedText type="smallBold">
+                    {session.answered() ? 'Correto!' : 'Incorreto.'} {step.explanation}
+                  </ThemedText>
+                )}
+              </>
+            ) : bs ? (
+              <>
+                <ThemedText type="small" themeColor="textSecondary">Monte a frase em japonês</ThemedText>
+                <ThemedText type="subtitle">{bs.pt}</ThemedText>
+                <ThemedView type="backgroundElement" style={[styles.tray, done && (session.answered() ? styles.right : styles.wrong)]}>
+                  {placed.map((bi) => (
+                    <Pressable key={bi} disabled={done} accessibilityRole="button" accessibilityLabel={`Remover ${bank[bi]}`} onPress={() => setPlaced(placed.filter((x) => x !== bi))}>
+                      <ThemedView type="backgroundSelected" style={styles.block}>
+                        <ThemedText>{bank[bi]}</ThemedText>
+                      </ThemedView>
+                    </Pressable>
+                  ))}
+                </ThemedView>
+                <ThemedView style={styles.tray}>
+                  {bank.map((b, bi) => (
+                    <Pressable key={bi} disabled={done || placed.includes(bi)} accessibilityRole="button" onPress={() => setPlaced([...placed, bi])}>
+                      <ThemedView type="backgroundElement" style={[styles.block, placed.includes(bi) && styles.disabled]}>
+                        <ThemedText>{b}</ThemedText>
+                      </ThemedView>
+                    </Pressable>
+                  ))}
+                </ThemedView>
+                {done && (
+                  <ThemedText type="smallBold">
+                    {session.answered() ? 'Correto!' : `Resposta certa: ${bs.blocks.join(' ')}`} ({bs.romaji})
+                  </ThemedText>
+                )}
+              </>
             ) : (
               <ExplanatoryStep step={step} />
             )}
@@ -180,7 +257,14 @@ function Player({ lessonId }: { lessonId: string }) {
               }}
             />
           )}
-          {(ta ? done : !q || done) && <Button text="Continuar" onPress={advance} />}
+          {bs && !done && (
+            <Button
+              text="Conferir"
+              disabled={placed.length !== bank.length}
+              onPress={() => (session.answerBlocks(placed.map((i) => bank[i])), rerun())}
+            />
+          )}
+          {(!graded || done) && <Button text="Continuar" onPress={advance} />}
           </KeyboardAvoidingView>
         </>
       )}
@@ -207,6 +291,8 @@ const styles = StyleSheet.create({
   body: { flex: 1, justifyContent: 'center', gap: Spacing.three },
   content: { gap: Spacing.three, paddingVertical: Spacing.four },
   option: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, borderColor: 'transparent' },
+  tray: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two, minHeight: 56, padding: Spacing.two, borderRadius: Spacing.three, borderWidth: 2, borderColor: 'transparent' },
+  block: { paddingVertical: Spacing.two, paddingHorizontal: Spacing.three, borderRadius: Spacing.two },
   right: { borderColor: '#2e9d57' },
   wrong: { borderColor: '#d64545' },
   button: { backgroundColor: '#3c87f7', padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center' },

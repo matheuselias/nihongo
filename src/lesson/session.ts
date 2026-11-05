@@ -1,5 +1,5 @@
 import type { Content } from '@/content/load';
-import type { Step, Word } from '@/content/schema';
+import { GRADED_TYPES, type Step, type Word } from '@/content/schema';
 import type { ProgressRepository } from '@/db/progress-repository';
 import { matchAnswer } from '@/lesson/match-answer';
 
@@ -52,7 +52,7 @@ export function buildChoice(
   return { prompt: word, direction: step.direction, options, answer: options.indexOf(word) };
 }
 
-/** One run through a lesson. Graded steps are answered once; step types not built yet are shown but never graded. */
+/** One run through a lesson. Graded steps are answered once. */
 export class LessonSession {
   readonly steps: Step[];
   readonly passScore: number;
@@ -60,6 +60,7 @@ export class LessonSession {
   private questions = new Map<string, ChoiceQuestion>();
   private typed = new Map<string, Extract<Step, { type: 'type_answer' }>>();
   private answers = new Map<string, boolean>();
+  private shuffled = new Map<string, string[]>();
 
   constructor(
     private content: Content,
@@ -71,6 +72,7 @@ export class LessonSession {
     this.passScore = lesson.pass_score;
     for (const s of lesson.steps) if (s.type === 'multiple_choice') this.questions.set(s.id, buildChoice(s, content, lessonId, rng));
     for (const s of lesson.steps) if (s.type === 'type_answer') this.typed.set(s.id, s);
+    for (const s of lesson.steps) if (s.type === 'build_sentence') this.shuffled.set(s.id, shuffle(s.blocks, rng));
   }
 
   get current(): Step {
@@ -115,14 +117,48 @@ export class LessonSession {
     return right;
   }
 
+  private record(right: boolean): boolean {
+    const prev = this.answers.get(this.current.id);
+    if (prev !== undefined) return prev;
+    this.answers.set(this.current.id, right);
+    return right;
+  }
+
+  /** Picks an option of the current situation step. A second answer is ignored. */
+  answerSituation(choice: number): boolean {
+    const step = this.current;
+    if (step.type !== 'situation') throw new Error('current step is not a situation');
+    return this.record(choice === step.answer);
+  }
+
+  answerBool(value: boolean): boolean {
+    const step = this.current;
+    if (step.type !== 'true_false') throw new Error('current step is not a true_false');
+    return this.record(value === step.answer);
+  }
+
+  /** The blocks of the current build_sentence step in the order shown to the person. */
+  blocks(): string[] {
+    const b = this.shuffled.get(this.current.id);
+    if (!b) throw new Error('current step is not a build_sentence');
+    return b;
+  }
+
+  /** `placed` is the blocks' text in the order the person put them. */
+  answerBlocks(placed: string[]): boolean {
+    const step = this.current;
+    if (step.type !== 'build_sentence') throw new Error('current step is not a build_sentence');
+    return this.record(placed.join('\n') === step.blocks.join('\n'));
+  }
+
   /** Moves on. A graded step must be answered first. */
   next() {
-    if ((this.questions.has(this.current.id) || this.typed.has(this.current.id)) && this.answered() === undefined) throw new Error('answer first');
+    if (GRADED_TYPES.includes(this.current.type) && this.answered() === undefined) throw new Error('answer first');
     this.index++;
   }
 
   result(): LessonResult {
-    const graded = this.steps.filter((s) => this.questions.has(s.id) || this.typed.has(s.id)).map((s) => s.id);
+    const graded = this.steps.filter((s) => GRADED_TYPES.includes(s.type)).map((s) => s.id);
     const wrongStepIds = graded.filter((id) => !this.answers.get(id));
     const score = Math.round((100 * (graded.length - wrongStepIds.length)) / graded.length);
     return { score, passed: score >= this.passScore, wrongStepIds };

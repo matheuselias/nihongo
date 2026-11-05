@@ -32,7 +32,7 @@ function Line({ jp, romaji, pt, extra }: { jp: string; romaji: string; pt: strin
   );
 }
 
-/** Ungraded steps. Anything else (types not built yet) gets a safe placeholder. */
+/** Ungraded steps. Graded ones are rendered by the player. */
 export function ExplanatoryStep({ step }: { step: Step }) {
   switch (step.type) {
     case 'present':
@@ -62,7 +62,7 @@ export function ExplanatoryStep({ step }: { step: Step }) {
         </>
       );
     default:
-      return <ThemedText themeColor="textSecondary">Este tipo de exercício chega em breve. Pode continuar.</ThemedText>;
+      return null;
   }
 }
 
