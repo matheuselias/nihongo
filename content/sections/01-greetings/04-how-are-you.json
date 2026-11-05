@@ -19,7 +19,7 @@
       "title": "Pessoas que não se veem todo dia",
       "lines": [
         { "speaker": "A", "jp": "カミラさん、こんにちは！", "romaji": "Kamira-san, konnichiwa!", "pt": "Camila, boa tarde!" },
-        { "speaker": "B", "jp": "あ、パウロさん、こんにちは！お元気ですか？", "romaji": "A, Paurosan, konnichiwa! Ogenki desu ka?", "pt": "Ah, Paulo, boa tarde! Tudo bem?" },
+        { "speaker": "B", "jp": "あ、パウロさん、こんにちは！お元気ですか？", "romaji": "A, Pauro-san, konnichiwa! Ogenki desu ka?", "pt": "Ah, Paulo, boa tarde! Tudo bem?" },
         { "speaker": "A", "jp": "はい、おかげさまで元気です。カミラさんは？", "romaji": "Hai, okagesama de genki desu. Kamira-san wa?", "pt": "Sim, felizmente. E você, Camila?" },
         { "speaker": "B", "jp": "わたしもげんきです。", "romaji": "Watashi mo genki desu.", "pt": "Eu também estou bem." }
       ]
