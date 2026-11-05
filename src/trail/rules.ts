@@ -16,3 +16,16 @@ export function lessonStates(content: Content, completed: ReadonlySet<string>): 
     }
   return states;
 }
+
+export type ReviewPoint = { id: string; afterSectionId: string; sectionIds: [string, string] };
+
+/** Review point N shows after section 2N, once that section is completed. It never gates a lesson. */
+export function reviewPoints(content: Content, completed: ReadonlySet<string>): ReviewPoint[] {
+  const points: ReviewPoint[] = [];
+  for (let n = 1; 2 * n <= content.sections.length; n++) {
+    const [a, b] = content.sections.slice(2 * n - 2, 2 * n);
+    if (b.lessons.every((l) => completed.has(l.id)))
+      points.push({ id: `review-${n}`, afterSectionId: b.id, sectionIds: [a.id, b.id] });
+  }
+  return points;
+}

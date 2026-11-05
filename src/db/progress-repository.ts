@@ -17,6 +17,10 @@ export interface ProgressRepository {
   /** Oldest first. */
   listMistakes(limit?: number): Promise<Mistake[]>;
   clearMistake(lessonId: string, stepId: string): Promise<void>;
+  /** Ids of the review points the person finished. */
+  completedReviews(): Promise<string[]>;
+  /** Idempotent: finishing again keeps the first date. */
+  recordReview(reviewId: string, now?: Date): Promise<void>;
 }
 
 export class InMemoryProgressRepository implements ProgressRepository {
@@ -51,5 +55,15 @@ export class InMemoryProgressRepository implements ProgressRepository {
 
   async clearMistake(lessonId: string, stepId: string) {
     this.mistakes.delete(`${lessonId}/${stepId}`);
+  }
+
+  private reviews = new Map<string, Date>();
+
+  async completedReviews() {
+    return [...this.reviews.keys()];
+  }
+
+  async recordReview(reviewId: string, now = new Date()) {
+    if (!this.reviews.has(reviewId)) this.reviews.set(reviewId, now);
   }
 }

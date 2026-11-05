@@ -18,7 +18,7 @@ import { LessonSession, type LessonResult } from '@/lesson/session';
 const label = (w: Word, dir: 'jp_to_pt' | 'pt_to_jp') =>
   dir === 'jp_to_pt' ? w.translations[0] : `${w.kanji ?? w.kana} (${w.romaji})`;
 
-export function Player({ lessonId, picks, custom, title }: { lessonId: string; picks?: MistakeKey[]; custom?: Step[]; title?: string }) {
+export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: string; picks?: MistakeKey[]; custom?: Step[]; title?: string; onDone?: () => void }) {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
     const [session, setSession] = useState(() => new LessonSession(content, lessonId, Math.random, picks, custom));
@@ -51,7 +51,9 @@ export function Player({ lessonId, picks, custom, title }: { lessonId: string; p
     if (session.finished) {
       saving.current = true;
       try {
-        setResult(await session.finish(progressRepository));
+        const r = await session.finish(progressRepository);
+        await onDone?.();
+        setResult(r);
       } finally {
         saving.current = false;
       }

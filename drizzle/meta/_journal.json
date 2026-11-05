@@ -15,6 +15,13 @@
       "when": 1793897972814,
       "tag": "0001_far_hulk",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793900960493,
+      "tag": "0002_review_progress",
+      "breakpoints": true
     }
   ]
 }

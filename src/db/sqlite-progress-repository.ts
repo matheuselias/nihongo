@@ -2,7 +2,7 @@ import { and, asc, eq, sql } from 'drizzle-orm';
 import type { ExpoSQLiteDatabase } from 'drizzle-orm/expo-sqlite';
 
 import type { ProgressRepository } from './progress-repository';
-import { lessonProgress, stepMistakes } from './schema';
+import { lessonProgress, reviewProgress, stepMistakes } from './schema';
 
 export class SqliteProgressRepository implements ProgressRepository {
   constructor(private db: ExpoSQLiteDatabase) {}
@@ -38,5 +38,13 @@ export class SqliteProgressRepository implements ProgressRepository {
 
   async clearMistake(lessonId: string, stepId: string) {
     await this.db.delete(stepMistakes).where(and(eq(stepMistakes.lessonId, lessonId), eq(stepMistakes.stepId, stepId)));
+  }
+
+  async completedReviews() {
+    return (await this.db.select().from(reviewProgress)).map((r) => r.reviewId);
+  }
+
+  async recordReview(reviewId: string, now = new Date()) {
+    await this.db.insert(reviewProgress).values({ reviewId, completedAt: now }).onConflictDoNothing();
   }
 }

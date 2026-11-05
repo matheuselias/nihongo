@@ -17,3 +17,8 @@ export const stepMistakes = sqliteTable(
   },
   (t) => [primaryKey({ columns: [t.lessonId, t.stepId] })],
 );
+
+export const reviewProgress = sqliteTable('review_progress', {
+  reviewId: text('review_id').primaryKey(),
+  completedAt: integer('completed_at', { mode: 'timestamp_ms' }).notNull(),
+});
