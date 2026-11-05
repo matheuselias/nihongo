@@ -1,0 +1,43 @@
+{
+  "id": "demonstratives-kono-sono-ano",
+  "title": "この・その・あの",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "kono" },
+    { "id": "s02", "type": "present", "word": "sono" },
+    { "id": "s03", "type": "present", "word": "ano" },
+    { "id": "s04", "type": "present", "word": "dono" },
+    { "id": "s05", "type": "present", "word": "tishatsu" },
+    {
+      "id": "s06",
+      "type": "rule",
+      "title": "Sempre com um substantivo",
+      "body": "Diferente de これ, それ e あれ, estes estão sempre ligados diretamente a um substantivo e equivalem ao nosso este(a), esse(a) e aquele(a). Ao invés de これはかわいいですね！, você pode ser mais específico: このTシャツはかわいいですね！ Para perguntar, use どの, que também sempre acompanha um substantivo e é usado com a partícula が.",
+      "words": ["kono", "sono", "ano", "dono"]
+    },
+    {
+      "id": "s07",
+      "type": "examples",
+      "items": [
+        { "jp": "このTシャツはかわいいですね！", "romaji": "Kono tishatsu wa kawaii desu ne!", "pt": "Esta camiseta é bonitinha, né?! (formal)" },
+        { "jp": "そのゲーム、おもしろい？", "romaji": "Sono geemu, omoshiroi?", "pt": "Esse jogo é interessante/legal? (informal)" },
+        { "jp": "あの山は高いよね！", "romaji": "Ano yama wa takai yo ne!", "pt": "Aquela montanha é alta, né? (informal)" },
+        { "jp": "どの車が好きですか？", "romaji": "Dono kuruma ga suki desu ka?", "pt": "De qual carro você gosta?" }
+      ]
+    },
+    { "id": "s08", "type": "multiple_choice", "word": "sono", "direction": "jp_to_pt", "distractors": ["kono", "ano", "dono"] },
+    { "id": "s09", "type": "multiple_choice", "word": "ano", "direction": "pt_to_jp", "distractors": ["kono", "sono", "dono"] },
+    { "id": "s10", "type": "multiple_choice", "word": "dono", "direction": "jp_to_pt", "distractors": ["kono", "sono", "ano"] },
+    {
+      "id": "s11",
+      "type": "situation",
+      "context": "Você está vestindo uma camiseta e quer dizer \"Esta camiseta é fofinha.\"",
+      "options": [
+        { "jp": "このTシャツ", "romaji": "Kono tishatsu", "pt": "Esta camiseta" },
+        { "jp": "あのTシャツ", "romaji": "Ano tishatsu", "pt": "Aquela camiseta" }
+      ],
+      "answer": 0,
+      "explanation": "この indica algo perto de quem fala, e vem direto antes do substantivo."
+    },
+    { "id": "s12", "type": "build_sentence", "pt": "Esta camiseta é fofinha.", "blocks": ["この", "Tシャツ", "は", "かわいい", "です"], "romaji": "Kono tishatsu wa kawaii desu" }
+  ]
+}

@@ -1,0 +1,19 @@
+[
+  {"id": "kore", "kana": "これ", "romaji": "kore", "translations": ["isto"], "note": "Indica algo bem perto de quem fala. Sempre vem seguido de uma partícula; nunca aparece junto com outras palavras.", "generates_card": true},
+  {"id": "sore", "kana": "それ", "romaji": "sore", "translations": ["isso"], "note": "Indica algo perto da pessoa com quem você fala. Em português coloquial: \"isso aí\".", "generates_card": true},
+  {"id": "are", "kana": "あれ", "romaji": "are", "translations": ["aquilo"], "note": "Indica algo longe dos dois. Em português coloquial: \"aquilo lá\".", "generates_card": true},
+  {"id": "dore", "kana": "どれ", "romaji": "dore", "translations": ["qual (entre vários)"], "note": "Usado para perguntar, no fim da frase.", "generates_card": true},
+  {"id": "kono", "kana": "この", "romaji": "kono", "translations": ["este", "esta"], "note": "Sempre ligado diretamente a um substantivo: このTシャツ.", "generates_card": true},
+  {"id": "sono", "kana": "その", "romaji": "sono", "translations": ["esse", "essa"], "note": "Sempre ligado diretamente a um substantivo.", "generates_card": true},
+  {"id": "ano", "kana": "あの", "romaji": "ano", "translations": ["aquele", "aquela"], "note": "Sempre ligado diretamente a um substantivo.", "generates_card": true},
+  {"id": "dono", "kana": "どの", "romaji": "dono", "translations": ["qual (com substantivo)"], "note": "Sempre acompanha um substantivo e é usado com a partícula が: どのくるまがすきですか？", "generates_card": true},
+  {"id": "koko", "kana": "ここ", "romaji": "koko", "translations": ["aqui"], "note": "Nunca aparece junto com um substantivo.", "generates_card": true},
+  {"id": "soko", "kana": "そこ", "romaji": "soko", "translations": ["aí"], "note": "Nunca aparece junto com um substantivo.", "generates_card": true},
+  {"id": "asoko", "kana": "あそこ", "romaji": "asoko", "translations": ["ali"], "note": "Nunca aparece junto com um substantivo.", "generates_card": true},
+  {"id": "ga", "kana": "が", "romaji": "ga", "translations": ["partícula (com どれ e どの)"], "note": "Aparece com どれ e どの: どれがアナさんのですか？", "generates_card": false},
+  {"id": "ka", "kana": "か", "romaji": "ka", "translations": ["partícula de pergunta"], "note": "Em ですか, deixa a pergunta polida. Em frases informais, basta o ponto de interrogação.", "generates_card": false},
+  {"id": "terebi", "kana": "テレビ", "romaji": "terebi", "translations": ["TV"], "generates_card": true},
+  {"id": "manga", "kana": "まんが", "romaji": "manga", "translations": ["mangá"], "generates_card": true},
+  {"id": "tishatsu", "kana": "Tシャツ", "romaji": "tishatsu", "translations": ["camiseta"], "generates_card": true},
+  {"id": "supaa", "kana": "スーパー", "romaji": "supaa", "translations": ["supermercado"], "generates_card": true}
+]

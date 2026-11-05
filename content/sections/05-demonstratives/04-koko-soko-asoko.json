@@ -1,0 +1,50 @@
+{
+  "id": "demonstratives-koko-soko-asoko",
+  "title": "ここ・そこ・あそこ",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "koko" },
+    { "id": "s02", "type": "present", "word": "soko" },
+    { "id": "s03", "type": "present", "word": "asoko" },
+    { "id": "s04", "type": "present", "word": "supaa" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Indicando posição",
+      "body": "Para fechar as famílias de demonstrativos, estes indicam posição: ここ (aqui), そこ (aí) e あそこ (ali). Para perguntar, どこ (onde). Assim como これ, それ e あれ, nunca aparecem junto com um substantivo. Ou são seguidos de uma partícula gramatical, ou ficam no final da frase, com ou sem です depois, dependendo se a frase é polida ou não.",
+      "words": ["koko", "soko", "asoko", "doko"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "ここはサンパウロです。", "romaji": "Koko wa Sanpauro desu.", "pt": "Aqui é São Paulo." },
+        { "jp": "スーパーはそこです。", "romaji": "Supaa wa soko desu.", "pt": "O supermercado é aí." },
+        { "jp": "あそこは電車の駅です。", "romaji": "Asoko wa densha no eki desu.", "pt": "Ali é a estação de trem." },
+        { "jp": "本屋さんはどこですか？", "romaji": "Honya-san wa doko desu ka?", "pt": "Onde fica a livraria?" }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "koko", "direction": "jp_to_pt", "distractors": ["soko", "asoko", "doko"] },
+    { "id": "s08", "type": "multiple_choice", "word": "soko", "direction": "pt_to_jp", "distractors": ["koko", "asoko", "doko"] },
+    { "id": "s09", "type": "type_answer", "word": "asoko", "direction": "pt_to_jp" },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "ここ, そこ e あそこ podem vir junto com um substantivo, como em ここスーパー.",
+      "answer": false,
+      "explanation": "Assim como これ, それ e あれ, eles nunca aparecem junto com um substantivo."
+    },
+    {
+      "id": "s11",
+      "type": "situation",
+      "context": "Você está falando do supermercado, que fica perto da pessoa com quem conversa, e quer dizer \"O supermercado é aí.\"",
+      "options": [
+        { "jp": "スーパーはここです。", "romaji": "Supaa wa koko desu.", "pt": "O supermercado é aqui." },
+        { "jp": "スーパーはそこです。", "romaji": "Supaa wa soko desu.", "pt": "O supermercado é aí." },
+        { "jp": "スーパーはあそこです。", "romaji": "Supaa wa asoko desu.", "pt": "O supermercado é ali." }
+      ],
+      "answer": 1,
+      "explanation": "そこ indica um lugar perto de quem ouve. ここ é perto de quem fala e あそこ é longe dos dois."
+    },
+    { "id": "s12", "type": "build_sentence", "pt": "O supermercado é aí.", "blocks": ["スーパー", "は", "そこ", "です"], "romaji": "Supaa wa soko desu" }
+  ]
+}

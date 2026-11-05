@@ -1,0 +1,53 @@
+{
+  "id": "demonstratives-dore",
+  "title": "Perguntando com どれ",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "dore" },
+    { "id": "s02", "type": "present", "word": "ga" },
+    { "id": "s03", "type": "present", "word": "ka" },
+    { "id": "s04", "type": "present", "word": "manga" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Qual deles?",
+      "body": "Para fazer perguntas, usamos どれ no final da frase, acompanhado de ですか quando a linguagem for formal, ou apenas de um ponto de interrogação num discurso informal. Também dá para usar どれ com が no começo da frase, tanto faz. O importante é conseguir perguntar.",
+      "words": ["dore", "ga", "ka"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "ヒカルドさんのまんがはどれですか？", "romaji": "Hikarudo-san no manga wa dore desu ka?", "pt": "Qual é o seu mangá, Ricardo? (formal)" },
+        { "jp": "ゆみちゃんの車はどれ？", "romaji": "Yumi-chan no kuruma wa dore?", "pt": "Qual é o seu carro, Yumi? (informal)" },
+        { "jp": "どれがアナさんのですか？", "romaji": "Dore ga Ana-san no desu ka?", "pt": "Qual é o seu, Ana?" }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "dore", "direction": "jp_to_pt", "distractors": ["kore", "sore", "are"] },
+    { "id": "s08", "type": "type_answer", "word": "manga", "direction": "pt_to_jp" },
+    {
+      "id": "s09",
+      "type": "situation",
+      "context": "Você conversa com a Yumi, uma amiga próxima, e quer perguntar qual é o carro dela.",
+      "options": [
+        { "jp": "ゆみちゃんの車はどれですか？", "romaji": "Yumi-chan no kuruma wa dore desu ka?", "pt": "Qual é o seu carro, Yumi? (formal)" },
+        { "jp": "ゆみちゃんの車はどれ？", "romaji": "Yumi-chan no kuruma wa dore?", "pt": "Qual é o seu carro, Yumi? (informal)" }
+      ],
+      "answer": 1,
+      "explanation": "Entre amigos, o discurso é informal: basta どれ e o ponto de interrogação, sem ですか."
+    },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "É possível perguntar começando a frase com どれ e a partícula が, como em どれがアナさんのですか？",
+      "answer": true,
+      "explanation": "どれ pode ficar no final da frase ou aparecer com が no começo, tanto faz."
+    },
+    {
+      "id": "s11",
+      "type": "build_sentence",
+      "pt": "Qual é o seu mangá, Ricardo?",
+      "blocks": ["ヒカルドさんの", "まんが", "は", "どれ", "です", "か"],
+      "romaji": "Hikarudo-san no manga wa dore desu ka"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "demonstratives-kore-sore-are",
+  "title": "これ・それ・あれ",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "kore" },
+    { "id": "s02", "type": "present", "word": "sore" },
+    { "id": "s03", "type": "present", "word": "are" },
+    { "id": "s04", "type": "present", "word": "terebi" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Isto, isso e aquilo",
+      "body": "Em gramatiquês, são os \"pronomes demonstrativos invariáveis\": usados quando você quer falar de algo sem saber o nome, ou quando quer indicar algo. これ está bem perto de quem fala, それ está perto da pessoa com quem você fala e あれ está longe dos dois. Mas cuidado: sempre são seguidos de alguma partícula gramatical. Nunca aparecem junto com outras palavras.",
+      "words": ["kore", "sore", "are", "wa"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "これはテレビです。", "romaji": "Kore wa terebi desu.", "pt": "Isto é uma TV." },
+        { "jp": "それはチェンジドラゴンのフィギアですか？", "romaji": "Sore wa Chenji Doragon no figyua desu ka?", "pt": "Isso é uma figure do Change Dragon?" },
+        { "jp": "あれは僕の家です。", "romaji": "Are wa boku no ie desu.", "pt": "Aquela é a minha casa." }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "kore", "direction": "jp_to_pt", "distractors": ["sore", "are", "terebi"] },
+    { "id": "s08", "type": "multiple_choice", "word": "are", "direction": "pt_to_jp", "distractors": ["kore", "sore", "terebi"] },
+    { "id": "s09", "type": "type_answer", "word": "sore", "direction": "pt_to_jp" },
+    {
+      "id": "s10",
+      "type": "situation",
+      "context": "Há uma TV bem ao seu lado e você quer dizer \"Isto é uma TV.\"",
+      "options": [
+        { "jp": "これはテレビです。", "romaji": "Kore wa terebi desu.", "pt": "Isto é uma TV." },
+        { "jp": "あれはテレビです。", "romaji": "Are wa terebi desu.", "pt": "Aquilo é uma TV." }
+      ],
+      "answer": 0,
+      "explanation": "これ indica algo bem perto de quem fala. あれ é para algo longe dos dois."
+    },
+    {
+      "id": "s11",
+      "type": "true_false",
+      "statement": "これ, それ e あれ podem aparecer junto com um substantivo, como em これテレビ.",
+      "answer": false,
+      "explanation": "Eles sempre são seguidos de uma partícula gramatical e nunca aparecem junto com outras palavras."
+    },
+    { "id": "s12", "type": "build_sentence", "pt": "Isto é uma TV.", "blocks": ["これ", "は", "テレビ", "です"], "romaji": "Kore wa terebi desu" }
+  ]
+}
