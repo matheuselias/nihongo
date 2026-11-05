@@ -1,0 +1,34 @@
+{
+  "id": "affirming-and-denying-more-examples",
+  "title": "Mais exemplos",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "saikou" },
+    { "id": "s02", "type": "present", "word": "kawaii" },
+    {
+      "id": "s03",
+      "type": "rule",
+      "title": "Lendo \"sobre...\"",
+      "body": "Uma boa forma de entender a frase é lê-la de forma bem literal: o que vem antes de は é o assunto, e o que vem depois, junto com です, é o que dizemos sobre ele."
+    },
+    {
+      "id": "s04",
+      "type": "examples",
+      "items": [
+        { "jp": "そんごくうはサイヤ人です。", "romaji": "Son Goku wa saiyajin desu.", "pt": "Son Goku é um Saiya-jin.", "literal": "Sobre Son Goku, é Saiya-jin." },
+        { "jp": "日本はさいこうです。", "romaji": "Nihon wa saikou desu.", "pt": "O Japão é o máximo.", "literal": "Sobre o Japão, é o máximo." },
+        { "jp": "エミちゃんはかわいいです。", "romaji": "Emi-chan wa kawaii desu.", "pt": "A Emi-chan é fofinha.", "literal": "Sobre a Emi-chan, é fofinha." }
+      ]
+    },
+    { "id": "s05", "type": "multiple_choice", "word": "saikou", "direction": "jp_to_pt", "distractors": ["kawaii", "gakusei", "hontou"] },
+    { "id": "s06", "type": "multiple_choice", "word": "kawaii", "direction": "pt_to_jp", "distractors": ["saikou", "gakusei", "watashi"] },
+    {
+      "id": "s07",
+      "type": "true_false",
+      "statement": "Em 日本はさいこうです, o assunto da frase é 日本 (o Japão).",
+      "answer": true,
+      "explanation": "Tudo que vem antes de は é o assunto: a frase fala sobre o Japão."
+    },
+    { "id": "s08", "type": "build_sentence", "pt": "O Japão é o máximo.", "blocks": ["日本", "は", "さいこう", "です"], "romaji": "Nihon wa saikou desu" },
+    { "id": "s09", "type": "type_answer", "word": "kawaii", "direction": "jp_to_pt" }
+  ]
+}

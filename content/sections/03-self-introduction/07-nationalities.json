@@ -1,0 +1,96 @@
+{
+  "id": "self-introduction-nationalities",
+  "title": "Nacionalidades",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "jin"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "burajirujin"
+    },
+    {
+      "id": "s03",
+      "type": "present",
+      "word": "nihonjin"
+    },
+    {
+      "id": "s04",
+      "type": "present",
+      "word": "amerikajin"
+    },
+    {
+      "id": "s05",
+      "type": "present",
+      "word": "chuugokujin"
+    },
+    {
+      "id": "s06",
+      "type": "present",
+      "word": "doitsujin"
+    },
+    {
+      "id": "s07",
+      "type": "rule",
+      "title": "Nome do país + 人",
+      "body": "Para dizer a nacionalidade, acrescente o sufixo 人 (じん) ao nome do país. Use os nomes que os japoneses falam. Como não existe flexão de gênero, a mesma palavra serve para o masculino e o feminino.",
+      "words": [
+        "jin",
+        "burajirujin",
+        "nihonjin"
+      ]
+    },
+    {
+      "id": "s08",
+      "type": "multiple_choice",
+      "word": "nihonjin",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "amerikajin",
+        "chuugokujin",
+        "doitsujin"
+      ]
+    },
+    {
+      "id": "s09",
+      "type": "multiple_choice",
+      "word": "amerikajin",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "nihonjin",
+        "burajirujin",
+        "doitsujin"
+      ]
+    },
+    {
+      "id": "s10",
+      "type": "multiple_choice",
+      "word": "chuugokujin",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "nihonjin",
+        "doitsujin",
+        "burajirujin"
+      ]
+    },
+    {
+      "id": "s11",
+      "type": "type_answer",
+      "word": "doitsujin",
+      "direction": "pt_to_jp"
+    },
+    {
+      "id": "s12",
+      "type": "build_sentence",
+      "pt": "Sou brasileiro.",
+      "blocks": [
+        "ブラジル人",
+        "です"
+      ],
+      "romaji": "Burajirujin desu"
+    }
+  ]
+}

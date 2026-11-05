@@ -1,0 +1,28 @@
+{
+  "id": "affirming-and-denying-desu-and-wa",
+  "title": "です e は",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "desu" },
+    { "id": "s02", "type": "present", "word": "wa" },
+    { "id": "s03", "type": "present", "word": "watashi" },
+    { "id": "s04", "type": "present", "word": "gakusei" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "O padrão da frase afirmativa",
+      "body": "Uma frase afirmativa típica segue o padrão: <assunto> は <alguma coisa> です。 A partícula は é a mais fundamental da língua: tudo que vem antes dela é o assunto, sobre o que estamos falando. Então わたしは… quer dizer \"falando sobre mim…\".",
+      "words": ["watashi", "wa", "desu"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "わたしはがくせいです。", "romaji": "Watashi wa gakusei desu.", "pt": "Eu sou estudante.", "literal": "Sobre mim, sou estudante." }
+      ]
+    },
+    { "id": "s07", "type": "multiple_choice", "word": "watashi", "direction": "jp_to_pt", "distractors": ["gakusei", "kawaii", "saikou"] },
+    { "id": "s08", "type": "multiple_choice", "word": "gakusei", "direction": "pt_to_jp", "distractors": ["watashi", "kawaii", "hontou"] },
+    { "id": "s09", "type": "build_sentence", "pt": "Eu sou estudante.", "blocks": ["わたし", "は", "がくせい", "です"], "romaji": "Watashi wa gakusei desu" },
+    { "id": "s10", "type": "type_answer", "word": "gakusei", "direction": "jp_to_pt" }
+  ]
+}

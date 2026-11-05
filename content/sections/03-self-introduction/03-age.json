@@ -1,0 +1,122 @@
+{
+  "id": "self-introduction-age",
+  "title": "Idade",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "sai"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "nan"
+    },
+    {
+      "id": "s03",
+      "type": "rule",
+      "title": "Dizendo a idade",
+      "body": "Os \"anos\" de idade são expressos pelo sufixo さい junto ao número da idade, e depois é só afirmar com です. Para perguntar a idade de alguém, troque o número por なん. Você pode colocar o nome da pessoa no início da frase, seguido de は.",
+      "words": [
+        "sai",
+        "nan"
+      ]
+    },
+    {
+      "id": "s04",
+      "type": "examples",
+      "items": [
+        {
+          "jp": "にじゅうさんさい",
+          "romaji": "nijuusan sai",
+          "pt": "Vinte e três anos"
+        },
+        {
+          "jp": "にじゅうさんさいです。",
+          "romaji": "Nijuusan sai desu.",
+          "pt": "Tenho 23 anos."
+        },
+        {
+          "jp": "なんさいですか？",
+          "romaji": "Nansai desu ka?",
+          "pt": "Quantos anos você tem?"
+        },
+        {
+          "jp": "エミちゃんはなんさいですか？",
+          "romaji": "Emi-chan wa nansai desu ka?",
+          "pt": "Quantos anos você tem, Emi-chan?"
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "type": "multiple_choice",
+      "word": "sai",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "nan",
+        "kyou",
+        "gakusei"
+      ]
+    },
+    {
+      "id": "s06",
+      "type": "multiple_choice",
+      "word": "nan",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "sai",
+        "kyou",
+        "hontou"
+      ]
+    },
+    {
+      "id": "s07",
+      "type": "true_false",
+      "statement": "Para perguntar a idade de alguém, troca-se o número por なん.",
+      "answer": true,
+      "explanation": "なんさいですか？ quer dizer \"quantos anos você tem?\"."
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Você quer perguntar a idade da Emi-chan.",
+      "options": [
+        {
+          "jp": "エミちゃんはなんさいですか？",
+          "romaji": "Emi-chan wa nansai desu ka?",
+          "pt": "Quantos anos você tem, Emi-chan?"
+        },
+        {
+          "jp": "エミちゃんはがくせいですか？",
+          "romaji": "Emi-chan wa gakusei desu ka?",
+          "pt": "A Emi-chan é estudante?"
+        },
+        {
+          "jp": "エミちゃんはにじゅうさんさいです。",
+          "romaji": "Emi-chan wa nijuusan sai desu.",
+          "pt": "A Emi-chan tem 23 anos."
+        }
+      ],
+      "answer": 0,
+      "explanation": "A pergunta troca o número por なん."
+    },
+    {
+      "id": "s09",
+      "type": "type_answer",
+      "word": "nan",
+      "direction": "jp_to_pt"
+    },
+    {
+      "id": "s10",
+      "type": "build_sentence",
+      "pt": "Tenho 23 anos.",
+      "blocks": [
+        "にじゅうさん",
+        "さい",
+        "です"
+      ],
+      "romaji": "Nijuusan sai desu"
+    }
+  ]
+}

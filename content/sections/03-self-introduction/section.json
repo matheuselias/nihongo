@@ -1,0 +1,15 @@
+{
+  "id": "self-introduction",
+  "title": "Auto-apresentação",
+  "description": "Como se apresentar: nome, idade, profissão e nacionalidade.",
+  "lessons": [
+    "self-introduction-first-meeting",
+    "self-introduction-formal",
+    "self-introduction-age",
+    "self-introduction-jobs",
+    "self-introduction-company-jobs",
+    "self-introduction-more-jobs",
+    "self-introduction-nationalities",
+    "self-introduction-where-from"
+  ]
+}

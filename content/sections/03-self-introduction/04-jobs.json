@@ -1,0 +1,116 @@
+{
+  "id": "self-introduction-jobs",
+  "title": "Profissões",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "isha"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "kyoushi"
+    },
+    {
+      "id": "s03",
+      "type": "present",
+      "word": "sensei"
+    },
+    {
+      "id": "s04",
+      "type": "present",
+      "word": "haisha"
+    },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Dizendo a profissão",
+      "body": "Aqui você nem precisa de sufixo: basta afirmar a sua profissão com です. Cuidado com せんせい: é um título que as pessoas dão a você, não uma profissão. Se chamar de せんせい soa estranho e arrogante."
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        {
+          "jp": "いしゃです。",
+          "romaji": "Isha desu.",
+          "pt": "Sou médico."
+        },
+        {
+          "jp": "きょうしです。",
+          "romaji": "Kyoushi desu.",
+          "pt": "Sou professor."
+        },
+        {
+          "jp": "おしごとはなにをしていますか？",
+          "romaji": "Oshigoto wa nani o shite imasu ka?",
+          "pt": "Qual é o seu trabalho?"
+        },
+        {
+          "jp": "どこのがくせいですか？",
+          "romaji": "Doko no gakusei desu ka?",
+          "pt": "Onde você estuda?"
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "type": "multiple_choice",
+      "word": "isha",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "kyoushi",
+        "haisha",
+        "gakusei"
+      ]
+    },
+    {
+      "id": "s08",
+      "type": "type_answer",
+      "word": "haisha",
+      "direction": "pt_to_jp"
+    },
+    {
+      "id": "s09",
+      "type": "situation",
+      "context": "Você é professor(a) e quer dizer a sua profissão.",
+      "options": [
+        {
+          "jp": "きょうしです。",
+          "romaji": "Kyoushi desu.",
+          "pt": "Sou professor."
+        },
+        {
+          "jp": "せんせいです。",
+          "romaji": "Sensei desu.",
+          "pt": "Sou sensei."
+        },
+        {
+          "jp": "がくせいです。",
+          "romaji": "Gakusei desu.",
+          "pt": "Sou estudante."
+        }
+      ],
+      "answer": 0,
+      "explanation": "せんせい é um título que os outros dão a você; para dizer a profissão, use きょうし."
+    },
+    {
+      "id": "s10",
+      "type": "true_false",
+      "statement": "Para dizer que é professor, o melhor é se apresentar como せんせい.",
+      "answer": false,
+      "explanation": "せんせい é um título dado pelos outros. Quem diz isso de si mesmo soa arrogante."
+    },
+    {
+      "id": "s11",
+      "type": "build_sentence",
+      "pt": "Sou professor.",
+      "blocks": [
+        "きょうし",
+        "です"
+      ],
+      "romaji": "Kyoushi desu"
+    }
+  ]
+}

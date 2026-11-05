@@ -1,0 +1,96 @@
+{
+  "id": "self-introduction-company-jobs",
+  "title": "Cargos em empresas",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "kaishain"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "koumuin"
+    },
+    {
+      "id": "s03",
+      "type": "present",
+      "word": "manejaa"
+    },
+    {
+      "id": "s04",
+      "type": "present",
+      "word": "hanbaiin"
+    },
+    {
+      "id": "s05",
+      "type": "present",
+      "word": "eigyou"
+    },
+    {
+      "id": "s06",
+      "type": "present",
+      "word": "jinji"
+    },
+    {
+      "id": "s07",
+      "type": "multiple_choice",
+      "word": "kaishain",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "koumuin",
+        "hanbaiin",
+        "manejaa"
+      ]
+    },
+    {
+      "id": "s08",
+      "type": "multiple_choice",
+      "word": "manejaa",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "kaishain",
+        "koumuin",
+        "eigyou"
+      ]
+    },
+    {
+      "id": "s09",
+      "type": "multiple_choice",
+      "word": "jinji",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "eigyou",
+        "hanbaiin",
+        "kaishain"
+      ]
+    },
+    {
+      "id": "s10",
+      "type": "multiple_choice",
+      "word": "hanbaiin",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "kaishain",
+        "manejaa",
+        "jinji"
+      ]
+    },
+    {
+      "id": "s11",
+      "type": "type_answer",
+      "word": "eigyou",
+      "direction": "jp_to_pt"
+    },
+    {
+      "id": "s12",
+      "type": "build_sentence",
+      "pt": "Sou funcionário público.",
+      "blocks": [
+        "こうむいん",
+        "です"
+      ],
+      "romaji": "Koumuin desu"
+    }
+  ]
+}

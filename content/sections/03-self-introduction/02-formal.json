@@ -1,0 +1,155 @@
+{
+  "id": "self-introduction-formal",
+  "title": "Ficando mais formal",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "to-moushimasu"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "yoroshiku-onegaishimasu"
+    },
+    {
+      "id": "s03",
+      "type": "present",
+      "word": "douzo-yoroshiku-onegaishimasu"
+    },
+    {
+      "id": "s04",
+      "type": "present",
+      "word": "kochirakoso"
+    },
+    {
+      "id": "s05",
+      "type": "present",
+      "word": "kochira-wa"
+    },
+    {
+      "id": "s06",
+      "type": "rule",
+      "title": "Quanto de formalidade?",
+      "body": "Terminar com です já é educado o bastante. Mas ＿＿ともうします está mais alto no ranking de formalidade, usado em reuniões, com o alto escalão das empresas e autoridades. O mesmo vale para よろしくおねがいします (o de sempre) e どうぞよろしくおねがいします (situações mais formais)."
+    },
+    {
+      "id": "s07",
+      "type": "dialogue",
+      "title": "Apresentando alguém",
+      "lines": [
+        {
+          "speaker": "ヤマモト",
+          "jp": "カミラさん、こんにちは！",
+          "romaji": "Kamira-san, konnichiwa!",
+          "pt": "Camila, boa tarde!"
+        },
+        {
+          "speaker": "カミラ",
+          "jp": "こんにちは！",
+          "romaji": "Konnichiwa!",
+          "pt": "Boa tarde!"
+        },
+        {
+          "speaker": "ヤマモト",
+          "jp": "こちらはタナカさんです。",
+          "romaji": "Kochira wa Tanaka-san desu.",
+          "pt": "Este é o Tanaka."
+        },
+        {
+          "speaker": "タナカ",
+          "jp": "はじめまして、タナカともうします。どうぞよろしくおねがいします！",
+          "romaji": "Hajimemashite, Tanaka to moushimasu. Douzo yoroshiku onegaishimasu!",
+          "pt": "Muito prazer, me chamo Tanaka. Conto com você!"
+        },
+        {
+          "speaker": "カミラ",
+          "jp": "カミラです。こちらこそ、よろしくおねがいします！",
+          "romaji": "Kamira desu. Kochirakoso, yoroshiku onegaishimasu!",
+          "pt": "Sou a Camila. O prazer é meu, conto com você também!"
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Você é apresentado(a) ao dono de uma grande empresa, numa reunião formal.",
+      "options": [
+        {
+          "jp": "タナカです。",
+          "romaji": "Tanaka desu.",
+          "pt": "Sou o Tanaka."
+        },
+        {
+          "jp": "タナカともうします。どうぞよろしくおねがいします。",
+          "romaji": "Tanaka to moushimasu. Douzo yoroshiku onegaishimasu.",
+          "pt": "Me chamo Tanaka. Conto com você."
+        },
+        {
+          "jp": "タナカです。よろしくおねがいします。",
+          "romaji": "Tanaka desu. Yoroshiku onegaishimasu.",
+          "pt": "Sou o Tanaka. Conto com você."
+        }
+      ],
+      "answer": 1,
+      "explanation": "Numa reunião com alguém do alto escalão, o mais apropriado é ともうします junto com どうぞよろしくおねがいします."
+    },
+    {
+      "id": "s09",
+      "type": "situation",
+      "context": "Um colega acabou de se apresentar e disse \"よろしくおねがいします！\". Você quer responder \"o prazer é meu\".",
+      "options": [
+        {
+          "jp": "こちらこそ、よろしくおねがいします！",
+          "romaji": "Kochirakoso, yoroshiku onegaishimasu!",
+          "pt": "O prazer é meu, conto com você!"
+        },
+        {
+          "jp": "こちらはタナカさんです。",
+          "romaji": "Kochira wa Tanaka-san desu.",
+          "pt": "Este é o Tanaka."
+        },
+        {
+          "jp": "はじめまして。",
+          "romaji": "Hajimemashite.",
+          "pt": "Muito prazer."
+        }
+      ],
+      "answer": 0,
+      "explanation": "こちらこそ é o \"o prazer é meu\"; こちらは serve para apresentar alguém."
+    },
+    {
+      "id": "s10",
+      "type": "multiple_choice",
+      "word": "kochirakoso",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "yoroshiku-onegaishimasu",
+        "hajimemashite",
+        "kochira-wa"
+      ]
+    },
+    {
+      "id": "s11",
+      "type": "multiple_choice",
+      "word": "kochira-wa",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "kochirakoso",
+        "hajimemashite",
+        "to-moushimasu"
+      ]
+    },
+    {
+      "id": "s12",
+      "type": "build_sentence",
+      "pt": "Este é o Tanaka.",
+      "blocks": [
+        "こちらは",
+        "タナカさん",
+        "です"
+      ],
+      "romaji": "Kochira wa Tanaka-san desu"
+    }
+  ]
+}

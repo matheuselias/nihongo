@@ -1,0 +1,86 @@
+{
+  "id": "self-introduction-where-from",
+  "title": "De onde você veio?",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "kankokujin"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "furansujin"
+    },
+    {
+      "id": "s03",
+      "type": "present",
+      "word": "itariajin"
+    },
+    {
+      "id": "s04",
+      "type": "present",
+      "word": "supeinjin"
+    },
+    {
+      "id": "s05",
+      "type": "present",
+      "word": "kara"
+    },
+    {
+      "id": "s06",
+      "type": "present",
+      "word": "kimashita"
+    },
+    {
+      "id": "s07",
+      "type": "present",
+      "word": "doko"
+    },
+    {
+      "id": "s08",
+      "type": "multiple_choice",
+      "word": "kankokujin",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "furansujin",
+        "itariajin",
+        "supeinjin"
+      ]
+    },
+    {
+      "id": "s09",
+      "type": "multiple_choice",
+      "word": "furansujin",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "kankokujin",
+        "itariajin",
+        "nihonjin"
+      ]
+    },
+    {
+      "id": "s10",
+      "type": "type_answer",
+      "word": "itariajin",
+      "direction": "jp_to_pt"
+    },
+    {
+      "id": "s11",
+      "type": "type_answer",
+      "word": "supeinjin",
+      "direction": "pt_to_jp"
+    },
+    {
+      "id": "s12",
+      "type": "build_sentence",
+      "pt": "De onde você veio?",
+      "blocks": [
+        "どこ",
+        "から",
+        "きましたか"
+      ],
+      "romaji": "Doko kara kimashita ka"
+    }
+  ]
+}

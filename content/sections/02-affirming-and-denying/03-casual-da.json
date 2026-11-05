@@ -1,0 +1,43 @@
+{
+  "id": "affirming-and-denying-casual-da",
+  "title": "Linguagem não polida: だ",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "da" },
+    { "id": "s02", "type": "present", "word": "ore" },
+    { "id": "s03", "type": "present", "word": "hontou" },
+    { "id": "s04", "type": "present", "word": "sou" },
+    {
+      "id": "s05",
+      "type": "rule",
+      "title": "Polido ou não polido?",
+      "body": "A língua japonesa se divide entre a linguagem polida e a não polida. Afirmar com です é polido: serve para pessoas mais velhas, autoridades, gente que você não conhece, discursos etc. Entre amigos próximos, familiares e pessoas mais novas usamos a linguagem não polida, em que です vira だ. O だ dá ênfase ou surpresa. Uma forma menos enfática é simplesmente omitir o だ.",
+      "words": ["desu", "da"]
+    },
+    {
+      "id": "s06",
+      "type": "examples",
+      "items": [
+        { "jp": "おれはロボットだ！", "romaji": "Ore wa robotto da!", "pt": "Eu sou um robô!" },
+        { "jp": "ほんとうだ！", "romaji": "Hontou da!", "pt": "É verdade!" },
+        { "jp": "そうだ！", "romaji": "Sou da!", "pt": "É isso!" },
+        { "jp": "日本はとおい。", "romaji": "Nihon wa tooi.", "pt": "O Japão é longe.", "literal": "Sem だ, menos enfático." },
+        { "jp": "ルフィは海賊。", "romaji": "Rufi wa kaizoku.", "pt": "O Luffy é um pirata.", "literal": "Sem だ, menos enfático." }
+      ]
+    },
+    {
+      "id": "s07",
+      "type": "situation",
+      "context": "Você conversa com o presidente da empresa e quer dizer que é estudante. O que dizer?",
+      "options": [
+        { "jp": "わたしはがくせいです。", "romaji": "Watashi wa gakusei desu.", "pt": "Eu sou estudante. (polido)" },
+        { "jp": "おれはがくせいだ。", "romaji": "Ore wa gakusei da.", "pt": "Eu sou estudante. (não polido)" }
+      ],
+      "answer": 0,
+      "explanation": "Com autoridades se usa a linguagem polida: わたし e です."
+    },
+    { "id": "s08", "type": "multiple_choice", "word": "ore", "direction": "jp_to_pt", "distractors": ["hontou", "sou", "gakusei"] },
+    { "id": "s09", "type": "multiple_choice", "word": "sou", "direction": "jp_to_pt", "distractors": ["hontou", "gakusei", "kawaii"] },
+    { "id": "s10", "type": "type_answer", "word": "hontou", "direction": "pt_to_jp" },
+    { "id": "s11", "type": "build_sentence", "pt": "Eu sou um robô!", "blocks": ["おれ", "は", "ロボット", "だ"], "romaji": "Ore wa robotto da" }
+  ]
+}

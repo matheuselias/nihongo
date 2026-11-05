@@ -1,0 +1,96 @@
+{
+  "id": "self-introduction-more-jobs",
+  "title": "Mais cargos",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "moderu"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "jitsugyouka"
+    },
+    {
+      "id": "s03",
+      "type": "present",
+      "word": "enjinia"
+    },
+    {
+      "id": "s04",
+      "type": "present",
+      "word": "puroguramaa"
+    },
+    {
+      "id": "s05",
+      "type": "present",
+      "word": "geinoujin"
+    },
+    {
+      "id": "s06",
+      "type": "present",
+      "word": "maaketaa"
+    },
+    {
+      "id": "s07",
+      "type": "multiple_choice",
+      "word": "moderu",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "enjinia",
+        "geinoujin",
+        "maaketaa"
+      ]
+    },
+    {
+      "id": "s08",
+      "type": "multiple_choice",
+      "word": "jitsugyouka",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "moderu",
+        "puroguramaa",
+        "manejaa"
+      ]
+    },
+    {
+      "id": "s09",
+      "type": "multiple_choice",
+      "word": "enjinia",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "puroguramaa",
+        "jitsugyouka",
+        "isha"
+      ]
+    },
+    {
+      "id": "s10",
+      "type": "multiple_choice",
+      "word": "puroguramaa",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "enjinia",
+        "moderu",
+        "kaishain"
+      ]
+    },
+    {
+      "id": "s11",
+      "type": "type_answer",
+      "word": "geinoujin",
+      "direction": "jp_to_pt"
+    },
+    {
+      "id": "s12",
+      "type": "build_sentence",
+      "pt": "Sou publicitário.",
+      "blocks": [
+        "マーケター",
+        "です"
+      ],
+      "romaji": "Maaketaa desu"
+    }
+  ]
+}

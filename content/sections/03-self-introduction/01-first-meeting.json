@@ -1,0 +1,90 @@
+{
+  "id": "self-introduction-first-meeting",
+  "title": "Primeiro contato",
+  "steps": [
+    {
+      "id": "s01",
+      "type": "present",
+      "word": "jikoshoukai"
+    },
+    {
+      "id": "s02",
+      "type": "present",
+      "word": "hajimemashite"
+    },
+    {
+      "id": "s03",
+      "type": "rule",
+      "title": "Dizendo o seu nome",
+      "body": "Uma apresentação costuma começar com はじめまして, o nosso \"muito prazer\". Em seguida, afirme o seu nome com です. Você pode trazer o \"eu\" para a frente, lembrando da partícula は, mas em japonês o \"eu\" costuma ser omitido: dizer só o nome com です soa mais natural do que usar わたしは.",
+      "words": [
+        "desu",
+        "watashi",
+        "wa"
+      ]
+    },
+    {
+      "id": "s04",
+      "type": "examples",
+      "items": [
+        {
+          "jp": "ヒカルドです。",
+          "romaji": "Hikarudo desu.",
+          "pt": "Sou o Ricardo."
+        },
+        {
+          "jp": "わたしはヒカルドです。",
+          "romaji": "Watashi wa Hikarudo desu.",
+          "pt": "Eu sou o Ricardo."
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "type": "multiple_choice",
+      "word": "jikoshoukai",
+      "direction": "jp_to_pt",
+      "distractors": [
+        "gakusei",
+        "hontou",
+        "kyou"
+      ]
+    },
+    {
+      "id": "s06",
+      "type": "multiple_choice",
+      "word": "hajimemashite",
+      "direction": "pt_to_jp",
+      "distractors": [
+        "jikoshoukai",
+        "konnichiwa",
+        "konbanwa"
+      ]
+    },
+    {
+      "id": "s07",
+      "type": "true_false",
+      "statement": "Numa apresentação do dia a dia, o mais natural é dizer só o nome seguido de です, sem わたしは.",
+      "answer": true,
+      "explanation": "O \"eu\" costuma ser omitido em japonês: usar わたし sem necessidade pode soar estranho."
+    },
+    {
+      "id": "s08",
+      "type": "type_answer",
+      "word": "hajimemashite",
+      "direction": "pt_to_jp"
+    },
+    {
+      "id": "s09",
+      "type": "build_sentence",
+      "pt": "Eu sou o Ricardo.",
+      "blocks": [
+        "わたし",
+        "は",
+        "ヒカルド",
+        "です"
+      ],
+      "romaji": "Watashi wa Hikarudo desu"
+    }
+  ]
+}

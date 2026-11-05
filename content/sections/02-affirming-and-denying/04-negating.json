@@ -1,0 +1,43 @@
+{
+  "id": "affirming-and-denying-negating",
+  "title": "Negando",
+  "steps": [
+    { "id": "s01", "type": "present", "word": "ja-arimasen" },
+    { "id": "s02", "type": "present", "word": "ja-nai" },
+    { "id": "s03", "type": "present", "word": "otona" },
+    { "id": "s04", "type": "present", "word": "ningen" },
+    { "id": "s05", "type": "present", "word": "kyou" },
+    {
+      "id": "s06",
+      "type": "rule",
+      "title": "Negando em dois níveis",
+      "body": "Para negar de maneira polida, usamos a forma negativa de です: じゃありません. O resto da frase se mantém igual. Para negar de maneira não polida, o だ vira じゃない. Essa é uma forma bastante comum em animes, mangás e tokusatsu, onde os personagens costumam ser grupos de amigos.",
+      "words": ["ja-arimasen", "ja-nai"]
+    },
+    {
+      "id": "s07",
+      "type": "examples",
+      "items": [
+        { "jp": "わたしはがくせいじゃありません。", "romaji": "Watashi wa gakusei ja arimasen.", "pt": "Eu não sou estudante." },
+        { "jp": "エミちゃんはおとなじゃありません。", "romaji": "Emi-chan wa otona ja arimasen.", "pt": "A Emi-chan não é adulta." },
+        { "jp": "おれはヒーローじゃない！", "romaji": "Ore wa hiiroo ja nai!", "pt": "Eu não sou um herói!" },
+        { "jp": "セイバーはにんげんじゃない。", "romaji": "Seibaa wa ningen ja nai.", "pt": "O SAVER não é um ser humano." }
+      ]
+    },
+    {
+      "id": "s08",
+      "type": "situation",
+      "context": "Você conversa com o diretor da escola e quer dizer que a prova não é hoje. O que dizer?",
+      "options": [
+        { "jp": "テストはきょうじゃない。", "romaji": "Tesuto wa kyou ja nai.", "pt": "A prova não é hoje. (não polido)" },
+        { "jp": "テストはきょうじゃありません。", "romaji": "Tesuto wa kyou ja arimasen.", "pt": "A prova não é hoje. (polido)" }
+      ],
+      "answer": 1,
+      "explanation": "Com o diretor se usa a linguagem polida, então a negação é じゃありません."
+    },
+    { "id": "s09", "type": "multiple_choice", "word": "otona", "direction": "jp_to_pt", "distractors": ["ningen", "kyou", "gakusei"] },
+    { "id": "s10", "type": "multiple_choice", "word": "ningen", "direction": "pt_to_jp", "distractors": ["otona", "gakusei", "kawaii"] },
+    { "id": "s11", "type": "multiple_choice", "word": "kyou", "direction": "jp_to_pt", "distractors": ["otona", "ningen", "hontou"] },
+    { "id": "s12", "type": "build_sentence", "pt": "A prova não é hoje.", "blocks": ["テスト", "は", "きょう", "じゃない"], "romaji": "Tesuto wa kyou ja nai" }
+  ]
+}

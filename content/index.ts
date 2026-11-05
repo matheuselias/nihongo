@@ -2,7 +2,9 @@
 import type { RawContent } from '../src/content/load';
 
 export const rawContent: RawContent = {
-  vocabulary: [require('./vocabulary/greetings.json')],
+  vocabulary: [require('./vocabulary/greetings.json'), require('./vocabulary/affirming-and-denying.json'),
+    require('./vocabulary/self-introduction.json'),
+  ],
   sections: [
     {
       section: require('./sections/01-greetings/section.json'),
@@ -11,6 +13,28 @@ export const rawContent: RawContent = {
         require('./sections/01-greetings/02-afternoon-and-evening.json'),
         require('./sections/01-greetings/03-good-night.json'),
         require('./sections/01-greetings/04-how-are-you.json'),
+      ],
+    },
+    {
+      section: require('./sections/02-affirming-and-denying/section.json'),
+      lessons: [
+        require('./sections/02-affirming-and-denying/01-desu-and-wa.json'),
+        require('./sections/02-affirming-and-denying/02-more-examples.json'),
+        require('./sections/02-affirming-and-denying/03-casual-da.json'),
+        require('./sections/02-affirming-and-denying/04-negating.json'),
+      ],
+    },
+    {
+      section: require('./sections/03-self-introduction/section.json'),
+      lessons: [
+        require('./sections/03-self-introduction/01-first-meeting.json'),
+        require('./sections/03-self-introduction/02-formal.json'),
+        require('./sections/03-self-introduction/03-age.json'),
+        require('./sections/03-self-introduction/04-jobs.json'),
+        require('./sections/03-self-introduction/05-company-jobs.json'),
+        require('./sections/03-self-introduction/06-more-jobs.json'),
+        require('./sections/03-self-introduction/07-nationalities.json'),
+        require('./sections/03-self-introduction/08-where-from.json'),
       ],
     },
   ],
