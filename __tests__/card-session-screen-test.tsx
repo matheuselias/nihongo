@@ -64,3 +64,51 @@ test('close leaves without confirmation', async () => {
   await press('Sair dos cards');
   expect(mockBack).toHaveBeenCalled();
 });
+
+const answerAll = async (right: boolean) => {
+  for (let i = 0; i < 40 && !screen.queryByText(/de primeira/); i++) {
+    await screen.findByLabelText('Sua resposta');
+    if (right) {
+      const label = screen.getByText(/O que significa|Como se diz/).props.children;
+      const shown = screen.getAllByText(/./).map((n) => String(n.props.children));
+      const w = Object.values(content.words).find((x) => shown.some((t) => t === (label.startsWith('O que') ? `${x.kanji ?? x.kana} (${x.romaji})` : x.translations[0] + (x.hint ? ` (${x.hint})` : ''))));
+      await type(label.startsWith('O que') ? w!.translations[0] : w!.romaji);
+      await press('Conferir');
+      await press(screen.queryByRole('button', { name: 'Bom' }) ? 'Bom' : 'Continuar');
+    } else {
+      await press('Ver resposta');
+      await press('Continuar');
+    }
+  }
+};
+
+test('end screen: summary counts first tries, repeat saves nothing, next 20 and exit', async () => {
+  await render(<CardSessionScreen />);
+  await answerAll(true);
+  const n = (await mockRepo.getCardStates()).length;
+  screen.getByText(`${n} de ${n} de primeira`);
+  const before = JSON.stringify(await mockRepo.getCardStates());
+
+  await press(/Repetir estes/);
+  await screen.findByLabelText('Sua resposta');
+  await press('Ver resposta');
+  expect(screen.queryByRole('button', { name: 'Bom' })).toBeNull();
+  await press('Continuar');
+  await answerAll(false);
+  expect(JSON.stringify(await mockRepo.getCardStates())).toBe(before);
+
+  await press('Próximos 20');
+  await screen.findByText('Você está em dia.');
+  await press('Sair');
+  expect(mockBack).toHaveBeenCalled();
+});
+
+test('summary counts only first-try hits when cards are missed', async () => {
+  await render(<CardSessionScreen />);
+  await screen.findByLabelText('Sua resposta');
+  await press('Ver resposta');
+  await press('Continuar');
+  await answerAll(true);
+  const n = (await mockRepo.getCardStates()).length;
+  screen.getByText(`${n - 1} de ${n} de primeira`);
+});

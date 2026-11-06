@@ -20,20 +20,33 @@ const GRADES: { grade: Grade; text: string }[] = [
   { grade: 'easy', text: 'Fácil' },
 ];
 
-export default function CardSessionScreen() {
-  const [session, setSession] = useState<CardSession>();
-  useEffect(() => {
-    (async () => {
-      const done = new Set((await progressRepository.getAll()).filter((p) => p.completed).map((p) => p.lessonId));
-      const states = await progressRepository.getCardStates();
-      setSession(new CardSession(content, buildQueue(deckCards(content, done), states, new Date()), states, progressRepository));
-    })();
-  }, []);
-  if (!session) return null;
-  return <Study session={session} />;
+async function newSession() {
+  const done = new Set((await progressRepository.getAll()).filter((p) => p.completed).map((p) => p.lessonId));
+  const states = await progressRepository.getCardStates();
+  return new CardSession(content, buildQueue(deckCards(content, done), states, new Date()), states, progressRepository);
 }
 
-function Study({ session }: { session: CardSession }) {
+export default function CardSessionScreen() {
+  const [session, setSession] = useState<CardSession>();
+  const [practice, setPractice] = useState<CardSession>();
+  const [run, setRun] = useState(0);
+  useEffect(() => {
+    newSession().then(setSession);
+  }, []);
+  if (!session) return null;
+  const next = async () => {
+    setSession(await newSession());
+    setRun((n) => n + 1);
+  };
+  const repeat = () => {
+    setPractice(new CardSession(content, session.cards, [], progressRepository, Math.random, () => new Date(), true));
+    setRun((n) => n + 1);
+  };
+  if (practice) return <Study key={run} session={practice} onDone={() => { setPractice(undefined); setRun((n) => n + 1); }} />;
+  return <Study key={run} session={session} onRepeat={repeat} onNext={next} />;
+}
+
+function Study({ session, onDone, onRepeat, onNext }: { session: CardSession; onDone?: () => void; onRepeat?: () => void; onNext?: () => void }) {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
   const [, rerender] = useState(0);
@@ -57,6 +70,7 @@ function Study({ session }: { session: CardSession }) {
   };
   const advance = () => {
     session.next();
+    if (session.finished && onDone) return onDone();
     setText('');
     setLocked(false);
     setTypedRight(undefined);
@@ -76,8 +90,16 @@ function Study({ session }: { session: CardSession }) {
 
       {!card || !word ? (
         <ThemedView style={styles.body}>
-          <EmptyState title={session.total ? 'Sessão concluída!' : 'Nada para estudar'} message={session.total ? 'Você acertou todos os cards.' : 'Você está em dia.'} />
-          <Button text="Voltar" onPress={() => router.back()} />
+          {session.total ? (
+            <>
+              <EmptyState title="Sessão concluída!" message={`${session.firstTryRight} de ${session.total} de primeira`} />
+              <Button text={`Repetir estes ${session.total}`} secondary onPress={onRepeat!} />
+              <Button text="Próximos 20" onPress={onNext!} />
+            </>
+          ) : (
+            <EmptyState title="Nada para estudar" message="Você está em dia." />
+          )}
+          <Button text="Sair" secondary={!!session.total} onPress={() => router.back()} />
         </ThemedView>
       ) : (
         <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
