@@ -1,0 +1,16 @@
+appId: host.exp.Exponent
+---
+- openLink: exp://192.168.0.9:8081
+- tapOn:
+    text: "Sair dos cards"
+    optional: true
+- extendedWaitUntil:
+    visible: "Reforço"
+    timeout: 60000
+- tapOn: "Reforço"
+- takeScreenshot: 07-counts-before
+- tapOn: "Estudar"
+- assertVisible: "Digite sua resposta"
+- tapOn: "Sair dos cards"
+- assertVisible: "Cards"
+- takeScreenshot: 08-after-close

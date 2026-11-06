@@ -74,10 +74,11 @@ export default function ReviewScreen() {
           <>
             <ThemedText type="small" themeColor="textSecondary">{due} para revisar</ThemedText>
             <ThemedText type="small" themeColor="textSecondary">{fresh} {fresh === 1 ? 'novo' : 'novos'}</ThemedText>
-            {/* Session arrives in ticket 03. */}
-            <Pressable accessibilityRole="button" style={styles.button}>
-              <ThemedText style={styles.buttonText}>Estudar</ThemedText>
-            </Pressable>
+            <Link href="/card-session" asChild>
+              <Pressable accessibilityRole="button" style={styles.button}>
+                <ThemedText style={styles.buttonText}>Estudar</ThemedText>
+              </Pressable>
+            </Link>
           </>
         )}
       </ThemedView>

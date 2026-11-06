@@ -1,0 +1,41 @@
+appId: host.exp.Exponent
+---
+- openLink: exp://192.168.0.9:8081
+- extendedWaitUntil:
+    visible: "Reforço"
+    timeout: 90000
+- tapOn: "Reforço"
+- assertVisible: "Cards"
+- tapOn: "Estudar"
+- assertVisible: "O que significa?"
+- takeScreenshot: 01-prompt
+# right answer, then grade buttons
+- tapOn: "Digite sua resposta"
+- inputText: "bom dia"
+- takeScreenshot: 02-keyboard
+- tapOn: "Conferir"
+- assertVisible: "Correto!"
+- assertVisible: "Difícil"
+- assertVisible: "Fácil"
+- assertNotVisible: "Continuar"
+- takeScreenshot: 03-right
+- tapOn: "Bom"
+# wrong answer: no grades
+- tapOn: "Digite sua resposta"
+- inputText: "zzz"
+- tapOn: "Conferir"
+- assertVisible: "Resposta certa:.*"
+- assertNotVisible: "Difícil"
+- assertVisible: "Continuar"
+- takeScreenshot: 04-wrong
+- tapOn: "Continuar"
+# flip
+- tapOn: "Ver resposta"
+- assertVisible: "Resposta certa:.*"
+- assertNotVisible: "Bom"
+- assertVisible: "Continuar"
+- takeScreenshot: 05-flip
+# close without confirmation
+- tapOn: "Sair dos cards"
+- assertVisible: "Cards"
+- takeScreenshot: 06-after-close
