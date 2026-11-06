@@ -82,6 +82,7 @@ describe('Revisão da trilha', () => {
     await screen.findByText('Resumo');
     await fireEvent.press(screen.getByRole('button', { name: 'Sair da revisão' }));
     expect(await mockRepo.completedReviews()).toEqual([]);
+    expect(await mockRepo.countStudyDays()).toBe(0);
   });
 
   test('asks 8 questions and finishing records the review (right or wrong answers)', async () => {
@@ -104,6 +105,7 @@ describe('Revisão da trilha', () => {
     }
     await screen.findByText('Revisão concluída!');
     expect(await mockRepo.completedReviews()).toEqual(['review-1']);
+    expect(await mockRepo.countStudyDays()).toBe(1);
   });
 
   test('each opening draws the questions again', async () => {

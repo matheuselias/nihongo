@@ -71,6 +71,7 @@ function Study({ session, onDone, onRepeat, onNext }: { session: CardSession; on
   const advance = () => {
     session.next();
     if (session.finished && onDone) return onDone();
+    if (session.finished) progressRepository.recordStudyDay();
     setText('');
     setLocked(false);
     setTypedRight(undefined);

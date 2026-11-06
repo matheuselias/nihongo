@@ -37,7 +37,7 @@ function ReviewPoint({ id }: { id: string }) {
 
   if (state === undefined) return <ThemedView style={styles.loading}><ActivityIndicator size="large" accessibilityLabel="Carregando revisão" /></ThemedView>;
   if (!state?.steps.length) return <EmptyState title="Nada para revisar" message="Esta revisão não tem perguntas." />;
-  if (started) return <Player lessonId={content.sections.find((s) => s.id === state.sectionIds[0])!.lessons[0].id} custom={state.steps} title="Revisão" onDone={() => progressRepository.recordReview(id)} />;
+  if (started) return <Player lessonId={content.sections.find((s) => s.id === state.sectionIds[0])!.lessons[0].id} custom={state.steps} title="Revisão" onDone={async () => { await progressRepository.recordReview(id); await progressRepository.recordStudyDay(); }} />;
   return (
     <ThemedView style={[styles.screen, { paddingTop: insets.top + Spacing.two, paddingBottom: insets.bottom + Spacing.three }]}>
       <Pressable onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="Sair da revisão" hitSlop={12}>

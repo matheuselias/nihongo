@@ -193,9 +193,9 @@ export class LessonSession {
     if (this.custom) return r;
     if (this.picks) {
       // Reforço: right clears the mistake, wrong keeps it.
-      for (const p of this.picks) {
-        if (!r.wrongStepIds.includes(`${p.lessonId}/${p.stepId}`)) await repo.clearMistake(p.lessonId, p.stepId);
-      }
+      const right = this.picks.filter((p) => !r.wrongStepIds.includes(`${p.lessonId}/${p.stepId}`));
+      for (const p of right) await repo.clearMistake(p.lessonId, p.stepId);
+      if (right.length) await repo.recordStudyDay(now);
       return r;
     }
     const wordOf = (id: string) => {

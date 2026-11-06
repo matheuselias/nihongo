@@ -65,3 +65,33 @@ test('local day key uses the device time zone and the repo is idempotent', async
   await mockRepo.recordStudyDay(at('2026-01-02T23:59:00'));
   expect(await mockRepo.countStudyDays()).toBe(1);
 });
+
+describe('Meus erros', () => {
+  const mistake = async () => {
+    const lesson = content.lessons[l1];
+    const step = lesson.steps.find((s) => s.type === 'true_false')!;
+    await mockRepo.recordMistakes(l1, [{ stepId: step.id }]);
+    return { step, picks: [{ lessonId: l1, stepId: step.id }] };
+  };
+
+  test('one right answer counts the day; only wrong answers do not', async () => {
+    const { step, picks } = await mistake();
+    const wrong = new LessonSession(content, l1, () => 0.3, picks);
+    play(wrong, [`${l1}/${step.id}`]);
+    await wrong.finish(mockRepo);
+    expect(await mockRepo.countStudyDays()).toBe(0);
+    const right = new LessonSession(content, l1, () => 0.3, picks);
+    play(right);
+    await right.finish(mockRepo);
+    expect(await mockRepo.countStudyDays()).toBe(1);
+  });
+
+  test('a lesson and a reinforcement the same day stay 1 day', async () => {
+    const { picks } = await mistake();
+    await lesson(l1, at('2026-05-01T10:00:00'));
+    const s = new LessonSession(content, l1, () => 0.3, picks);
+    play(s);
+    await s.finish(mockRepo, at('2026-05-01T20:00:00'));
+    expect(await mockRepo.countStudyDays()).toBe(1);
+  });
+});

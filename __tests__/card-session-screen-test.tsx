@@ -130,3 +130,23 @@ test('the PT to JP card shows the first translation with the hint in parentheses
   const w = Object.values(content.words).find((x) => x.hint && screen.queryByText(`${x.translations[0]} (${x.hint})`));
   expect(w).toBeDefined();
 });
+
+test('study days: finishing a session counts 1 day; leaving midway and "Repetir estes" do not', async () => {
+  await render(<CardSessionScreen />);
+  await screen.findByLabelText('Sua resposta');
+  await press('Ver resposta');
+  await press('Continuar');
+  expect(await mockRepo.countStudyDays()).toBe(0);
+  await answerAll(true);
+  expect(await mockRepo.countStudyDays()).toBe(1);
+
+  mockRepo = new InMemoryProgressRepository();
+  await mockRepo.recordResult(content.sections[0].lessons[0].id, 100, true);
+  await screen.unmount();
+  await render(<CardSessionScreen />);
+  await answerAll(true);
+  const days = await mockRepo.countStudyDays();
+  await press(/Repetir estes/);
+  await answerAll(true);
+  expect(await mockRepo.countStudyDays()).toBe(days);
+});
