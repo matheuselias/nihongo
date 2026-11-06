@@ -31,9 +31,8 @@ export function TrailPath({ content, scores, completed, reviewsDone }: Props) {
   const next = nextLessonId(content, completed);
   const points = reviewPoints(content, completed);
 
-  // Absolute layout: every node, line and header gets a computed position so the bubble can anchor to a node.
+  // Absolute layout: every node and header gets a computed position so the bubble can anchor to a node.
   const out: React.ReactNode[] = [];
-  const lines: React.ReactNode[] = []; // drawn first so nodes and titles sit on top
   let y = 0;
   let bubble: React.ReactNode;
   content.sections.forEach((section, si) => {
@@ -46,14 +45,11 @@ export function TrailPath({ content, scores, completed, reviewsDone }: Props) {
     y += HEADER;
     const items: Item[] = section.lessons.map((l, i) => ({ kind: 'lesson', id: l.id, title: l.title, n: i + 1 }));
     points.filter((p) => p.afterSectionId === section.id).forEach((p) => items.push({ kind: 'review', id: p.id, active: p.active }));
-    let prev: { x: number; y: number } | undefined;
     items.forEach((item, i) => {
       const review = item.kind === 'review';
       const size = review ? REVIEW : NODE;
       const x = review ? width / 2 : pathX(i, width, NODE, MARGIN);
       const cy = y + ROW * i + size / 2 + 8;
-      if (prev) lines.push(<Line key={`l-${item.id}`} from={prev} to={{ x, y: cy }} color={theme.border} />);
-      prev = { x, y: cy };
       const left = x - size / 2;
       const top = cy - size / 2;
       if (item.kind === 'review') {
@@ -89,7 +85,7 @@ export function TrailPath({ content, scores, completed, reviewsDone }: Props) {
           </Pressable>
         </Pulse>,
         <View key={`t-${item.id}`} pointerEvents="none" style={[styles.titleBox, { left: x - 56, top: top + size + 6 }]}>
-          <ThemedText type="small" numberOfLines={1} style={{ backgroundColor: theme.background, paddingHorizontal: 4 }}>{item.title}</ThemedText>
+          <ThemedText type="small" numberOfLines={1}>{item.title}</ThemedText>
         </View>,
       );
       if (open === item.id) {
@@ -115,22 +111,10 @@ export function TrailPath({ content, scores, completed, reviewsDone }: Props) {
 
   return (
     <View onLayout={(e) => setWidth(e.nativeEvent.layout.width)} style={{ height: y + 160, width: '100%' }}>
-      {lines}
       {out}
       {bubble && <Pressable accessibilityLabel="Fechar prévia" style={StyleSheet.absoluteFill} onPress={() => setOpen(undefined)} />}
       {bubble}
     </View>
-  );
-}
-
-function Line({ from, to, color }: { from: { x: number; y: number }; to: { x: number; y: number }; color: string }) {
-  const dx = to.x - from.x;
-  const dy = to.y - from.y;
-  const len = Math.hypot(dx, dy);
-  return (
-    <View
-      style={{ position: 'absolute', height: 6, borderRadius: 3, backgroundColor: color, width: len, left: (from.x + to.x) / 2 - len / 2, top: (from.y + to.y) / 2 - 3, transform: [{ rotate: `${Math.atan2(dy, dx)}rad` }] }}
-    />
   );
 }
 
