@@ -112,3 +112,21 @@ test('summary counts only first-try hits when cards are missed', async () => {
   const n = (await mockRepo.getCardStates()).length;
   screen.getByText(`${n - 1} de ${n} de primeira`);
 });
+
+test('a failed lesson adds no cards', async () => {
+  mockRepo = new InMemoryProgressRepository();
+  await mockRepo.recordResult(content.sections[0].lessons[0].id, 50, false);
+  await render(<CardSessionScreen />);
+  await screen.findByText('Você está em dia.');
+});
+
+test('the PT to JP card shows the first translation with the hint in parentheses', async () => {
+  await render(<CardSessionScreen />);
+  await screen.findByLabelText('Sua resposta');
+  for (let i = 0; i < 40 && !screen.queryByText('Como se diz em japonês?'); i++) {
+    await press('Ver resposta');
+    await press('Continuar');
+  }
+  const w = Object.values(content.words).find((x) => x.hint && screen.queryByText(`${x.translations[0]} (${x.hint})`));
+  expect(w).toBeDefined();
+});
