@@ -3,28 +3,11 @@ import { GRADED_TYPES } from '@/content/schema';
 import { InMemoryProgressRepository } from '@/db/progress-repository';
 import { sectionQuestions } from '@/lesson/free-review';
 import { LessonSession } from '@/lesson/session';
+import { play } from '../test/play';
 import { lessonStates } from '@/trail/rules';
 
 const first = content.sections[0].lessons[0].id;
 const rng = () => 0.3;
-
-/** Plays the lesson, answering graded steps right unless the step id is in `wrong`. */
-function play(s: LessonSession, wrong: string[] = [], stopAt?: string) {
-  while (!s.finished && s.current.type !== stopAt) {
-    const q = s.question();
-    const bad = wrong.includes(s.current.id);
-    if (q) s.answer(bad ? (q.answer + 1) % 4 : q.answer);
-    const st = s.current;
-    if (st.type === 'type_answer') {
-      const w = content.words[st.word];
-      s.answerText(bad ? 'zzz' : st.direction === 'pt_to_jp' ? w.kana : w.translations[0]);
-    }
-    if (st.type === 'situation') s.answerSituation(bad ? (st.answer + 1) % st.options.length : st.answer);
-    if (st.type === 'true_false') s.answerBool(bad ? !st.answer : st.answer);
-    if (st.type === 'build_sentence') s.answerBlocks(bad ? [...st.blocks].reverse() : st.blocks);
-    s.next();
-  }
-}
 
 const graded = (id: string) => content.lessons[id].steps.filter((s) => GRADED_TYPES.includes(s.type));
 

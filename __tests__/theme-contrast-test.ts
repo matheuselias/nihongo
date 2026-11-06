@@ -25,6 +25,7 @@ describe.each(['light', 'dark'] as const)('%s contrast (min 4.5:1)', (mode) => {
     ['primaryText', 'backgroundElement'],
     ['onPrimary', 'primary'],
     ['onAccent', 'accent'],
+    ['accent', 'primary'],
     ['success', 'backgroundElement'],
     ['error', 'backgroundElement'],
   ] as const)('%s on %s', (fg, bg) => {

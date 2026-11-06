@@ -36,3 +36,7 @@ export const cardState = sqliteTable(
   },
   (t) => [primaryKey({ columns: [t.wordId, t.direction] })],
 );
+
+export const studyDays = sqliteTable('study_days', {
+  day: text('day').primaryKey(),
+});

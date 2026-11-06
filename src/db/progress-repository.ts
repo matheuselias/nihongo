@@ -1,4 +1,5 @@
 import type { CardState } from '@/lesson/schedule';
+import { localDay } from './local-day';
 
 export type LessonProgress = {
   lessonId: string;
@@ -29,6 +30,9 @@ export interface ProgressRepository {
   completedReviews(): Promise<string[]>;
   /** Idempotent: finishing again keeps the first date. */
   recordReview(reviewId: string, now?: Date): Promise<void>;
+  /** Idempotent per local day. */
+  recordStudyDay(now?: Date): Promise<void>;
+  countStudyDays(): Promise<number>;
 }
 
 export class InMemoryProgressRepository implements ProgressRepository {
@@ -73,6 +77,16 @@ export class InMemoryProgressRepository implements ProgressRepository {
 
   async recordReview(reviewId: string, now = new Date()) {
     if (!this.reviews.has(reviewId)) this.reviews.set(reviewId, now);
+  }
+
+  private days = new Set<string>();
+
+  async recordStudyDay(now = new Date()) {
+    this.days.add(localDay(now));
+  }
+
+  async countStudyDays() {
+    return this.days.size;
   }
 
   private cards = new Map<string, CardRecord>();

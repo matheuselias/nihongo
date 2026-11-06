@@ -1,9 +1,10 @@
-import { and, asc, eq, sql } from 'drizzle-orm';
+import { and, asc, count, eq, sql } from 'drizzle-orm';
 import type { ExpoSQLiteDatabase } from 'drizzle-orm/expo-sqlite';
 
 import type { CardDirection, ProgressRepository } from './progress-repository';
+import { localDay } from './local-day';
 import type { CardState } from '@/lesson/schedule';
-import { cardState, lessonProgress, reviewProgress, stepMistakes } from './schema';
+import { cardState, lessonProgress, reviewProgress, stepMistakes, studyDays } from './schema';
 
 export class SqliteProgressRepository implements ProgressRepository {
   constructor(private db: ExpoSQLiteDatabase) {}
@@ -47,6 +48,14 @@ export class SqliteProgressRepository implements ProgressRepository {
 
   async recordReview(reviewId: string, now = new Date()) {
     await this.db.insert(reviewProgress).values({ reviewId, completedAt: now }).onConflictDoNothing();
+  }
+
+  async recordStudyDay(now = new Date()) {
+    await this.db.insert(studyDays).values({ day: localDay(now) }).onConflictDoNothing();
+  }
+
+  async countStudyDays() {
+    return (await this.db.select({ n: count() }).from(studyDays))[0].n;
   }
 
   async getCardStates() {

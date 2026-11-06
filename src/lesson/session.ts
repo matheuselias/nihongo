@@ -188,7 +188,7 @@ export class LessonSession {
   }
 
   /** Records the wrong steps always, and the score only on a pass; leaving early never gets here. */
-  async finish(repo: ProgressRepository): Promise<LessonResult> {
+  async finish(repo: ProgressRepository, now = new Date()): Promise<LessonResult> {
     const r = this.result();
     if (this.custom) return r;
     if (this.picks) {
@@ -203,7 +203,10 @@ export class LessonSession {
       return s && 'word' in s ? s.word : undefined;
     };
     await repo.recordMistakes(this.lessonId, r.wrongStepIds.map((stepId) => ({ stepId, wordId: wordOf(stepId) })));
-    if (r.passed) await repo.recordResult(this.lessonId, r.score, true);
+    if (r.passed) {
+      await repo.recordResult(this.lessonId, r.score, true, now);
+      await repo.recordStudyDay(now);
+    }
     return r;
   }
 }
