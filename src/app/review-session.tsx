@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { useTheme } from '@/hooks/use-theme';
 import { Spacing } from '@/constants/theme';
 import { EmptyState } from '@/components/empty-state';
 import { Player } from '@/components/lesson-player';
@@ -19,6 +20,7 @@ import { reviewPoints } from '@/trail/rules';
 
 /** Trail review point: a summary of the two sections, then 8 questions. Finishing (not leaving) records it. */
 function ReviewPoint({ id }: { id: string }) {
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [state, setState] = useState<{ sectionIds: [string, string]; steps: Step[] } | null>();
   const [started, setStarted] = useState(false);
@@ -54,8 +56,8 @@ function ReviewPoint({ id }: { id: string }) {
           </ThemedView>
         ))}
       </ScrollView>
-      <Pressable onPress={() => setStarted(true)} accessibilityRole="button" style={styles.button}>
-        <ThemedText style={styles.buttonText}>Começar</ThemedText>
+      <Pressable onPress={() => setStarted(true)} accessibilityRole="button" style={[styles.button, { backgroundColor: theme.primary }]}>
+        <ThemedText style={[styles.buttonText, { color: theme.onPrimary }]}>Começar</ThemedText>
       </Pressable>
     </ThemedView>
   );
@@ -90,6 +92,6 @@ const styles = StyleSheet.create({
   content: { gap: Spacing.three, paddingVertical: Spacing.four },
   group: { gap: Spacing.one },
   bold: { fontWeight: 600 },
-  button: { backgroundColor: '#3c87f7', padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center' },
-  buttonText: { color: '#fff', fontWeight: 600 },
+  button: { padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center' },
+  buttonText: { fontWeight: 600 },
 });

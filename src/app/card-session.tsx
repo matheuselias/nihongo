@@ -84,7 +84,7 @@ function Study({ session, onDone, onRepeat, onNext }: { session: CardSession; on
           <ThemedText type="subtitle">✕</ThemedText>
         </Pressable>
         <ThemedView type="backgroundSelected" style={styles.bar}>
-          <ThemedView style={[styles.fill, { width: `${session.progress * 100}%` }]} />
+          <ThemedView style={[styles.fill, { backgroundColor: theme.primaryText, width: `${session.progress * 100}%` }]} />
         </ThemedView>
       </ThemedView>
 
@@ -122,8 +122,8 @@ function Study({ session, onDone, onRepeat, onNext }: { session: CardSession; on
               onSubmitEditing={check}
               accessibilityLabel="Sua resposta"
               placeholder="Digite sua resposta"
-              placeholderTextColor="#888"
-              style={[styles.input, { color: theme.text }, shown !== undefined && (shown ? styles.right : styles.wrong)]}
+              placeholderTextColor={theme.textSecondary}
+              style={[styles.input, { color: theme.text, borderColor: shown === undefined ? theme.border : shown ? theme.success : theme.error }]}
             />
             {outcome === true && <ThemedText type="smallBold">Correto!</ThemedText>}
             {outcome === false && (
@@ -145,6 +145,7 @@ function Study({ session, onDone, onRepeat, onNext }: { session: CardSession; on
                   <Button
                     text={g.text}
                     secondary={g.grade !== 'good'}
+                    accent={g.grade === 'good'}
                     onPress={async () => {
                       await session.grade(g.grade);
                       advance();
@@ -161,10 +162,11 @@ function Study({ session, onDone, onRepeat, onNext }: { session: CardSession; on
   );
 }
 
-function Button({ text, onPress, secondary, disabled }: { text: string; onPress: () => void; secondary?: boolean; disabled?: boolean }) {
+function Button({ text, onPress, secondary, disabled, accent }: { accent?: boolean; text: string; onPress: () => void; secondary?: boolean; disabled?: boolean }) {
+  const theme = useTheme();
   return (
-    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" style={[styles.button, secondary && styles.secondary, disabled && styles.disabled]}>
-      <ThemedText style={secondary ? undefined : styles.buttonText}>{text}</ThemedText>
+    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" style={[styles.button, secondary ? { borderColor: theme.primaryText } : { backgroundColor: accent ? theme.accent : theme.primary }, disabled && styles.disabled]}>
+      <ThemedText style={[styles.buttonText, { color: secondary ? theme.primaryText : accent ? theme.onAccent : theme.onPrimary }]}>{text}</ThemedText>
     </Pressable>
   );
 }
@@ -174,15 +176,12 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   bar: { flex: 1, height: 8, borderRadius: 4, overflow: 'hidden' },
-  fill: { height: '100%', backgroundColor: '#3c87f7' },
+  fill: { height: '100%' },
   body: { flex: 1, justifyContent: 'center', gap: Spacing.three },
   content: { gap: Spacing.three, paddingVertical: Spacing.four },
-  input: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, borderColor: '#888', fontSize: 20 },
-  right: { borderColor: '#2e9d57' },
-  wrong: { borderColor: '#d64545' },
+  input: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, fontSize: 20 },
   grades: { flexDirection: 'row', gap: Spacing.two },
   disabled: { opacity: 0.4 },
-  button: { backgroundColor: '#3c87f7', padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center' },
-  secondary: { backgroundColor: 'transparent' },
-  buttonText: { color: '#fff', fontWeight: 600 },
+  button: { padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center', borderWidth: 2, borderColor: 'transparent' },
+  buttonText: { fontWeight: 600 },
 });

@@ -8,10 +8,12 @@ import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { content } from '@/content';
 import { progressRepository } from '@/db/client';
+import { useTheme } from '@/hooks/use-theme';
 import { deckCards, deckCounts } from '@/lesson/deck';
 import { validMistakes } from '@/lesson/mistakes';
 
 export default function ReviewScreen() {
+  const theme = useTheme();
   const [count, setCount] = useState<number>();
   const [done, setDone] = useState<Set<string>>(new Set());
   const [cards, setCards] = useState<Awaited<ReturnType<typeof progressRepository.getCardStates>>>([]);
@@ -36,8 +38,8 @@ export default function ReviewScreen() {
             {count} {count === 1 ? 'erro pendente' : 'erros pendentes'}
           </ThemedText>
           <Link href="/review-session" asChild>
-            <Pressable accessibilityRole="button" style={styles.button}>
-              <ThemedText style={styles.buttonText}>Reforçar ({count})</ThemedText>
+            <Pressable accessibilityRole="button" style={[styles.button, { backgroundColor: theme.primary }]}>
+              <ThemedText style={[styles.buttonText, { color: theme.onPrimary }]}>Reforçar ({count})</ThemedText>
             </Pressable>
           </Link>
         </ThemedView>
@@ -75,8 +77,8 @@ export default function ReviewScreen() {
             <ThemedText type="small" themeColor="textSecondary">{due} para revisar</ThemedText>
             <ThemedText type="small" themeColor="textSecondary">{fresh} {fresh === 1 ? 'novo' : 'novos'}</ThemedText>
             <Link href="/card-session" asChild>
-              <Pressable accessibilityRole="button" style={styles.button}>
-                <ThemedText style={styles.buttonText}>Estudar</ThemedText>
+              <Pressable accessibilityRole="button" style={[styles.button, { backgroundColor: theme.primary }]}>
+                <ThemedText style={[styles.buttonText, { color: theme.onPrimary }]}>Estudar</ThemedText>
               </Pressable>
             </Link>
           </>
@@ -89,8 +91,8 @@ export default function ReviewScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: Spacing.three, padding: Spacing.four },
-  button: { backgroundColor: '#3c87f7', paddingVertical: Spacing.three, paddingHorizontal: Spacing.four, borderRadius: Spacing.three },
-  buttonText: { color: '#fff', fontWeight: 600 },
+  button: { paddingVertical: Spacing.three, paddingHorizontal: Spacing.four, borderRadius: Spacing.three },
+  buttonText: { fontWeight: 600 },
   practice: { paddingHorizontal: Spacing.three, gap: Spacing.two },
   section: { padding: Spacing.three, borderRadius: Spacing.three },
   cards: { margin: Spacing.three, marginBottom: 100, padding: Spacing.three, borderRadius: Spacing.three, gap: Spacing.two, alignItems: 'flex-start' },

@@ -21,6 +21,8 @@ const label = (w: Word, dir: 'jp_to_pt' | 'pt_to_jp') =>
 export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: string; picks?: MistakeKey[]; custom?: Step[]; title?: string; onDone?: () => void }) {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+  const right = { borderColor: theme.success };
+  const wrong = { borderColor: theme.error };
     const [session, setSession] = useState(() => new LessonSession(content, lessonId, Math.random, picks, custom));
   const [, rerender] = useState(0);
   const [picked, setPicked] = useState<number>();
@@ -87,7 +89,7 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
           <ThemedText type="subtitle">✕</ThemedText>
         </Pressable>
         <ThemedView type="backgroundSelected" style={styles.bar}>
-          <ThemedView style={[styles.fill, { width: `${progress * 100}%` }]} />
+          <ThemedView style={[styles.fill, { backgroundColor: theme.primaryText, width: `${progress * 100}%` }]} />
         </ThemedView>
       </ThemedView>
 
@@ -117,7 +119,7 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
                 </ThemedText>
                 {q.options.map((o, i) => {
                   const answered = session.answered() !== undefined;
-                  const state = !answered ? undefined : i === q.answer ? styles.right : i === picked ? styles.wrong : undefined;
+                  const state = !answered ? undefined : i === q.answer ? right : i === picked ? wrong : undefined;
                   return (
                     <Pressable
                       key={o.id}
@@ -161,8 +163,8 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
                   onSubmitEditing={() => text.trim() && !done && (session.answerText(text), rerender((n) => n + 1))}
                   accessibilityLabel="Sua resposta"
                   placeholder="Digite sua resposta"
-                  placeholderTextColor="#888"
-                  style={[styles.input, { color: theme.text }, done && (session.answered() ? styles.right : styles.wrong)]}
+                  placeholderTextColor={theme.textSecondary}
+                  style={[styles.input, { color: theme.text, borderColor: theme.border }, done && (session.answered() ? right : wrong)]}
                 />
                 {done && (
                   <ThemedText type="smallBold">
@@ -181,7 +183,7 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
                     disabled={done}
                     accessibilityRole="button"
                     onPress={() => (session.answerSituation(i), setPicked(i))}>
-                    <ThemedView type="backgroundElement" style={[styles.option, done && (i === step.answer ? styles.right : i === picked ? styles.wrong : undefined)]}>
+                    <ThemedView type="backgroundElement" style={[styles.option, done && (i === step.answer ? right : i === picked ? wrong : undefined)]}>
                       <ThemedText type="subtitle">{o.jp}</ThemedText>
                       <ThemedText themeColor="textSecondary">{o.romaji}</ThemedText>
                       {done && <ThemedText>{o.pt}</ThemedText>}
@@ -203,7 +205,7 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
                     disabled={done}
                     accessibilityRole="button"
                     onPress={() => (session.answerBool(v), setPicked(v ? 1 : 0))}>
-                    <ThemedView type="backgroundElement" style={[styles.option, done && (v === step.answer ? styles.right : picked === (v ? 1 : 0) ? styles.wrong : undefined)]}>
+                    <ThemedView type="backgroundElement" style={[styles.option, done && (v === step.answer ? right : picked === (v ? 1 : 0) ? wrong : undefined)]}>
                       <ThemedText>{v ? 'Verdadeiro' : 'Falso'}</ThemedText>
                     </ThemedView>
                   </Pressable>
@@ -218,7 +220,7 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
               <>
                 <ThemedText type="small" themeColor="textSecondary">Monte a frase em japonês</ThemedText>
                 <ThemedText type="subtitle">{bs.pt}</ThemedText>
-                <ThemedView type="backgroundElement" style={[styles.tray, done && (session.answered() ? styles.right : styles.wrong)]}>
+                <ThemedView type="backgroundElement" style={[styles.tray, done && (session.answered() ? right : wrong)]}>
                   {placed.map((bi) => (
                     <Pressable key={bi} disabled={done} accessibilityRole="button" accessibilityLabel={`Remover ${bank[bi]}`} onPress={() => setPlaced(placed.filter((x) => x !== bi))}>
                       <ThemedView type="backgroundSelected" style={styles.block}>
@@ -272,9 +274,10 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
 }
 
 function Button({ text, onPress, secondary, disabled }: { text: string; onPress: () => void; secondary?: boolean; disabled?: boolean }) {
+  const theme = useTheme();
   return (
-    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" style={[styles.button, secondary && styles.secondary, disabled && styles.disabled]}>
-      <ThemedText style={secondary ? undefined : styles.buttonText}>{text}</ThemedText>
+    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" style={[styles.button, secondary ? { borderColor: theme.primaryText } : { backgroundColor: theme.primary }, disabled && styles.disabled]}>
+      <ThemedText style={[styles.buttonText, { color: secondary ? theme.primaryText : theme.onPrimary }]}>{text}</ThemedText>
     </Pressable>
   );
 }
@@ -282,19 +285,16 @@ function Button({ text, onPress, secondary, disabled }: { text: string; onPress:
 const styles = StyleSheet.create({
   screen: { flex: 1, paddingHorizontal: Spacing.three, width: '100%', maxWidth: MaxContentWidth, alignSelf: 'center' },
   flex: { flex: 1 },
-  input: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, borderColor: '#888', fontSize: 20 },
+  input: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, fontSize: 20 },
   disabled: { opacity: 0.4 },
   header: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   bar: { flex: 1, height: 8, borderRadius: 4, overflow: 'hidden' },
-  fill: { height: '100%', backgroundColor: '#3c87f7' },
+  fill: { height: '100%' },
   body: { flex: 1, justifyContent: 'center', gap: Spacing.three },
   content: { gap: Spacing.three, paddingVertical: Spacing.four },
   option: { padding: Spacing.three, borderRadius: Spacing.three, borderWidth: 2, borderColor: 'transparent' },
   tray: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two, minHeight: 56, padding: Spacing.two, borderRadius: Spacing.three, borderWidth: 2, borderColor: 'transparent' },
   block: { paddingVertical: Spacing.two, paddingHorizontal: Spacing.three, borderRadius: Spacing.two },
-  right: { borderColor: '#2e9d57' },
-  wrong: { borderColor: '#d64545' },
-  button: { backgroundColor: '#3c87f7', padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center' },
-  secondary: { backgroundColor: 'transparent' },
-  buttonText: { color: '#fff', fontWeight: 600 },
+  button: { padding: Spacing.three, borderRadius: Spacing.three, alignItems: 'center', borderWidth: 2, borderColor: 'transparent' },
+  buttonText: { fontWeight: 600 },
 });
