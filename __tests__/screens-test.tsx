@@ -8,7 +8,11 @@ import ReviewScreen from '@/app/(tabs)/review';
 jest.mock('expo-router', () => {
   const { useEffect } = jest.requireActual('react');
   const { cloneElement } = jest.requireActual('react');
-  return { Link: ({ children, href }: any) => cloneElement(children, { onPress: () => mockRouterPush(href) }), useFocusEffect: (cb: () => void) => useEffect(cb, [cb]) };
+  return { Link: ({ children, href }: any) => {
+    // real expo-router Slot throws on array styles; mirror it so tests catch what only the device caught
+    if (Array.isArray(children.props.style)) throw new Error('[expo-router]: array of styles passed to a child of <Slot>');
+    return cloneElement(children, { onPress: () => mockRouterPush(href) });
+  }, useFocusEffect: (cb: () => void) => useEffect(cb, [cb]) };
 });
 const mockRouterPush = jest.fn();
 let mockRepo: any;

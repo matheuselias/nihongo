@@ -38,7 +38,7 @@ export default function ReviewScreen() {
             {count} {count === 1 ? 'erro pendente' : 'erros pendentes'}
           </ThemedText>
           <Link href="/review-session" asChild>
-            <Pressable accessibilityRole="button" style={[styles.button, { backgroundColor: theme.primary }]}>
+            <Pressable accessibilityRole="button" style={StyleSheet.flatten([styles.button, { backgroundColor: theme.primary }])}>
               <ThemedText style={[styles.buttonText, { color: theme.onPrimary }]}>Reforçar ({count})</ThemedText>
             </Pressable>
           </Link>
@@ -77,7 +77,7 @@ export default function ReviewScreen() {
             <ThemedText type="small" themeColor="textSecondary">{due} para revisar</ThemedText>
             <ThemedText type="small" themeColor="textSecondary">{fresh} {fresh === 1 ? 'novo' : 'novos'}</ThemedText>
             <Link href="/card-session" asChild>
-              <Pressable accessibilityRole="button" style={[styles.button, { backgroundColor: theme.primary }]}>
+              <Pressable accessibilityRole="button" style={StyleSheet.flatten([styles.button, { backgroundColor: theme.primary }])}>
                 <ThemedText style={[styles.buttonText, { color: theme.onPrimary }]}>Estudar</ThemedText>
               </Pressable>
             </Link>

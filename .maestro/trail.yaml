@@ -2,7 +2,7 @@ appId: host.exp.Exponent
 ---
 - openLink: exp://192.168.0.9:8081
 - extendedWaitUntil:
-    visible: "一 · Cumprimentos"
+    visible: ".*Cumprimentos"
     timeout: 90000
 - takeScreenshot: 01-path
 - tapOn:
