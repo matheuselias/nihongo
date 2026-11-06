@@ -6,26 +6,30 @@ import { Colors } from '@/constants/theme';
 export default function AppTabs() {
   const scheme = useColorScheme();
   const colors = Colors[scheme === 'dark' ? 'dark' : 'light'];
+  // Bar is purple in light mode and the card purple in dark mode.
+  const barColor = scheme === 'dark' ? colors.backgroundElement : colors.primary;
+  const idle = 'rgba(255,255,255,0.7)';
 
   return (
     <NativeTabs
-      backgroundColor={colors.background}
+      backgroundColor={barColor}
       disableTransparentOnScrollEdge
-      indicatorColor={colors.backgroundElement}
-      labelStyle={{ selected: { color: colors.text } }}>
+      indicatorColor={colors.primaryDark}
+      iconColor={{ default: idle, selected: colors.accent }}
+      labelStyle={{ default: { color: idle }, selected: { color: colors.accent } }}>
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>Trilha</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/home.png')}
-          renderingMode="template"
+          sf={{ default: 'map', selected: 'map.fill' }}
+          md="route"
         />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="review">
         <NativeTabs.Trigger.Label>Reforço</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/explore.png')}
-          renderingMode="template"
+          sf={{ default: 'rectangle.stack', selected: 'rectangle.stack.fill' }}
+          md="style"
         />
       </NativeTabs.Trigger>
     </NativeTabs>

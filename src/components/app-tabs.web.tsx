@@ -6,12 +6,12 @@ import {
   TabTriggerSlotProps,
   TabListProps,
 } from 'expo-router/ui';
-import { Pressable, type PressableProps, View, StyleSheet } from 'react-native';
+import { Pressable, type PressableProps, View, StyleSheet, useColorScheme } from 'react-native';
 
 import { MaxContentWidth, Spacing } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 
 import { ThemedText } from './themed-text';
-import { ThemedView } from './themed-view';
 
 export default function AppTabs() {
   return (
@@ -32,29 +32,30 @@ export default function AppTabs() {
 }
 
 export function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps) {
+  const colors = useTheme();
   return (
     <Pressable {...(props as PressableProps)} style={({ pressed }) => pressed && styles.pressed}>
-      <ThemedView
-        type={isFocused ? 'backgroundSelected' : 'backgroundElement'}
-        style={styles.tabButtonView}>
-        <ThemedText type="small" themeColor={isFocused ? 'text' : 'textSecondary'}>
+      <View style={[styles.tabButtonView, isFocused && { backgroundColor: colors.primaryDark }]}>
+        <ThemedText type="small" style={{ color: isFocused ? colors.accent : 'rgba(255,255,255,0.7)' }}>
           {children}
         </ThemedText>
-      </ThemedView>
+      </View>
     </Pressable>
   );
 }
 
 export function CustomTabList(props: TabListProps) {
+  const colors = useTheme();
+  const scheme = useColorScheme();
   return (
     <View {...props} style={styles.tabListContainer}>
-      <ThemedView type="backgroundElement" style={styles.innerContainer}>
-        <ThemedText type="smallBold" style={styles.brandText}>
+      <View style={[styles.innerContainer, { backgroundColor: scheme === 'dark' ? colors.backgroundElement : colors.primary }]}>
+        <ThemedText type="smallBold" style={[styles.brandText, { color: colors.onPrimary }]}>
           Nihongo
         </ThemedText>
 
         {props.children}
-      </ThemedView>
+      </View>
     </View>
   );
 }
