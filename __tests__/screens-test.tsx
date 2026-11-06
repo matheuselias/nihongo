@@ -21,12 +21,12 @@ const complete = async (ids: string[]) => {
 };
 
 describe('Reforço tab', () => {
-  test('without mistakes or finished sections: empty state, hint and Cards "Em breve"', async () => {
+  test('without mistakes or finished sections: empty state, hint and empty Cards', async () => {
     await render(<ReviewScreen />);
     await screen.findByText('Sem erros pendentes');
     screen.getByText(/Conclua todas as lições de uma seção/);
     screen.getByText('Cards');
-    screen.getByText('Em breve');
+    screen.getByText(/As palavras entram no baralho/);
   });
 
   test('count uses singular for 1 and plural after more', async () => {
@@ -54,6 +54,31 @@ describe('Reforço tab', () => {
     await complete(first.lessons.map((l) => l.id));
     await render(<ReviewScreen />);
     await screen.findByText(first.title);
+  });
+});
+
+describe('Cards block', () => {
+  const { deckCards } = jest.requireActual('@/lesson/deck');
+  const lessonIds = first.lessons.map((l) => l.id);
+
+  test('shows due and new counts and a Estudar button', async () => {
+    await complete([lessonIds[0]]);
+    const deck = deckCards(content, new Set([lessonIds[0]]));
+    await progressRepository.saveCardResult(deck[0].wordId, deck[0].direction, { intervalDays: 1, ease: 2.5, due: new Date(0) }, true);
+    await render(<ReviewScreen />);
+    await screen.findByText('1 para revisar');
+    screen.getByText(`${deck.length - 1} novos`);
+    screen.getByText('Estudar');
+  });
+
+  test('says the person is up to date when nothing is due or new', async () => {
+    await complete([lessonIds[0]]);
+    const future = new Date(Date.now() + 1e10);
+    for (const c of deckCards(content, new Set([lessonIds[0]])))
+      await progressRepository.saveCardResult(c.wordId, c.direction, { intervalDays: 1, ease: 2.5, due: future }, true);
+    await render(<ReviewScreen />);
+    await screen.findByText('Você está em dia!');
+    expect(screen.queryByText('Estudar')).toBeNull();
   });
 });
 

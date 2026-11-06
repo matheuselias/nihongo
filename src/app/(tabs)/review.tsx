@@ -8,19 +8,24 @@ import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { content } from '@/content';
 import { progressRepository } from '@/db/client';
+import { deckCards, deckCounts } from '@/lesson/deck';
 import { validMistakes } from '@/lesson/mistakes';
 
 export default function ReviewScreen() {
   const [count, setCount] = useState<number>();
   const [done, setDone] = useState<Set<string>>(new Set());
+  const [cards, setCards] = useState<Awaited<ReturnType<typeof progressRepository.getCardStates>>>([]);
   useFocusEffect(
     useCallback(() => {
       validMistakes(progressRepository, content).then((m) => setCount(m.length));
+      progressRepository.getCardStates().then(setCards);
       progressRepository.getAll().then((p) => setDone(new Set(p.filter((x) => x.completed).map((x) => x.lessonId))));
     }, []),
   );
   const completed = content.sections.filter((s) => s.lessons.every((l) => done.has(l.id)));
   if (count === undefined) return null;
+  const deck = deckCards(content, done);
+  const { due, fresh } = deckCounts(deck, cards, new Date());
 
   return (
     <ThemedView style={styles.screen}>
@@ -59,7 +64,22 @@ export default function ReviewScreen() {
       </ThemedView>
       <ThemedView type="backgroundElement" style={styles.cards}>
         <ThemedText style={styles.cardsTitle}>Cards</ThemedText>
-        <ThemedText type="small" themeColor="textSecondary">Em breve</ThemedText>
+        {!deck.length ? (
+          <ThemedText type="small" themeColor="textSecondary">
+            As palavras entram no baralho quando você conclui lições.
+          </ThemedText>
+        ) : !due && !fresh ? (
+          <ThemedText type="small" themeColor="textSecondary">Você está em dia!</ThemedText>
+        ) : (
+          <>
+            <ThemedText type="small" themeColor="textSecondary">{due} para revisar</ThemedText>
+            <ThemedText type="small" themeColor="textSecondary">{fresh} {fresh === 1 ? 'novo' : 'novos'}</ThemedText>
+            {/* Session arrives in ticket 03. */}
+            <Pressable accessibilityRole="button" style={styles.button}>
+              <ThemedText style={styles.buttonText}>Estudar</ThemedText>
+            </Pressable>
+          </>
+        )}
       </ThemedView>
     </ThemedView>
   );
@@ -72,6 +92,6 @@ const styles = StyleSheet.create({
   buttonText: { color: '#fff', fontWeight: 600 },
   practice: { paddingHorizontal: Spacing.three, gap: Spacing.two },
   section: { padding: Spacing.three, borderRadius: Spacing.three },
-  cards: { margin: Spacing.three, marginBottom: 100, padding: Spacing.three, borderRadius: Spacing.three, opacity: 0.6 },
+  cards: { margin: Spacing.three, marginBottom: 100, padding: Spacing.three, borderRadius: Spacing.three, gap: Spacing.two, alignItems: 'flex-start' },
   cardsTitle: { fontWeight: 600 },
 });

@@ -1,8 +1,9 @@
 import { and, asc, eq, sql } from 'drizzle-orm';
 import type { ExpoSQLiteDatabase } from 'drizzle-orm/expo-sqlite';
 
-import type { ProgressRepository } from './progress-repository';
-import { lessonProgress, reviewProgress, stepMistakes } from './schema';
+import type { CardDirection, ProgressRepository } from './progress-repository';
+import type { CardState } from '@/lesson/schedule';
+import { cardState, lessonProgress, reviewProgress, stepMistakes } from './schema';
 
 export class SqliteProgressRepository implements ProgressRepository {
   constructor(private db: ExpoSQLiteDatabase) {}
@@ -46,5 +47,24 @@ export class SqliteProgressRepository implements ProgressRepository {
 
   async recordReview(reviewId: string, now = new Date()) {
     await this.db.insert(reviewProgress).values({ reviewId, completedAt: now }).onConflictDoNothing();
+  }
+
+  async getCardStates() {
+    return (await this.db.select().from(cardState)).map(({ dueAt, ...r }) => ({ ...r, due: dueAt }));
+  }
+
+  async saveCardResult(wordId: string, direction: CardDirection, state: CardState, correct: boolean) {
+    const fields = { intervalDays: state.intervalDays, ease: state.ease, dueAt: state.due };
+    await this.db
+      .insert(cardState)
+      .values({ wordId, direction, ...fields, correctCount: +correct, wrongCount: +!correct })
+      .onConflictDoUpdate({
+        target: [cardState.wordId, cardState.direction],
+        set: {
+          ...fields,
+          correctCount: sql`${cardState.correctCount} + ${+correct}`,
+          wrongCount: sql`${cardState.wrongCount} + ${+!correct}`,
+        },
+      });
   }
 }

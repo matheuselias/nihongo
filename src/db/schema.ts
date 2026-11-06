@@ -1,4 +1,4 @@
-import { integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, primaryKey, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const lessonProgress = sqliteTable('lesson_progress', {
   lessonId: text('lesson_id').primaryKey(),
@@ -22,3 +22,17 @@ export const reviewProgress = sqliteTable('review_progress', {
   reviewId: text('review_id').primaryKey(),
   completedAt: integer('completed_at', { mode: 'timestamp_ms' }).notNull(),
 });
+
+export const cardState = sqliteTable(
+  'card_state',
+  {
+    wordId: text('word_id').notNull(),
+    direction: text('direction', { enum: ['jp_to_pt', 'pt_to_jp'] }).notNull(),
+    intervalDays: real('interval_days').notNull(),
+    ease: real('ease').notNull(),
+    dueAt: integer('due_at', { mode: 'timestamp_ms' }).notNull(),
+    correctCount: integer('correct_count').notNull().default(0),
+    wrongCount: integer('wrong_count').notNull().default(0),
+  },
+  (t) => [primaryKey({ columns: [t.wordId, t.direction] })],
+);

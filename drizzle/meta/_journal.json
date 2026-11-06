@@ -22,6 +22,13 @@
       "when": 1793900960493,
       "tag": "0002_review_progress",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1793967452433,
+      "tag": "0003_card_state",
+      "breakpoints": true
     }
   ]
 }
