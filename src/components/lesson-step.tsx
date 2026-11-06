@@ -9,7 +9,9 @@ import type { Step, Word } from '@/content/schema';
 export function WordCard({ word }: { word: Word }) {
   return (
     <ThemedView type="backgroundElement" style={styles.card}>
-      <ThemedText style={styles.jp}>{word.kana}</ThemedText>
+      <ThemedText style={styles.jp} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
+        {word.kana}
+      </ThemedText>
       {word.kanji && <ThemedText type="subtitle">{word.kanji}</ThemedText>}
       <ThemedText themeColor="textSecondary">{word.romaji}</ThemedText>
       <ThemedText>
@@ -25,7 +27,7 @@ function Line({ jp, romaji, pt, extra }: { jp: string; romaji: string; pt: strin
   return (
     <ThemedView type="backgroundElement" style={styles.card}>
       {extra && <ThemedText type="smallBold" themeColor="textSecondary">{extra}</ThemedText>}
-      <ThemedText type="subtitle">{jp}</ThemedText>
+      <ThemedText type="subtitle" style={styles.line}>{jp}</ThemedText>
       <ThemedText themeColor="textSecondary">{romaji}</ThemedText>
       <ThemedText>{pt}</ThemedText>
     </ThemedView>
@@ -68,5 +70,6 @@ export function ExplanatoryStep({ step }: { step: Step }) {
 
 const styles = StyleSheet.create({
   card: { padding: Spacing.three, borderRadius: Spacing.three, gap: Spacing.one },
+  line: { fontSize: 28, lineHeight: 38 },
   jp: { fontSize: 40, lineHeight: 52, fontWeight: 600 },
 });

@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -33,7 +33,7 @@ function ReviewPoint({ id }: { id: string }) {
     })();
   }, [id]);
 
-  if (state === undefined) return null;
+  if (state === undefined) return <ThemedView style={styles.loading}><ActivityIndicator size="large" accessibilityLabel="Carregando revisão" /></ThemedView>;
   if (!state?.steps.length) return <EmptyState title="Nada para revisar" message="Esta revisão não tem perguntas." />;
   if (started) return <Player lessonId={content.sections.find((s) => s.id === state.sectionIds[0])!.lessons[0].id} custom={state.steps} title="Revisão" onDone={() => progressRepository.recordReview(id)} />;
   return (
@@ -85,6 +85,7 @@ function Reinforcement({ section }: { section?: string }) {
 }
 
 const styles = StyleSheet.create({
+  loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   screen: { flex: 1, paddingHorizontal: Spacing.three },
   content: { gap: Spacing.three, paddingVertical: Spacing.four },
   group: { gap: Spacing.one },

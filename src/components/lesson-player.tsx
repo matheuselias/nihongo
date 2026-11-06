@@ -66,11 +66,14 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
     setPlaced([]);
   };
 
+  // Past the last step, saving is in flight and `session.current` is undefined until `result` arrives.
+  if (!result && session.finished) return <ThemedView style={styles.screen} />;
+
   const q = result ? undefined : session.question();
   const step = session.current;
   const ta = result || step.type !== 'type_answer' ? undefined : step;
   const taWord = ta && content.words[ta.word];
-  const done = session.answered() !== undefined;
+  const done = !result && session.answered() !== undefined;
   const graded = !result && GRADED_TYPES.includes(step.type);
   const bs = result || step.type !== 'build_sentence' ? undefined : step;
   const bank = bs ? session.blocks() : [];
@@ -91,7 +94,7 @@ export function Player({ lessonId, picks, custom, title, onDone }: { lessonId: s
       {result ? (
         <ThemedView style={styles.body}>
           <EmptyState
-            title={session.review ? 'Reforço concluído!' : result.passed ? 'Lição concluída!' : 'Quase lá'}
+            title={session.review ? (title === 'Revisão' ? 'Revisão concluída!' : 'Reforço concluído!') : result.passed ? 'Lição concluída!' : 'Quase lá'}
             message={session.review ? `Acertos: ${result.score}%.${custom ? '' : ' O que você errar fica na fila.'}` : `Nota: ${result.score}%${result.passed ? '' : ` (mínimo ${session.passScore}%). Tente de novo do início.`}`}
           />
           <Button text={session.review ? 'Voltar' : result.passed ? 'Voltar à trilha' : 'Tentar de novo'} onPress={result.passed || session.review ? () => router.back() : retry} />
