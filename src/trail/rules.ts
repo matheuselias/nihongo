@@ -26,3 +26,14 @@ export function reviewPoints(content: Content, completed: ReadonlySet<string>): 
   }
   return points;
 }
+
+/** Words a lesson introduces: `present` steps whose word no earlier lesson in trail order presented. */
+export function newWordIds(content: Content, lessonId: string): string[] {
+  const seen = new Set<string>();
+  for (const lesson of content.sections.flatMap((s) => s.lessons)) {
+    const own = lesson.steps.flatMap((st) => (st.type === 'present' ? [st.word] : []));
+    if (lesson.id === lessonId) return [...new Set(own)].filter((w) => !seen.has(w));
+    own.forEach((w) => seen.add(w));
+  }
+  return [];
+}

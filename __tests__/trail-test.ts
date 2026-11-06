@@ -53,3 +53,13 @@ test('best score is preserved and completion is sticky', async () => {
   expect(row.bestScore).toBe(90);
   expect(row.completed).toBe(true);
 });
+
+describe('newWordIds', () => {
+  const { newWordIds } = jest.requireActual('@/trail/rules');
+  test('lists present words once, and none already presented by an earlier lesson', () => {
+    const [a, b] = content.sections[0].lessons;
+    const presented = (l: typeof a) => l.steps.flatMap((s) => (s.type === 'present' ? [s.word] : []));
+    expect(newWordIds(content, a.id)).toEqual([...new Set(presented(a))]);
+    for (const w of newWordIds(content, b.id)) expect(presented(a)).not.toContain(w);
+  });
+});

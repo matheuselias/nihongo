@@ -86,40 +86,70 @@ describe('Cards block', () => {
 });
 
 describe('Trilha tab', () => {
-  test('every lesson is available at the start, none locked', async () => {
+  const total = content.sections.reduce((n, s) => n + s.lessons.length, 0);
+  const node = (n: number, title: string) => screen.findByLabelText(new RegExp(`^Lição ${n}: ${title}`));
+
+  test('every lesson is a tappable node, none locked, with the section kanji in the header', async () => {
     await render(<PathScreen />);
-    await screen.findByText(first.lessons[0].title);
-    expect(screen.getAllByText('Disponível')).toHaveLength(content.sections.reduce((n, s) => n + s.lessons.length, 0));
+    await node(1, first.lessons[0].title);
+    expect(screen.getAllByLabelText(/^Lição \d+:/)).toHaveLength(total);
     expect(screen.queryByText(/Bloqueada/)).toBeNull();
-    expect(screen.queryByText(/Concluída/)).toBeNull();
+    screen.getByText(`一 · ${first.title}`);
   });
 
-  test('tapping a later lesson opens that lesson', async () => {
+  test('the first unfinished lesson is the recommended one', async () => {
+    await progressRepository.recordResult(first.lessons[0].id, 90, true);
     await render(<PathScreen />);
-    const later = first.lessons[2];
-    await fireEvent.press(await screen.findByText(later.title));
-    expect(mockRouterPush).toHaveBeenCalledWith(expect.objectContaining({ params: { id: later.id } }));
+    await screen.findByLabelText(new RegExp(`^Lição 2: ${first.lessons[1].title}, recomendada`));
+    expect(screen.getAllByRole('button', { selected: true })).toHaveLength(1);
   });
 
-  test('shows score on completed lessons; the Revisão card is visible but dimmed and still opens', async () => {
+  test('completed node shows the score', async () => {
     await progressRepository.recordResult(first.lessons[0].id, 85, true);
     await render(<PathScreen />);
-    await screen.findByText('Concluída · 85%');
-    await fireEvent.press(screen.getAllByText('Revisão')[0]);
-    expect(mockRouterPush).toHaveBeenCalledWith(expect.objectContaining({ params: { point: 'review-1' } }));
+    await screen.findByLabelText(new RegExp(`^Lição 1: .*concluída, 85%`));
+    screen.getByText('85%');
   });
 
-  test('Revisão card appears (optional, then checked) after two sections are done', async () => {
+  test('tapping a node opens the preview, tapping outside closes it', async () => {
+    await render(<PathScreen />);
+    await fireEvent.press(await node(1, first.lessons[0].title));
+    screen.getByText(/palavras? novas?/);
+    screen.getByText('Não iniciada');
+    screen.getByText('Começar');
+    await fireEvent.press(screen.getByLabelText('Fechar prévia'));
+    expect(screen.queryByText('Começar')).toBeNull();
+  });
+
+  test('Começar opens the right lesson', async () => {
+    await render(<PathScreen />);
+    await fireEvent.press(await node(3, first.lessons[2].title));
+    await fireEvent.press(screen.getByText('Começar'));
+    expect(mockRouterPush).toHaveBeenCalledWith(expect.objectContaining({ params: { id: first.lessons[2].id } }));
+  });
+
+  test('a completed lesson shows its score and Refazer in the preview', async () => {
+    await progressRepository.recordResult(first.lessons[0].id, 85, true);
+    await render(<PathScreen />);
+    await fireEvent.press(await screen.findByLabelText(/^Lição 1: .*concluída/));
+    screen.getByText('Concluída · 85%');
+    screen.getByText('Refazer');
+  });
+
+  test('the Revisão node opens while dimmed and while active', async () => {
+    await render(<PathScreen />);
+    await fireEvent.press((await screen.findAllByLabelText('Revisão, apagada'))[0]);
+    expect(mockRouterPush).toHaveBeenLastCalledWith(expect.objectContaining({ params: { point: 'review-1' } }));
     await complete(content.sections.slice(0, 2).flatMap((s) => s.lessons.map((l) => l.id)));
     await render(<PathScreen />);
-    await screen.findAllByText('Revisão');
-    expect(screen.getAllByText('Opcional').length).toBeGreaterThan(0);
+    await fireEvent.press((await screen.findAllByLabelText('Revisão, ativa'))[0]);
+    expect(mockRouterPush).toHaveBeenLastCalledWith(expect.objectContaining({ params: { point: 'review-1' } }));
   });
 
-  test('finished review point gets a check', async () => {
+  test('finished review point is marked concluded', async () => {
     await complete(content.sections.slice(0, 2).flatMap((s) => s.lessons.map((l) => l.id)));
     await progressRepository.recordReview('review-1');
     await render(<PathScreen />);
-    await screen.findByText('Concluída ✓');
+    await screen.findByLabelText('Revisão, concluída');
   });
 });

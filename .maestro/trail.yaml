@@ -1,0 +1,14 @@
+appId: host.exp.Exponent
+---
+- openLink: exp://192.168.0.9:8081
+- extendedWaitUntil:
+    visible: "一 · Cumprimentos"
+    timeout: 90000
+- takeScreenshot: 01-path
+- tapOn:
+    text: "Lição 1.*"
+- assertVisible: "Começar|Refazer"
+- takeScreenshot: 02-bubble
+- tapOn: "Começar|Refazer"
+# finishing the lesson (answering every step) is done through the UI; adjust to the content when recording
+- takeScreenshot: 03-lesson
