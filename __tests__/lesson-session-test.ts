@@ -28,13 +28,13 @@ function play(s: LessonSession, wrong: string[] = [], stopAt?: string) {
 
 const graded = (id: string) => content.lessons[id].steps.filter((s) => GRADED_TYPES.includes(s.type));
 
-test('perfect run passes, saves and unlocks the next lesson', async () => {
+test('perfect run passes and saves the lesson as completed', async () => {
   const repo = new InMemoryProgressRepository();
   const s = new LessonSession(content, first, rng);
   play(s);
   expect((await s.finish(repo))).toMatchObject({ score: 100, passed: true, wrongStepIds: [] });
   const done = new Set((await repo.getAll()).filter((p) => p.completed).map((p) => p.lessonId));
-  expect(lessonStates(content, done)[content.sections[0].lessons[1].id]).toBe('available');
+  expect(lessonStates(content, done)[first]).toBe('completed');
 });
 
 test('failing run reports wrong steps and writes nothing', async () => {

@@ -1,6 +1,6 @@
 import { content } from '@/content';
 import { InMemoryProgressRepository } from '@/db/progress-repository';
-import { lessonStates } from '@/trail/rules';
+import { lessonStates, nextLessonId } from '@/trail/rules';
 import type { Content } from '@/content/load';
 
 async function statesFor(repo: InMemoryProgressRepository, c: Content = content) {
@@ -19,30 +19,30 @@ const two: Content = {
   ],
 };
 
-test('initial state: only the first lesson is available', async () => {
+test('no lesson is locked, even without the previous one completed', async () => {
   const s = await statesFor(new InMemoryProgressRepository());
-  expect(ids.map((id) => s[id])).toEqual(['available', 'locked', 'locked', 'locked']);
+  expect(ids.map((id) => s[id])).toEqual(['not_started', 'not_started', 'not_started', 'not_started']);
 });
 
-test('completing a lesson unlocks the next one', async () => {
+test('completing a lesson marks only that one', async () => {
   const repo = new InMemoryProgressRepository();
-  await repo.recordResult(ids[0], 100, true);
+  await repo.recordResult(ids[2], 100, true);
   const s = await statesFor(repo);
-  expect(ids.map((id) => s[id])).toEqual(['completed', 'available', 'locked', 'locked']);
+  expect(ids.map((id) => s[id])).toEqual(['not_started', 'not_started', 'completed', 'not_started']);
 });
 
-test('a failed attempt does not unlock', async () => {
+test('a failed attempt does not complete the lesson', async () => {
   const repo = new InMemoryProgressRepository();
   await repo.recordResult(ids[0], 50, false);
-  expect((await statesFor(repo))[ids[1]]).toBe('locked');
+  expect((await statesFor(repo))[ids[0]]).toBe('not_started');
 });
 
-test('last lesson of a section unlocks the first of the next', async () => {
-  const repo = new InMemoryProgressRepository();
-  await repo.recordResult(ids[0], 90, true);
-  expect((await statesFor(repo, two))['next-a']).toBe('locked');
-  await repo.recordResult(ids[1], 90, true);
-  expect((await statesFor(repo, two))['next-a']).toBe('available');
+test('next recommended lesson is the first not completed, across sections', async () => {
+  const done = (...l: string[]) => new Set(l);
+  expect(nextLessonId(two, done())).toBe(ids[0]);
+  expect(nextLessonId(two, done(ids[0], ids[1]))).toBe('next-a');
+  expect(nextLessonId(two, done(ids[1]))).toBe(ids[0]);
+  expect(nextLessonId(two, done(ids[0], ids[1], 'next-a'))).toBeUndefined();
 });
 
 test('best score is preserved and completion is sticky', async () => {

@@ -10,25 +10,21 @@ const four: Content = { ...content, sections: real };
 const lessonIds = (i: number) => real[i].lessons.map((l) => l.id);
 const done = (...secs: number[]) => new Set(secs.flatMap(lessonIds));
 
-test('review point N appears after section 2N, only once it is completed', () => {
-  expect(reviewPoints(four, done())).toEqual([]);
-  expect(reviewPoints(four, done(0, 1).add(lessonIds(1)[0]))).toHaveLength(1);
-  expect(reviewPoints(four, done(0))).toEqual([]);
-  expect(reviewPoints(four, done(1))).toHaveLength(1); // section 2 done is what counts
-  const pts = reviewPoints(four, done(0, 1, 2, 3));
-  expect(pts.map((p) => [p.id, p.afterSectionId])).toEqual([
-    ['review-1', real[1].id],
-    ['review-2', real[3].id],
-  ]);
+test('review point N is always listed after section 2N, active only once that section is completed', () => {
+  const view = (c: Set<string>) => reviewPoints(four, c).map((p) => [p.id, p.afterSectionId, p.active]);
+  expect(view(done())).toEqual([['review-1', real[1].id, false], ['review-2', real[3].id, false]]);
+  expect(view(done(0))[0][2]).toBe(false);
+  expect(view(done(1))[0][2]).toBe(true); // section 2 done is what counts
+  expect(view(done(0, 1, 2, 3)).map((p) => p[2])).toEqual([true, true]);
 });
 
 test('an odd trailing section has no review point', () => {
-  expect(reviewPoints({ ...content, sections: real.slice(0, 3) }, done(0, 1, 2))).toHaveLength(1);
+  expect(reviewPoints({ ...content, sections: real.slice(0, 3) }, done())).toHaveLength(1);
 });
 
-test('a review point never blocks the next lesson', () => {
+test('lessons are not blocked by a review point', () => {
   const s = lessonStates(four, done(0, 1));
-  expect(s[lessonIds(2)[0]]).toBe('available');
+  expect(s[lessonIds(2)[0]]).toBe('not_started');
 });
 
 // rng that cycles through fixed values for reproducible trials

@@ -51,10 +51,16 @@ describe('Reforço livre', () => {
 });
 
 describe('Revisão da trilha', () => {
-  test('unknown or not yet unlocked point shows "Nada para revisar"', async () => {
-    mockParams = { point: 'review-1' };
+  test('unknown point shows "Nada para revisar"', async () => {
+    mockParams = { point: 'review-99' };
     await render(<ReviewSessionScreen />);
     await screen.findByText('Nada para revisar');
+  });
+
+  test('a point not yet active still opens, with the summary', async () => {
+    mockParams = { point: 'review-1' };
+    await render(<ReviewSessionScreen />);
+    await screen.findByText('Resumo');
   });
 
   test('shows a summary of both sections, then starts the questions on "Começar"', async () => {

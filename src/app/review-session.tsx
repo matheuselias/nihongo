@@ -31,7 +31,7 @@ function ReviewPoint({ id }: { id: string }) {
       if (!point) return setState(null);
       const completed = content.sections.filter((s) => s.lessons.every((l) => done.has(l.id))).map((s) => s.id);
       const mistakes = new Set((await validMistakes(progressRepository, content)).flatMap((m) => (m.wordId ? [m.wordId] : [])));
-      setState({ sectionIds: point.sectionIds, steps: reviewQuestions(content, completed, mistakes, Math.random) });
+      setState({ sectionIds: point.sectionIds, steps: reviewQuestions(content, point.active ? completed : point.sectionIds, mistakes, Math.random) });
     })();
   }, [id]);
 

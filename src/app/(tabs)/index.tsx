@@ -21,9 +21,9 @@ export default function PathScreen() {
   );
 
   const scores = new Map(progress.map((p) => [p.lessonId, p.bestScore]));
-  const states = lessonStates(content, new Set(progress.filter((p) => p.completed).map((p) => p.lessonId)));
-
-  const points = reviewPoints(content, new Set(progress.filter((p) => p.completed).map((p) => p.lessonId)));
+  const completed = new Set(progress.filter((p) => p.completed).map((p) => p.lessonId));
+  const states = lessonStates(content, completed);
+  const points = reviewPoints(content, completed);
 
   return (
     <ThemedView style={styles.screen}>
@@ -35,24 +35,16 @@ export default function PathScreen() {
             <ThemedText themeColor="textSecondary">{section.description}</ThemedText>
             {section.lessons.map((lesson) => {
               const state = states[lesson.id];
-              const locked = state === 'locked';
-              const card = (
-                <ThemedView
-                  type="backgroundElement"
-                  accessibilityRole="button"
-                  accessibilityState={{ disabled: locked }}
-                  style={[styles.card, locked && styles.locked]}>
-                  <ThemedText style={styles.cardTitle}>{lesson.title}</ThemedText>
-                  <ThemedText type="small" themeColor="textSecondary">
-                    {locked ? 'Bloqueada' : state === 'completed' ? `Concluída · ${scores.get(lesson.id)}%` : 'Disponível'}
-                  </ThemedText>
-                </ThemedView>
-              );
-              return locked ? (
-                <ThemedView key={lesson.id}>{card}</ThemedView>
-              ) : (
+              return (
                 <Link key={lesson.id} href={{ pathname: '/lesson/[id]', params: { id: lesson.id } }} asChild>
-                  <Pressable>{card}</Pressable>
+                  <Pressable>
+                    <ThemedView type="backgroundElement" accessibilityRole="button" style={styles.card}>
+                      <ThemedText style={styles.cardTitle}>{lesson.title}</ThemedText>
+                      <ThemedText type="small" themeColor="textSecondary">
+                        {state === 'completed' ? `Concluída · ${scores.get(lesson.id)}%` : 'Disponível'}
+                      </ThemedText>
+                    </ThemedView>
+                  </Pressable>
                 </Link>
               );
             })}
@@ -62,7 +54,7 @@ export default function PathScreen() {
             .map((p) => (
               <Link key={p.id} href={{ pathname: '/review-session', params: { point: p.id } }} asChild>
                 <Pressable>
-                  <ThemedView type="backgroundElement" accessibilityRole="button" style={styles.card}>
+                  <ThemedView type="backgroundElement" accessibilityRole="button" style={[styles.card, !p.active && styles.inactive]}>
                     <ThemedText style={styles.cardTitle}>Revisão</ThemedText>
                     <ThemedText type="small" themeColor="textSecondary">
                       {reviewsDone.includes(p.id) ? 'Concluída ✓' : 'Opcional'}
@@ -91,5 +83,5 @@ const styles = StyleSheet.create({
   section: { gap: Spacing.two },
   card: { padding: Spacing.three, borderRadius: Spacing.three, gap: Spacing.one },
   cardTitle: { fontWeight: 600 },
-  locked: { opacity: 0.5 },
+  inactive: { opacity: 0.5 },
 });

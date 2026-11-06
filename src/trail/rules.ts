@@ -1,31 +1,28 @@
 import type { Content } from '@/content/load';
 
-export type LessonState = 'locked' | 'available' | 'completed';
+export type LessonState = 'not_started' | 'completed';
 
-/** Lessons run in one linear order across sections: a lesson opens once every earlier one is completed. */
+/** Every lesson is open; the state only tells whether it was passed. */
 export function lessonStates(content: Content, completed: ReadonlySet<string>): Record<string, LessonState> {
   const states: Record<string, LessonState> = {};
-  let open = true;
   for (const section of content.sections)
-    for (const { id } of section.lessons) {
-      if (completed.has(id)) states[id] = 'completed';
-      else {
-        states[id] = open ? 'available' : 'locked';
-        open = false;
-      }
-    }
+    for (const { id } of section.lessons) states[id] = completed.has(id) ? 'completed' : 'not_started';
   return states;
 }
 
-export type ReviewPoint = { id: string; afterSectionId: string; sectionIds: [string, string] };
+/** First lesson not completed in trail order, or undefined when everything is done. */
+export function nextLessonId(content: Content, completed: ReadonlySet<string>): string | undefined {
+  return content.sections.flatMap((s) => s.lessons).find((l) => !completed.has(l.id))?.id;
+}
 
-/** Review point N shows after section 2N, once that section is completed. It never gates a lesson. */
+export type ReviewPoint = { id: string; afterSectionId: string; sectionIds: [string, string]; active: boolean };
+
+/** Review point N always shows after section 2N; it is active once that section is completed. It never gates a lesson. */
 export function reviewPoints(content: Content, completed: ReadonlySet<string>): ReviewPoint[] {
   const points: ReviewPoint[] = [];
   for (let n = 1; 2 * n <= content.sections.length; n++) {
     const [a, b] = content.sections.slice(2 * n - 2, 2 * n);
-    if (b.lessons.every((l) => completed.has(l.id)))
-      points.push({ id: `review-${n}`, afterSectionId: b.id, sectionIds: [a.id, b.id] });
+    points.push({ id: `review-${n}`, afterSectionId: b.id, sectionIds: [a.id, b.id], active: b.lessons.every((l) => completed.has(l.id)) });
   }
   return points;
 }

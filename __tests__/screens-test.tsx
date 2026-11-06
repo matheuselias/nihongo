@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { content } from '@/content';
 import { progressRepository } from '@/db/client';
@@ -7,11 +7,14 @@ import ReviewScreen from '@/app/(tabs)/review';
 
 jest.mock('expo-router', () => {
   const { useEffect } = jest.requireActual('react');
-  return { Link: ({ children }: any) => children, useFocusEffect: (cb: () => void) => useEffect(cb, [cb]) };
+  const { cloneElement } = jest.requireActual('react');
+  return { Link: ({ children, href }: any) => cloneElement(children, { onPress: () => mockRouterPush(href) }), useFocusEffect: (cb: () => void) => useEffect(cb, [cb]) };
 });
+const mockRouterPush = jest.fn();
 let mockRepo: any;
 jest.mock('@/db/client', () => ({ get progressRepository() { return mockRepo; } }));
 beforeEach(() => {
+  mockRouterPush.mockClear();
   mockRepo = new (jest.requireActual('@/db/progress-repository').InMemoryProgressRepository)();
 });
 
@@ -83,25 +86,34 @@ describe('Cards block', () => {
 });
 
 describe('Trilha tab', () => {
-  test('only the first lesson is available at the start', async () => {
+  test('every lesson is available at the start, none locked', async () => {
     await render(<PathScreen />);
     await screen.findByText(first.lessons[0].title);
-    expect(screen.getAllByText('Disponível')).toHaveLength(1);
+    expect(screen.getAllByText('Disponível')).toHaveLength(content.sections.reduce((n, s) => n + s.lessons.length, 0));
+    expect(screen.queryByText(/Bloqueada/)).toBeNull();
     expect(screen.queryByText(/Concluída/)).toBeNull();
   });
 
-  test('shows score on completed lessons and a Revisão card only after 2 sections', async () => {
+  test('tapping a later lesson opens that lesson', async () => {
+    await render(<PathScreen />);
+    const later = first.lessons[2];
+    await fireEvent.press(await screen.findByText(later.title));
+    expect(mockRouterPush).toHaveBeenCalledWith(expect.objectContaining({ params: { id: later.id } }));
+  });
+
+  test('shows score on completed lessons; the Revisão card is visible but dimmed and still opens', async () => {
     await progressRepository.recordResult(first.lessons[0].id, 85, true);
     await render(<PathScreen />);
     await screen.findByText('Concluída · 85%');
-    expect(screen.queryByText('Revisão')).toBeNull();
+    await fireEvent.press(screen.getAllByText('Revisão')[0]);
+    expect(mockRouterPush).toHaveBeenCalledWith(expect.objectContaining({ params: { point: 'review-1' } }));
   });
 
   test('Revisão card appears (optional, then checked) after two sections are done', async () => {
     await complete(content.sections.slice(0, 2).flatMap((s) => s.lessons.map((l) => l.id)));
     await render(<PathScreen />);
-    await screen.findByText('Revisão');
-    screen.getByText('Opcional');
+    await screen.findAllByText('Revisão');
+    expect(screen.getAllByText('Opcional').length).toBeGreaterThan(0);
   });
 
   test('finished review point gets a check', async () => {
