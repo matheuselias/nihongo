@@ -1,0 +1,12 @@
+appId: host.exp.Exponent
+---
+# Assumes one lesson was already passed through the UI (banner reads "1 dia estudando").
+- openLink: exp://192.168.0.9:8081
+- extendedWaitUntil:
+    visible: ".*dia.* estudando"
+    timeout: 90000
+- assertVisible: "1 dia estudando"
+- takeScreenshot: study-days-path
+- tapOn: "Reforço"
+- assertVisible: "1 dia estudando"
+- takeScreenshot: study-days-review
