@@ -27,7 +27,7 @@ export default function RootLayout() {
         <EmptyState title="Erro ao abrir o app" message={`Não foi possível preparar seus dados: ${error.message}`} />
       ) : (
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(tabs)" options={{ statusBarStyle: 'light' }} />
           <Stack.Screen name="lesson/[id]" options={{ presentation: 'fullScreenModal' }} />
           <Stack.Screen name="review-session" options={{ presentation: 'fullScreenModal' }} />
           <Stack.Screen name="card-session" options={{ presentation: 'fullScreenModal' }} />

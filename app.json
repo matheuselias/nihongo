@@ -8,6 +8,7 @@
     "scheme": "nihongo",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "bundleIdentifier": "com.matheuselias.nihongo",
       "icon": "./assets/expo.icon"
     },
     "android": {
@@ -40,6 +41,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b540f3d0-3998-48d3-968b-b8c66c32952f"
+      }
+    },
+    "owner": "matheuselias1"
   }
 }
